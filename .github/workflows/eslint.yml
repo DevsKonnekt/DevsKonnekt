@@ -1,0 +1,63 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+# ESLint is a tool for identifying and reporting on patterns
+# found in ECMAScript/JavaScript code.
+# More details at https://github.com/eslint/eslint
+# and https://eslint.org
+
+name: ESLint
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
+jobs:
+  eslint:
+    name: Run ESLint
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+      actions: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install ESLint and Airbnb config
+        run: |
+          npm install eslint@8.10.0
+          npx install-peerdeps --dev eslint-config-airbnb@18.2.1
+
+      - name: Run ESLint
+        run: npx eslint .
+          --ext .js,.jsx,.ts,.tsx
+          --format codeframe
+
+      - name: Request changes on ESLint failure
+        uses: peter-evans/create-or-update-pull-request@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "[ESLint] Apply code style fixes"
+          branch: eslint-fixes
+          title: "[ESLint] Apply code style fixes"
+          body: |
+            ESLint found code style issues in this pull request. Please review the suggested changes.
+          labels: eslint-failure
+          branch-suffix: random
+          commit-prefix: "[ESLint]"
+
+      - name: Comment on successful ESLint check
+        uses: actions/github-script@v4
+        if: ${{ success() }}
+        with:
+          script: |
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'ESLint check passed successfully.'
+            })
