@@ -38,7 +38,7 @@ jobs:
           --format codeframe
 
       - name: Request changes on ESLint failure
-        uses: peter-evans/create-or-update-pull-request@v3
+        uses: DevsKonnekt/create-or-update-pull-request@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: "[ESLint] Apply code style fixes"
