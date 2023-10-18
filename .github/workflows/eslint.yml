@@ -38,7 +38,7 @@ jobs:
           --format codeframe
 
       - name: Request changes on ESLint failure
-        uses: DevsKonnekt/DevsKonnekt@v3
+        uses: eslint/eslint@v8.10.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: "[ESLint] Apply code style fixes"
