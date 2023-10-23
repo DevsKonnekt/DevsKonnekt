@@ -1,38 +1,20 @@
-// Import required libraries and modules
-const express = require('express');
-const mongoose = require('mongoose');
-const morgan = require('morgan');
-const logger = require('./config/logger');
-const apiRoutes = require('./routes/apiRoutes');
+// index.js
+import express, { json } from 'express';
+import morgan from 'morgan';
+import logger from './config/logger';
+import apiRoutes from './routes/apiRoutes';
+import customMiddleware from './middleware/customMiddleware';
 
-// Load environment variables from .env file
 require('dotenv').config();
+import mongoose from 'mongoose';
 
-// Initialize Express application
 const app = express();
-
-// Middleware setup
-app.use(express.json());
+app.use(json());
 app.use(morgan('combined', { stream: logger.stream }));
 
-// Connect to the MongoDB database
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-
-mongoose.connection.on('connected', () => {
-  logger.info('Connected to MongoDB');
-});
-
-mongoose.connection.on('error', (err) => {
-  logger.error(`MongoDB connection error: ${err}`);
-});
-
-// Define your API routes
 app.use('/api', apiRoutes);
+app.use(customMiddleware);
 
-// Start the Express server
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
   logger.info(`Server is running on port ${port}`);
