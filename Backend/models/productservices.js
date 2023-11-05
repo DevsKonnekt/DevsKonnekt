@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 //product/schema
 
-const productServiceSchema = new mongoose.Schema({
+const createProductService = new mongoose.Schema({
     name: { type: String, required: true },
     description: { type: String, required: true },
     type: { type: String, enum: ["Software", "Service"], required: true },
@@ -17,6 +17,6 @@ const productServiceSchema = new mongoose.Schema({
 });
 
 //create product /service schema
-const productService = mongoose.model("ProductService", productServiceSchema);
+const productService = mongoose.model("ProductService", createProductService);
 
 export default productService;

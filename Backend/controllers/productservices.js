@@ -6,11 +6,11 @@ import productService from "../models/productservices";
  * 
  */
 
-export const productServiceSchema = async (req, res) => {
+export const createProductService = async (req, res) => {
     const productServiceData = req.body;
-    const productServiceSchema = new productService(productServiceData);
+    const createProductService = new productService(productServiceData);
     try {
-        await productServiceSchema.save();
+        await createProductService.save();
         req.status(201).json(new productService);
     } catch (error) {
         res.status(409).json({ message: error.message });

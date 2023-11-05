@@ -35,7 +35,7 @@ userRouter.get("/:id", getUser);
  * @description Update a user
  * @memberof module:routes/users
  */
-userRouter.put("/:id", updateUser);
+userRouter.put("/:id", updateUser); 
 
 /**
  * @name DELETE /users/:id
