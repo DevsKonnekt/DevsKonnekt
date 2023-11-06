@@ -70,10 +70,10 @@ jobs:
           npx eslint . --ext .js,.jsx,.ts,.tsx --format json > eslint_report.json
         continue-on-error: true
 
-      - name: Annotate Code Linting Results
-        uses: ataylorme/eslint-annotate-action@v2
-        with:
-          report-json: "eslint_report.json"
+      # - name: Annotate Code Linting Results
+      #   uses: ataylorme/eslint-annotate-action@v2
+      #   with:
+      #     report-json: "eslint_report.json"
 
       - name: Upload ESLint report
         uses: actions/upload-artifact@v3
