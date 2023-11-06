@@ -24,7 +24,48 @@ jobs:
           npm install eslint-config-airbnb@latest eslint@latest eslint-plugin-import@latest eslint-plugin-jsx-a11y@latest eslint-plugin-react@latest eslint-plugin-react-hooks@latest --save-dev
       - name: Run ESLint
         run: |
-          npm --yes init @eslint/config
+          echo 'module.exports = {
+            "env": {
+            "browser": true,
+            "es2021": true
+            },
+            "extends": "eslint:recommended",
+            "overrides": [
+            {
+              "env": {
+                "node": true
+            },
+            "files": [
+                ".eslintrc.{js,cjs}"
+            ],
+            "parserOptions": {
+                "sourceType": "script"
+            }
+            }
+            ],
+            "parserOptions": {
+            "ecmaVersion": "latest",
+            "sourceType": "module"
+            },
+            "rules": {
+            "indent": [
+              "error",
+              2
+            ],
+            "linebreak-style": [
+              "error",
+              "unix"
+            ],
+            "quotes": [
+              "error",
+              "double"
+            ],
+            "semi": [
+              "error",
+              "always"
+            ]
+            }
+            };' > .eslintrc.cjs
           npx eslint .
             --ext .js,.jsx,.ts,.tsx
             --format json > eslint-results.json
