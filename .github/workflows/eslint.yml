@@ -47,10 +47,11 @@ jobs:
             "ecmaVersion": "latest",
             "sourceType": "module"
             },
+            "ignorePatterns": [".eslintrc.cjs", "next.config.js", "postcss.config.js", "tailwind.config.js"],
             "rules": {
             "indent": [
               "error",
-              2
+              4
             ],
             "linebreak-style": [
               "error",
