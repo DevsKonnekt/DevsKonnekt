@@ -67,6 +67,7 @@ jobs:
             ]
             }
             };' > .eslintrc.cjs
+          npx eslint . --ext .js,.jsx,.ts,.tsx
           npx eslint . --ext .js,.jsx,.ts,.tsx --format json > eslint_report.json
           cat eslint_report.json
         continue-on-error: true
