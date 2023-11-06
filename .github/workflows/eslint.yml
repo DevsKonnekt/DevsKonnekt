@@ -67,7 +67,8 @@ jobs:
             ]
             }
             };' > .eslintrc.cjs
-          npx eslint . --ext .js,.jsx,.ts,.tsx --format json 2>&1 | tee eslint_report.json
+          npx eslint . --ext .js,.jsx,.ts,.tsx --format json > eslint_report.json
+          cat eslint_report.json
         continue-on-error: true
 
       # - name: Annotate Code Linting Results
