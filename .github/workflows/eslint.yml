@@ -73,7 +73,7 @@ jobs:
       - name: Comment on ESLint failure
         uses: ataylorme/eslint-annotate-action@v2
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
           report-json: eslint_report.json
 
       - name: Upload ESLint report
