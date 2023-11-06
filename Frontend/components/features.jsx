@@ -9,6 +9,7 @@ import { features } from "@/constants";
  */
 const Features = () => {
   return (
+    <div className="flex flex-col sm:flex-row gap-4>
     <div>
       {features.map((feature) => (
         <div key={feature} className="mb-4 flex gap-4">
@@ -16,6 +17,7 @@ const Features = () => {
           <span>{feature}</span>
         </div>
       ))}
+    </div>
     </div>
   );
 };
