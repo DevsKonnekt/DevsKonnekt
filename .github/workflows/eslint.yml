@@ -67,9 +67,7 @@ jobs:
             ]
             }
             };' > .eslintrc.cjs
-          npx eslint .
-            --ext .js,.jsx,.ts,.tsx
-            --format json > eslint-results.json
+          npx eslint . --ext .js,.jsx,.ts,.tsx --format json > eslint-results.json
 
       - name: Comment on ESLint failure
         uses: ataylorme/eslint-annotate-action@v2
