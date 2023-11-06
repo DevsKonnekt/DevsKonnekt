@@ -11,7 +11,7 @@ jobs:
     name: Run ESLint
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       security-events: write
       actions: write
     steps:
