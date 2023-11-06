@@ -13,7 +13,7 @@ jobs:
     permissions:
       contents: read
       security-events: write
-      actions: read
+      actions: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
