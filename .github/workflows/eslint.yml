@@ -67,13 +67,21 @@ jobs:
             ]
             }
             };' > .eslintrc.cjs
-          npx eslint . --ext .js,.jsx,.ts,.tsx --format json > eslint-results.json
+          npx eslint . --ext .js,.jsx,.ts,.tsx --format json > eslint_report.json
+        continue-on-error: true
 
       - name: Comment on ESLint failure
         uses: ataylorme/eslint-annotate-action@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          results-file: eslint-results.json
+          report-json: eslint_report.json
+
+      - name: Upload ESLint report
+        uses: actions/upload-artifact@v3
+        with:
+          name: eslint_report.json
+          path: eslint_report.json
+          retention-days: 5
 
       - name: Comment on successful ESLint check
         uses: actions/github-script@v4
