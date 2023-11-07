@@ -1,109 +1,104 @@
- /**
- * @module models/users
- * @requires mongoose
- * @exports User
- * @description This module contains the mongoose model for users.
- */
+import mongoose, { Schema } from "mongoose";
 
-import mongoose from "mongoose";
+// User schema that represents a developer
 
-const userSchema = new mongoose.Schema(
-  {
+const UserSchema = new Schema({
     firstName: {
-      type: String,
-      minLength: [3, "First name must be at least 3 characters long"],
-      required: [true, "First name is required"],
-      index: true,
+        type: String,
+        required: [true, "Please provide a first name."],
+        minlength: [2, "Please provide a first name with at least 2 characters."],
+        maxlength: [50, "Please provide a first name with at most 50 characters."],
     },
     lastName: {
-      type: String,
-      minLength: [2, "Last name must be at least 2 characters long"],
-      index: true,
+        type: String,
+        required: [true, "Please provide a last name."],
+        minlength: [2, "Please provide a last name with at least 2 characters."],
+        maxlength: [50, "Please provide a last name with at most 50 characters."],
+    },
+    username: {
+        type: String,
+        required: [true, "Please provide a username."],
+        minlength: [3, "Please provide a username with at least 3 characters."],
+        maxlength: [25, "Please provide a username with at most 25 characters."],
+        unique: true,
     },
     email: {
-      type: String,
-      required: [true, "Email is required"],
-      unique: true,
-      index: true,
-      lowercase: true,
-      validate: {
-        validator: function (value) {
-          return /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value);
+        type: String,
+        unique: true,
+        required: [true, " Please provide an email address."],
+        validate: {
+            validator: (value) => {
+                return /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/gm.test(value);
+            },
         },
-      },
-    },
-    phone: {
-      type: String,
-      index: true,
-      unique: true,
-      required: [true, "phone number is required"],
-      validate: {
-        validator: function (value) {
-          return /^([+]?\d{3}[-\s]?|)\d{3}[-\s]?\d{3}[-\s]?\d{3}$/.test(value);
-        },
-      },
-    },
-    gender: {
-      type: String,
-      required: [true, "gender is required"],
-      enum: ["male", "female", "other"],
-    },
-    dateOfBirth: {
-      type: Date,
-      required: [true, "d.o.b is required"], 
     },
     password: {
-      type: String,
-      required: [true, "Password is required"],
-      minLength: [8, "Password must be at least 8 characters long"],
-    },
-    location: {
-      type: String,
-      required: [true, "Location is required"],
-      index: true,
-    },
-    locationLat: {
-      type: String,
-      required: [true, "Latitude is required"],
-      validate: {
-        validator: function (value) {
-          return /^(\+|-)?(?:90(?:(?:\.0{1,6})?)|(?:[0-9]|[1-8][0-9])(?:(?:\.[0-9]{1,6})?))$/.test(value);
+        type: String,
+        required: [true, "Please provide a password."],
+        validate: {
+            validator: (value) => {
+                return /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/.test(
+                    value
+                );
+            },
+            message: "Password and password confirmation do not match.",
         },
-      },
-      index: true,
     },
-    locationLon: {
-      type: String,
-      required: [true, "Longitude is required"],
-      validate: {
-        validator: function (value) {
-          return /^(\+|-)?(?:180(?:(?:\.0{1,6})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\.[0-9]{1,6})?))$/.test(value);
+    bio: {
+        type: String,
+        maxlength: [1000, "Bio cannot be more than 1000 characters."],
+    },
+    profilePicture: {
+        type: String,
+        default: "https://via.placeholder.com/150",
+    },
+    twitter: {
+        type: String,
+        validate: {
+            validator: (value) => {
+                return /^http(s)?:\/\/(www.)?twitter.com\/[a-zA-Z0-9_]+\/?$/.test(
+                    value
+                );
+            },
+            message: "Please provide a valid Twitter URL.",
         },
-      },
-      index: true,
     },
-    refreshToken: {
-      type: String,
+    linkedin: {
+        type: String,
+        validate: {
+            validator: (value) => {
+                return /^http(s)?:\/\/(www.)?linkedin.com\/in\/[a-zA-Z0-9_]+\/?$/.test(
+                    value
+                );
+            },
+        },
     },
-    role: {
-      type: String,
-      required: [true, "role is required"],
-      enum: ["user", "employer", "admin"],
-      default: "user",
-      index: true,
+    github: {
+        type: String,
+        validate: {
+            validator: (value) => {
+                return /^http(s)?:\/\/(www.)?github.com\/[a-zA-Z0-9]+\/?$/.test(value);
+            },
+        },
     },
-    isVerified: {
-      type: Boolean,
-      defaultValue: false
+    employed: {
+        type: Boolean,
+        required: [true, "Please specify your employement status!"],
     },
-    status: {
-      type: String,
-      required: [true, "status is required"],
+    interests: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: "Category",
     },
-  },
-  { autoIndex: false }
-);
+    posts: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: "Post",
+    },
+    projects: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: "Project",
+    },
+});
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model("User", UserSchema);
 
 export default User;

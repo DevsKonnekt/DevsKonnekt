@@ -1,64 +1,97 @@
-import dotenv from "dotenv";
-import jwt from "jsonwebtoken";
-import bcrypt from "bcryptjs";
-import { ObjectId } from "mongodb";
+/**
+ * @module controllers/users
+ * @requires models/users
+ * @requires bcryptjs
+ * @description Controllers for users
+ */
+
 import User from "../models/users.js";
-import redisClient from "../config/redisConn.js";
-import eventListener from "../events/listeners.js";
-import { scanKeys } from "../utils/index.js";
-import UserDemographics from "../models/userDemographics.js";
-import Event from "../models/events.js";
+import bcrypt from "bcryptjs";
 
-dotenv.config();
 
 /**
- * Retrieves users from the database and returns them in a JSON response.
- *
- * @param {Object} req - The request object.
- * @param {Object} res - The response object.
- * @param {Function} next - The next middleware function.
- * @return {Promise} A promise that resolves to a JSON response containing the users.
+ * 
+ * @param {Request} req http request
+ * @param {Response} res http response
+ * @description Create a new user in the database
  */
-export const getUsers = async (req, res, next) => {
-  // TODO: Implement this function.
-  return res.send("All Users");
+export const createUser = async(req, res) => {
+    const user = req.body;
+    const newUser = new User(user);
+    try {
+        const hashedPassword = await bcrypt.hash(newUser.password, 10);
+        newUser.password = hashedPassword;
+        await newUser.save();
+        res.status(201).json(newUser);
+    } catch (error) {
+        res.status(409).json({ message: error.message });
+    }
+};
+
+
+/**
+ * 
+ * @param {Request} req http request
+ * @param {Response} res http response
+ * @description Get all users from the database
+ */
+export const getAllUsers = async(req, res) => {
+    try {
+        const users = await User.find();
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
 };
 
 /**
- * Retrieves a user by their ID from the database and caches the result.
- *
- * @param {Object} req - The request object.
- * @param {Object} res - The response object.
- * @param {Function} next - The next middleware function.
- * @return {Promise} A Promise that resolves with the user object or rejects with an error.
+ * 
+ * @param {Request} req http request
+ * @param {Response} res http response
+ * @description Get a single user from the database
  */
-export const getUser = async (req, res, next) => {
-  t// TODO: Implement this function.
-  return res.send("User found");
+export const getUser = async(req, res) => {
+    const {id} = req.params;
+    try {
+        const userData = await User.findById(id);
+        const user = userData._doc;
+        user.password = undefined;
+        res.status(200).json(user);
+    }  catch (error) {
+        res.status(404).json({ message: error.message });
+    }
 };
 
 /**
- * Updates a user in the database.
- *
- * @param {Object} req - The request object.
- * @param {Object} res - The response object.
- * @param {Function} next - The next middleware function.
- * @return {Object} The updated user and a success message.
+ * 
+ * @param {Request} req http request
+ * @param {Response} res http response
+ * @description Find and update a user in the database
  */
-export const updateUser = async (req, res, next) => {
-  // TODO: Implement this function.
-  return res.send("User updated");
+export const updateUser = async(req, res) => {
+    const { id } = req.params;
+    try {
+        const updatedUser = await User.findOneAndUpdate({ _id: id }, { ...req.body }, { new: true });
+        const user = updatedUser._doc;
+        user.password = undefined;
+        res.status(200).json(user);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
 };
 
 /**
- * Deletes a user.
- *
- * @param {Object} req - The request object.
- * @param {Object} res - The response object.
- * @param {Function} next - The next middleware function.
- * @return {Promise} A promise that resolves to the response object.
+ * 
+ * @param {Request} req http request
+ * @param {Response} res http response
+ * @description Find and delete user from the database
  */
-export const deleteUser = async (req, res, next) => {
-  // TODO: Implement this function.
-  return res.send("User deleted");
+export const deleteUser = async(req, res) => {
+    const { id } = req.params;
+    try {
+        await User.findByIdAndDelete(id );
+        res.status(204);
+    } catch (error) {
+        res.status(404).json({ error: error.message });
+    }
 };
