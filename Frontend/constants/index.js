@@ -9,7 +9,7 @@ export const features = [
 export const landingServices = [
   {
     image: {
-      src: "images/landing/services/1.png",
+      src: "/images/landing/1.jpg",
       alt: "College building",
     },
     title: "DevSKonnekt: Konnekt, Collaborate, and Code Locally",
@@ -18,16 +18,16 @@ export const landingServices = [
   },
   {
     image: {
-      src: "images/landing/services/2.png",
+      src: "/images/landing/2.jpg",
       alt: "Developers having a conversation",
     },
-    title: "DevsKonnekt: Chat & KonneKt with Developers",
+    title: "DevsKonnekt: Chat & Konnekt with Developers",
     description:
       "Introducing our Chat Platform, your go-to place to connect, chat, and make new friends in a casual and relaxed environment.",
   },
   {
     image: {
-      src: "images/landing/services/3.png",
+      src: "/images/landing/3.jpg",
       alt: "Developers debugging code",
     },
     title: "Code & Connect: Uniting Developers Locally",
