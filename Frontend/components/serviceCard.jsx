@@ -23,11 +23,18 @@ const ServiceCard = ({ image, title, description }) => {
         />
       </CardHeader>
       <CardContent className="p-2 mx-0 w-full">
-        <CardTitle className="text-xl text-primary font-semibold mb-4">{title}</CardTitle>
+        <CardTitle className="text-xl text-primary font-semibold mb-4">
+          {title}
+        </CardTitle>
         <p className="text-primary">{description}</p>
       </CardContent>
       <CardFooter>
-        <Link href="/services" className="text-secondary hover:text-secondary/60 transition-all duration-500">Read more</Link>
+        <Link
+          href="/services"
+          className="text-secondary hover:text-secondary/60 transition-all duration-500"
+        >
+          Read more
+        </Link>
       </CardFooter>
     </Card>
   );
