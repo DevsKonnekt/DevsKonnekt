@@ -78,3 +78,14 @@
 .primary-btn {
   @apply bg-secondary text-white hover:bg-secondary/75 px-4 py-1 rounded-md transition-all duration-500 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 focus:ring-offset-background hover:scale-105 w-full sm:w-auto flex items-center justify-center;
 }
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
