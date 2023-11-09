@@ -26,7 +26,7 @@ export const createUser = async(req, res) => {
     } catch (error) {
         res.status(409).json({ message: error.message });
     }
-}
+};
 
 
 /**
@@ -42,7 +42,7 @@ export const getAllUsers = async(req, res) => {
     } catch (error) {
         res.status(404).json({ message: error.message });
     }
-}
+};
 
 /**
  * 
@@ -51,16 +51,16 @@ export const getAllUsers = async(req, res) => {
  * @description Get a single user from the database
  */
 export const getUser = async(req, res) => {
-  const {id} = req.params;
-  try {
-    const userData = await User.findById(id);
-    const user = userData._doc;
-    user.password = undefined;
-    res.status(200).json(user);
-  }  catch (error) {
-    res.status(404).json({ message: error.message });
-  }
-}
+    const {id} = req.params;
+    try {
+        const userData = await User.findById(id);
+        const user = userData._doc;
+        user.password = undefined;
+        res.status(200).json(user);
+    }  catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+};
 
 /**
  * 
@@ -69,16 +69,16 @@ export const getUser = async(req, res) => {
  * @description Find and update a user in the database
  */
 export const updateUser = async(req, res) => {
-  const { id } = req.params;
-  try {
-    const updatedUser = await User.findOneAndUpdate({ _id: id }, { ...req.body }, { new: true });
-    const user = updatedUser._doc;
-    user.password = undefined;
-    res.status(200).json(user);
-  } catch (error) {
-    res.status(404).json({ message: error.message });
-  }
-}
+    const { id } = req.params;
+    try {
+        const updatedUser = await User.findOneAndUpdate({ _id: id }, { ...req.body }, { new: true });
+        const user = updatedUser._doc;
+        user.password = undefined;
+        res.status(200).json(user);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+};
 
 /**
  * 
@@ -87,11 +87,11 @@ export const updateUser = async(req, res) => {
  * @description Find and delete user from the database
  */
 export const deleteUser = async(req, res) => {
-  const { id } = req.params;
-  try {
-    await User.findByIdAndDelete(id );
-    res.status(204);
-  } catch (error) {
-    res.status(404).json({ error: error.message });
-  }
-}
+    const { id } = req.params;
+    try {
+        await User.findByIdAndDelete(id );
+        res.status(204);
+    } catch (error) {
+        res.status(404).json({ error: error.message });
+    }
+};
