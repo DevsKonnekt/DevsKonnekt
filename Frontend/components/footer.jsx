@@ -1,7 +1,13 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-import { BiLogoFacebookSquare, BiLogoInstagramAlt, BiLogoLinkedin, BiLogoLinkedinSquare, BiLogoTwitter } from "react-icons/bi";
+import {
+  BiLogoFacebookSquare,
+  BiLogoInstagramAlt,
+  BiLogoLinkedin,
+  BiLogoLinkedinSquare,
+  BiLogoTwitter,
+} from "react-icons/bi";
 import { Separator } from "./ui/separator";
 import { Input } from "./ui/input";
 
@@ -10,7 +16,10 @@ const Footer = () => {
     <footer className="flex flex-col gap-4 max-w-7xl w-full mx-auto px-4 mt-8 py-4 bg-primary">
       <div className="flex flex-col gap-4  flex-wrap sm:flex-row items-start justify-start lg:justify-between">
         <div className="flex flex-col items-start justify-start gap-4">
-          <Link href="/" className="text-3xl md:text-5xl text-background font-black">
+          <Link
+            href="/"
+            className="text-3xl md:text-5xl text-background font-black"
+          >
             DevsKonnekt
           </Link>
           <p className="text-center text-background/80 font-semibold">
@@ -29,42 +38,27 @@ const Footer = () => {
               </Link>
             </li>
             <li>
-              <Link
-                href="/services"
-                className="text-background/80"
-              >
+              <Link href="/services" className="text-background/80">
                 Services
               </Link>
             </li>
             <li>
-              <Link
-                href="/jobs"
-                className="text-background/80"
-              >
+              <Link href="/jobs" className="text-background/80">
                 Jobs
               </Link>
             </li>
             <li>
-              <Link
-                href="/events"
-                className="text-background/80"
-              >
+              <Link href="/events" className="text-background/80">
                 Events
               </Link>
             </li>
             <li>
-              <Link
-                href="/news"
-                className="text-background/80"
-              >
+              <Link href="/news" className="text-background/80">
                 News & Updates
               </Link>
             </li>
             <li>
-              <Link
-                href="/developers"
-                className="text-background/80"
-              >
+              <Link href="/developers" className="text-background/80">
                 Explore Profiles
               </Link>
             </li>
@@ -76,42 +70,27 @@ const Footer = () => {
           </h2>
           <ul className="flex flex-col items-start justify-start gap-4">
             <li>
-              <Link
-                href="/about"
-                className="text-background/80"
-              >
+              <Link href="/about" className="text-background/80">
                 About Us
               </Link>
             </li>
             <li>
-              <Link
-                href="/team"
-                className="text-background/80"
-              >
+              <Link href="/team" className="text-background/80">
                 Team
               </Link>
             </li>
             <li>
-              <Link
-                href="#"
-                className="text-background/80"
-              >
+              <Link href="#" className="text-background/80">
                 Sponsors
               </Link>
             </li>
             <li>
-              <Link
-                href="#"
-                className="text-background/80"
-              >
+              <Link href="#" className="text-background/80">
                 Blog
               </Link>
             </li>
             <li>
-              <Link
-                href="#"
-                className="text-background/80"
-              >
+              <Link href="#" className="text-background/80">
                 Careers
               </Link>
             </li>
@@ -123,18 +102,12 @@ const Footer = () => {
           </h2>
           <ul className="flex flex-col items-start justify-start gap-2">
             <li>
-              <Link
-                href="/contact"
-                className="text-background/80"
-              >
+              <Link href="/contact" className="text-background/80">
                 Contact Us
               </Link>
             </li>
             <li>
-              <Link
-                href="#"
-                className="text-background/80"
-              >
+              <Link href="#" className="text-background/80">
                 Support
               </Link>
             </li>
@@ -146,18 +119,12 @@ const Footer = () => {
           </h2>
           <ul className="flex flex-col items-start justify-start gap-2">
             <li>
-              <Link
-                href="/privacy-policy"
-                className="text-background/80"
-              >
+              <Link href="/privacy-policy" className="text-background/80">
                 Privacy Policy
               </Link>
             </li>
             <li>
-              <Link
-                href="/terms-of-service"
-                className="text-background/80"
-              >
+              <Link href="/terms-of-service" className="text-background/80">
                 Terms of Service
               </Link>
             </li>
@@ -230,7 +197,7 @@ const Footer = () => {
           </form>
         </div>
       </div>
-        <Separator className="w-full h-[2px] bg-secondary/30" />
+      <Separator className="w-full h-[2px] bg-secondary/30" />
       <div className="flex flex-col items-center justify-center w-full gap-4 p-4">
         <p className="text-center text-background/80 font-semibold">
           © {new Date().getFullYear()} DevsKonnekt. All rights reserved.
