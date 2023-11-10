@@ -15,7 +15,7 @@ const Services = () => {
             Unleashing the Power of Developers
           </p>
         </div>
-        <Link href="/services" className="primary-btn">
+        <Link href="/services" className="primary-btn sm:w-1/3 lg:w-auto">
           View All Services
         </Link>
       </div>
