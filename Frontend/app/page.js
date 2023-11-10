@@ -1,7 +1,9 @@
+import CTA from "@/components/cta";
 import Benefits from '@/components/benefits';
 import Main from '../components/hero';
 import Features from "@/components/features";
 import Services from "@/components/services";
+import Testimonials from "@/components/testimonials";
 
 export default function Home() {
   return (
@@ -9,7 +11,9 @@ export default function Home() {
       <Main />
       <Services />
       <Features />
+      <Testimonials />
       <Benefits />
-    </div>
-  )
+      <CTA />
+    </main>
+  );
 }
