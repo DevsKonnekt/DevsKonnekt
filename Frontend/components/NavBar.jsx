@@ -55,7 +55,10 @@ const NavBar = () => {
               </li>
             </Link>
           </ul>
-          <div className="block lg:hidden cursor-pointer" onClick={handleNavOpen}>
+          <div
+            className="block lg:hidden cursor-pointer"
+            onClick={handleNavOpen}
+          >
             <AiOutlineMenu size={25} />
           </div>
         </div>
@@ -90,7 +93,9 @@ const NavBar = () => {
             {nav && (
               <div className="border-b border-gray-400 my-4">
                 <p className="py-4 text-primary font-semibold">
-                  Let's Connect, <br className="block md:hidden" />Collaborate, and Conquer<br className="block md:hidden" /> the Coding World
+                  Let's Connect, <br className="block md:hidden" />
+                  Collaborate, and Conquer
+                  <br className="block md:hidden" /> the Coding World
                 </p>
               </div>
             )}
