@@ -20,7 +20,7 @@ const Features = () => {
         <div className="flex-1">
           {features.map((feature) => (
             <div key={feature} className="mb-4 flex gap-2">
-              <MdCheckCircleOutline className="text-primary" />
+              <MdCheckCircleOutline className="text-secondary" size={24}/>
               <span className="text-primary">{feature}</span>
             </div>
           ))}
