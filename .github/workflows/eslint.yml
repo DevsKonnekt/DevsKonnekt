@@ -84,7 +84,7 @@ jobs:
           retention-days: 5
       
       - name: Display ESLint Results
-        run: npx eslint . --ext .js,.jsx,.ts,.tsx
+        run: npx eslint --fix . --ext .js,.jsx,.ts,.tsx
 
       # - name: Comment on successful ESLint check
       #   uses: actions/github-script@v4
