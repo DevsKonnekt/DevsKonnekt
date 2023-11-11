@@ -6,14 +6,14 @@
  */
 import { Router } from "express";
 import {
-    createProductService,
-    getAllProductServices,
-    getProductService,
-    updateProductService,
-    deleteProductService,
-    // Import other controller functions as needed
+  createProductService,
+  getAllProductServices,
+  getProductService,
+  updateProductService,
+  deleteProductService,
 } from "../controllers/productservices.js";
-const productServiceRouter = Router;
+
+const productServiceRouter = Router();
 /**
  * @name POST / productService
  * @description Create a new product/service
@@ -52,4 +52,3 @@ productServiceRouter.put("/:id", updateProductService);
 
 productServiceRouter.delete("/:id", deleteProductService);
 export default productServiceRouter;
-

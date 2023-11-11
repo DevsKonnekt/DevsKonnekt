@@ -17,7 +17,7 @@ dotenv.config();
  * @return {Promise<void>} - A promise that resolves when the registration is successful.
  */
 export const register = async (req, res, next) => {
-    // TODO: Implement this function.
+  // TODO: Implement this function.
   return res.send("registration successful");
 };
 
@@ -31,7 +31,7 @@ export const register = async (req, res, next) => {
  * @throws {Error} - Throws an error if the login is unsuccessful.
  */
 export const login = async (req, res, next) => {
-    // TODO: Implement this function.
+  // TODO: Implement this function.
   return res.send("use logged in");
 };
 
@@ -44,7 +44,7 @@ export const login = async (req, res, next) => {
  * @throws {Error} - Throws an error if the logout is unsuccessful.
  */
 export const logout = async (req, res, next) => {
-    // TODO: Implement this function.
+  // TODO: Implement this function.
   return res.send("logged out");
 };
 
@@ -58,7 +58,7 @@ export const logout = async (req, res, next) => {
  * @throws {Error} - Throws an error if the forgot password is unsuccessful.
  */
 export const forgotPassword = async (req, res, next) => {
-    // TODO: Implement this function.
+  // TODO: Implement this function.
   return res.send("new passwor created");
 };
 
@@ -72,7 +72,7 @@ export const forgotPassword = async (req, res, next) => {
  * @throws {Error} - Throws an error if the reset password is unsuccessful.
  */
 export const resetPassword = async (req, res, next) => {
-    // TODO: Implement this function.
+  // TODO: Implement this function.
   return res.send("password reset successful");
 };
 
@@ -85,7 +85,7 @@ export const resetPassword = async (req, res, next) => {
  * @throws {Error} - Throws an error if the email is not verified.
  */
 export const verifyEmail = async (req, res, next) => {
-    // TODO: Implement this function.
+  // TODO: Implement this function.
   return res.send("email verified");
 };
 
