@@ -4,3 +4,5 @@ venv
 # Ignore other files and directories
 *.pyc
 __pycache__/
+.env
+node_modules/
