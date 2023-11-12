@@ -12,13 +12,14 @@ import categoriesRouter from './routes/categories.js';
 import eventsRoutes from './routes/events.js';
 import reviewsRouter from './routes/reviews.js';
 import venuesRouter from './routes/venues.js';
+import messageRouter from './routes/message.js';
 
 
 dotenv.config();
 
 connectDB();
 
-const app = express();
+const app = express(); 
 app.use(json());
 app.use(cors());
 app.use(morgan("combined"));
@@ -30,6 +31,7 @@ app.use("/api/v1/", defaultErrorHandler, eventsRoutes);
 app.use("/api/v1/", defaultErrorHandler, reviewsRouter);
 app.use("/api/v1/", defaultErrorHandler, usersRoutes);
 app.use("/api/v1/", defaultErrorHandler, venuesRouter);
+app.use("/api/v1/messages", defaultErrorHandler, messageRouter);
 app.use("/api/v1//users", userRouter);
 app.use("/a[i/v1/productservices", productServiceRouter);
 
