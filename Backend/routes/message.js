@@ -11,7 +11,6 @@ import {
     getMessage,
     updateMessage,
     deleteMessage,
-    // Import other controller functions as needed
 } from "../controllers/messages.js";
 
 const messageRouter = Router();

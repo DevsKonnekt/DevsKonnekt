@@ -7,12 +7,12 @@ import logger from "./config/logger.js";
 import { connectDB } from "./config/db.js";
 import userRouter from "./routes/users.js";
 import productServiceRouter from "./routes/productservice.js";
-import authRoutes from './routes/auth.js';
-import categoriesRouter from './routes/categories.js';
-import eventsRoutes from './routes/events.js';
-import reviewsRouter from './routes/reviews.js';
-import venuesRouter from './routes/venues.js';
-import messageRouter from './routes/message.js';
+import authRoutes from "./routes/auth.js";
+import categoriesRouter from "./routes/categories.js";
+import eventsRoutes from "./routes/events.js";
+import reviewsRouter from "./routes/reviews.js";
+import venuesRouter from "./routes/venues.js";
+import messageRouter from "./routes/message.js";
 
 
 dotenv.config();
