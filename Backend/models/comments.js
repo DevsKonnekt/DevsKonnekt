@@ -1,32 +1,25 @@
 /**
- * @module models/posts
+ * @module models/comments
  * @requires mongoose
- * @exports Posts
- * @description This module contains the mongoose model for posts.
+ * @exports Comments
  */
-
 import mongoose from "mongoose";
 
-const postsSchema = new mongoose.Schema(
+const commentsSchema = new mongoose.Schema(
   {
+    post: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: [true, "Post ID is required"],
+      ref: "Posts",
+    },
     author: {
       type: mongoose.Schema.Types.ObjectId,
       required: [true, "User ID is required"],
       ref: "User",
     },
-    title: {
-      type: String,
-      required: true,
-    },
     body: {
       type: String,
       required: true,
-    },
-    media: {
-      type: [String], // array of urls to AWS S3 bucket
-    },
-    tags: {
-      type: [String],
     },
     votes: {
       type: [mongoose.Schema.Types.ObjectId],
@@ -40,6 +33,6 @@ const postsSchema = new mongoose.Schema(
   { autoIndex: false, timestamps: true }
 );
 
-const Posts = mongoose.model("Posts", postsSchema);
+const Comment = mongoose.model("Comment", commentsSchema);
 
-export default Posts;
+export default Comment;

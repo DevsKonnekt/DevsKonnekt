@@ -12,7 +12,7 @@
  * @exports function:deleteEvent
  */
 import dotenv from "dotenv";
-import Event from "../models/events.js";
+// import Event from "../models/events.js";
 
 dotenv.config();
 
@@ -29,7 +29,11 @@ dotenv.config();
  */
 export const createEvent = async (req, res, next) => {
   // TODO: Implement this function.
-  return res.send("Event created");
+  try {
+    return res.send("Event created");
+  } catch (error) {
+    next(error);
+  }
 };
 
 /**
@@ -43,7 +47,11 @@ export const createEvent = async (req, res, next) => {
  */
 export const getEvents = async (req, res, next) => {
   // TODO: Implement this function.
-  return res.send("All Events");
+  try {
+    return res.send("Events found");
+  } catch (error) {
+    next(error);
+  }
 };
 
 /**
@@ -58,7 +66,11 @@ export const getEvents = async (req, res, next) => {
  */
 export const getEvent = async (req, res, next) => {
   // TODO: Implement this function.
-  return res.send("Event found");
+  try {
+    return res.send("Event found");
+  } catch (error) {
+    next(error);
+  }
 };
 
 /**
@@ -71,7 +83,11 @@ export const getEvent = async (req, res, next) => {
  */
 export const updateEvent = async (req, res, next) => {
   // TODO: Implement this function.
-  return res.send("Event updated");
+  try {
+    return res.send("Event updated");
+  } catch (error) {
+    next(error);
+  }
 };
 
 /**
@@ -85,5 +101,9 @@ export const updateEvent = async (req, res, next) => {
  */
 export const deleteEvent = async (req, res, next) => {
   // TODO: Implement this function.
-  return res.send(" Event deleted");
+  try {
+    return res.send("Event deleted");
+  } catch (error) {
+    next(error);
+  }
 };
