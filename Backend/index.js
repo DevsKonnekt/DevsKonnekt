@@ -33,7 +33,7 @@ app.use("/api/v1/", defaultErrorHandler, usersRoutes);
 app.use("/api/v1/", defaultErrorHandler, venuesRouter);
 app.use("/api/v1/messages", defaultErrorHandler, messageRouter);
 app.use("/api/v1//users", userRouter);
-app.use("/a[i/v1/productservices", productServiceRouter);
+app.use("/api/v1/productservices", productServiceRouter);
 
 // eslint-disable-next-line no-undef
 const port = process.env.PORT || 3000;
