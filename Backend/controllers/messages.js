@@ -1,4 +1,4 @@
-import Message from "../models/message";
+import Message from "../models/message.js";
 
 /**
  * @module controllers/messages.js
