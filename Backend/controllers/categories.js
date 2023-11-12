@@ -4,6 +4,7 @@
  * @exports Category
  * @description This module contains the controllers for categories.
  */
+// import Category from "../models/categories.js";
 
 /**
  * Creates a new category.
@@ -15,7 +16,11 @@
  */
 export async function createCategory(req, res, next) {
   // TODO: Implement this function.
-  return res.send("Category created");
+  try {
+    return res.send("Category created");
+  } catch (error) {
+    next(error);
+  }
 }
 
 /**
@@ -28,7 +33,11 @@ export async function createCategory(req, res, next) {
  */
 export async function getCategories(req, res, next) {
   // TODO: Implement this function.
-  return res.send("all categories");
+  try {
+    return res.send("Categories found");
+  } catch (error) {
+    next(error);
+  }
 }
 
 /**
@@ -41,7 +50,11 @@ export async function getCategories(req, res, next) {
  */
 export async function getCategoryById(req, res, next) {
   // TODO: Implement this function.
-  return res.send("Category found");
+  try {
+    return res.send("Category found");
+  } catch (error) {
+    next(error);
+  }
 }
 
 /**
@@ -54,7 +67,11 @@ export async function getCategoryById(req, res, next) {
  */
 export async function updateCategory(req, res, next) {
   // TODO: Implement this function.
-  return res.send("Category updated");
+  try {
+    return res.send("Category updated");
+  } catch (error) {
+    next(error);
+  }
 }
 
 /**
@@ -67,5 +84,9 @@ export async function updateCategory(req, res, next) {
  */
 export async function deleteCategory(req, res, next) {
   // TODO: Implement this function.
-  return res.send("Category deleted");
+  try {
+    return res.send("Category deleted");
+  } catch (error) {
+    next(error);
+  }
 }
