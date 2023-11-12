@@ -1,4 +1,4 @@
-import productService from "../models/productservices";
+import productService from "../models/productservices.js";
 /**
  * @module controllers/productservices.js
  * @requires models/productServices.js
