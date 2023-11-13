@@ -3,27 +3,18 @@ import React from "react";
 const Section = () => {
   return (
     <section
-      className="w-full h-80 relative mb-8"
+      className="min-w-[100vw] h-60 sm:h-80 md:h-[654px] relative mb-8"
       style={{
-        height: "654px",
         flexShrink: 0,
         background: "url('/developers.png') lightgray 50% / cover no-repeat",
       }}
     >
-      <div className="bg-indigo-900 bg-opacity-50 absolute inset-0"></div>
+      <div className="bg-primary bg-opacity-80 absolute inset-0"></div>
       <div className="container mx-auto h-full flex justify-center items-center">
         <h1
-          className="text-4xl text-center text-shadow font-bold column-text"
-          style={{
-            color: "#ffffff",
-            fontFamily: "Poppins",
-            fontSize: "60px",
-            fontStyle: "normal",
-            fontWeight: 100,
-            lineHeight: "normal",
-          }}
+          className="text-4xl sm:text-5xl md:text-7xl text-center text-shadow text-background z-10 font-black column-text"
         >
-          Unlock Your <br /> <br />Capacity. United.
+          Unlock Your Capacity.  <br className="mb-0 sm:mb-4" /> United.
         </h1>
       </div>
     </section>
