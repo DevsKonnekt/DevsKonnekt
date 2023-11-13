@@ -24,6 +24,22 @@ export const benefits = [
     icon: FaNewspaper,
     text: "Explore job opportunities and connect with potential employers in the dev community.",
   },
+  {
+    icon: FaHandshake,
+    text: "Connect with like-minded developers in your city",
+  },
+  {
+    icon: FaShapes,
+    text: "Exchange knowledge and ideas with fellow developers",
+  },
+  {
+    icon: FaCalendarCheck,
+    text: "Stay updated with local developer events and meetups",
+  },
+  {
+    icon: FaNewspaper,
+    text: "Explore job opportunities and connect with potential employers in the dev community.",
+  },
 ];
 export const features = [
   "Easy sign-up process with just a few clicks",
@@ -71,6 +87,7 @@ export const testimonials = [
       alt: "Christian Levi",
     },
     text: "DevsKonnekt has revolutionized the way I network with other developers.. The platform is user friendly and the community is supportive and engaged.",
+    text: "DevsKonnekt has revolutionized the way I network with other developers.. The platform is user friendly and the community is supportive and engaged.",
   },
   {
     name: "Emily Siyachitema",
@@ -111,6 +128,33 @@ export const mentorshipBenefits = [
     icon: FaShapes,
     heading: "Share Your Knowledge",
     text: "Guide others on their coding journey and make a positive impact in the developer community",
+  },
+];
+
+export const mentorshipBenefits = [
+  {
+    icon: FaStar,
+    heading: "Connect with Experienced Mentors",
+    text: "Gain valuable insights and guidance from industry professionals",
+  },
+  {
+    icon: MdCheckCircle,
+    heading: "Personalized One-on-One Sessions",
+    text: "Receive individualized support tailored to your specific needs",
+  },
+  {
+    icon: FaHandshake,
+    heading: "Expand Your Network",
+    text: "Connect with like-minded professionals and expand your professional circle",
+  },
+  {
+    icon: FaShapes,
+    heading: "Share Your Knowledge",
+    text: "Guide others on their coding journey and make a positive impact in the developer community",
+  },
+];
+
+    text: "DevsKonnekt has been a game-changer for our recruitment process. Finding top talent has never been easier.",
   },
 ];
 
