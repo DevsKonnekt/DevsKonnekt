@@ -1,7 +1,7 @@
 const Description = () => {
   return (
     <div className="max-w-5xl mx-4 md:mx-8 lg:mx-auto w-full flex flex-col items-start justify-start mt-8">
-      <h2 className="text-2xl font-bold text-start mb-6 pr-6 w-full">
+      <h2 className="text-3xl font-bold text-start mb-6 pr-6 w-full">
         Unlock your potential and help others grow in the coding realm
       </h2>
       <p className="pr-6 text-start mb-2">
