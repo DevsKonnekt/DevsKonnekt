@@ -1,7 +1,13 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-import { BiLogoFacebookSquare, BiLogoInstagramAlt, BiLogoLinkedin, BiLogoLinkedinSquare, BiLogoTwitter } from "react-icons/bi";
+import {
+  BiLogoFacebookSquare,
+  BiLogoInstagramAlt,
+  BiLogoLinkedin,
+  BiLogoLinkedinSquare,
+  BiLogoTwitter,
+} from "react-icons/bi";
 import { Separator } from "./ui/separator";
 import { Input } from "./ui/input";
 
@@ -9,8 +15,10 @@ const Footer = () => {
   return (
     <footer className="flex flex-col gap-4 max-w-7xl w-full mx-auto px-4 mt-8 py-4 bg-primary">
       <div className="flex flex-col gap-4  flex-wrap sm:flex-row items-start justify-start lg:justify-between">
-        <div className="flex flex-col items-start justify-start gap-4">
-          <Link href="/" className="text-3xl md:text-5xl text-background font-black">
+          <Link
+            href="/"
+            className="text-3xl md:text-5xl text-background font-black"
+          >
             DevsKonnekt
           </Link>
           <p className="text-center text-background/80 font-semibold">
@@ -29,10 +37,7 @@ const Footer = () => {
               </Link>
             </li>
             <li>
-              <Link
-                href="/services"
-                className="text-background/80"
-              >
+              <Link href="/services" className="text-background/80">
                 Services
               </Link>
             </li>
@@ -230,7 +235,7 @@ const Footer = () => {
           </form>
         </div>
       </div>
-        <Separator className="w-full h-[2px] bg-secondary/30" />
+      <Separator className="w-full h-[2px] bg-secondary/30" />
       <div className="flex flex-col items-center justify-center w-full gap-4 p-4">
         <p className="text-center text-background/80 font-semibold">
           © {new Date().getFullYear()} DevsKonnekt. All rights reserved.
