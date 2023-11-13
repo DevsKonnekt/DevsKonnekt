@@ -14,6 +14,6 @@ export default function Home() {
       <Testimonials />
       <Benefits />
       <CTA />
-    </main>
+    </div>
   );
 }
