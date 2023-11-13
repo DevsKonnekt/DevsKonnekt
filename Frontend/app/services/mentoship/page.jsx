@@ -1,4 +1,5 @@
 import Benefits from "@/components/services/mentorship/benefits";
+import CTA from "@/components/services/mentorship/cta";
 import Description from "@/components/services/mentorship/description";
 import Hero from "@/components/services/mentorship/hero";
 import Mentees from "@/components/services/mentorship/mentees";
@@ -14,6 +15,7 @@ const Mentoship = () => {
       <Mentors />
       <Why />
       <Benefits />
+      <CTA />
     </div>
   );
 };
