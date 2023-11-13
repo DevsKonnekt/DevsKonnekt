@@ -161,4 +161,44 @@
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+.moving-text-section {
+  padding: 1rem;
+  overflow: hidden;
+  width: 100%;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.moving-text {
+  animation: moveText linear infinite;
+  animation-duration: 20s;
+  animation-timing-function: linear;
+  white-space: nowrap;
+  position: relative;
+}
+
+.moving-text span {
+  display: inline-flex;
+  align-items: center;
+}
+
+.spacer {
+  margin: 0 1.5rem; /* Increase the margin to add more space */
+}
+
+.star {
+  margin-right: 0.5rem;
+}
+
+@keyframes moveText {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
 
