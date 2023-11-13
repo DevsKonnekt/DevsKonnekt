@@ -8,13 +8,12 @@ const Stats = () => {
   return (
     <>
       <section
-        className="w-full max-w-screen mt-8 bg-blue-600"
+        className="min-w-[100vw] h-auto sm:h-[454px] mt-8 bg-blue-600"
         style={{
-          height: "454px",
           flexShrink: 0,
         }}
       >
-        <div className="max-w-screen-xl flex flex-col sm:flex-row gap-4 justify-between items-center w-full px-4 mx-auto">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row gap-4 justify-between items-center w-full px-4 sm:px-10 mx-auto">
           <div className="flex flex-col gap-2">
             <h2 className="text-3xl text-white font-bold mt-4">Celebrating our incredible</h2>
             <h2 className="text-3xl text-white font-bold">achievements in the tech</h2>
