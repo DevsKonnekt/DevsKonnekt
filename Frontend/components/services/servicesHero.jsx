@@ -1,32 +1,9 @@
-"use client";
-import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 function Services() {
-  const [fadeIn, setFadeIn] = useState(false);
-  const mainRef = useRef(null);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const { top } = mainRef.current.getBoundingClientRect();
-      const isVisible = top < window.innerHeight;
-      setFadeIn(isVisible);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    handleScroll(); // Check initial visibility on mount
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
   return (
     <main
-      className={`w-screen min-h-screen flex bg-blue-200 flex-col gap-4 justify-between items-center mx-4 pt-36 sm:pt-24 md:pt-0 md:px-12 md:flex-row ${
-        fadeIn ? "fade-in" : ""
-      }`}
-      ref={mainRef}
+      className="w-full min-h-screen flex bg-blue-200 flex-col gap-4 justify-between items-center pt-36 px-4 sm:pt-24 md:pt-0 md:px-12 md:flex-row"
     >
       <span className="spacer"></span>
       <div className="mb-14 lg:mb-0 md:w-1/2 flex-1 w-full">

@@ -3,7 +3,7 @@ import CountUp from "react-countup";
 
 function StatsCount() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-10">
+    <div className="flex flex-col md:flex-row items-center justify-center gap-6 my-10">
       <div className="text-center">
         <div style={{ fontSize: "25px" }} className="font-bold">
           <CountUp start={0} end={5000} duration={3} />
@@ -13,7 +13,7 @@ function StatsCount() {
           <p>Active members</p>
         </div>
       </div>
-      <div className="text-center mb-8 sm:mb-2">
+      <div className="text-center">
         <div style={{ fontSize: "25px" }} className="font-bold">
           <CountUp start={0} end={300} duration={3} />
           +
@@ -31,16 +31,6 @@ function StatsCount() {
           <p>Cities with active developers</p>
         </div>
       </div>
-      <style jsx>{`
-        @media (max-width: 767px) {
-          .grid-cols-1 {
-            grid-template-columns: 1fr;
-          }
-          .text-center {
-            margin-bottom: 2rem;
-          }
-        }
-      `}</style>
     </div>
   );
 }
