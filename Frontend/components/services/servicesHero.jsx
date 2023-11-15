@@ -23,7 +23,7 @@ function Services() {
         <div
           className="border-primary border rounded-[175px] h-[60%] w-[100%] lg:h-[250px] lg:w-[500.857px] absolute top-0 left-0 -translate-x-6 sm:-translate-x-12 lg:-translate-x-32 lg:transform translate-y-1 -rotate-[30deg]"
         />
-        <div className="flex justify-between gap-4">
+        <div className="flex justify-between gap-4 z-10">
           <div className="flex-1 flex flex-col w-full md:w-1/2 gap-4">
             <Image
               src="/developer-hands.png"
