@@ -213,14 +213,14 @@ const Footer = () => {
             </li>
           </ul>
         </div>
-        <div className="flex flex-col items-start justify-start gap-4">
+        <div className="flex flex-col items-start justify-start gap-4 w-full sm:w-auto">
           <h2 className="text-xl md:text-2xl text-background font-black">
             Subscribe to Our Newsletter
           </h2>
           <p className="text-start text-background/80 font-semibold max-w-[40ch]">
             Get the latest news, updates, and insights straight to your inbox.
           </p>
-          <form className="flex flex-col md:flex-row items-start justify-start gap-2">
+          <form className="flex flex-col md:flex-row items-start justify-start gap-2 w-full">
             <Input
               type="email"
               placeholder="Enter your email"
