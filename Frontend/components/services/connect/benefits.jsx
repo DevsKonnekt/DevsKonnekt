@@ -3,7 +3,7 @@ import { MdCheckCircle } from "react-icons/md";
 
 const Benefits = () => {
   return (
-    <section className="flex flex-col md:flex-row gap-8 justify-center items-center px-4 sm:px-6 md:px-8 py-8 my-6 bg-secondary">
+    <section className="flex flex-col md:flex-row gap-8 justify-center items-center px-4 sm:px-6 md:px-8 py-8 mt-6 bg-secondary">
       <p className="text-xl md:text-2xl font-bold text-center text-background flex-1">
         Become a part of something extraordinary. Connect with developers around
         you and the globe to build your network and expand your horizons
