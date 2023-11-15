@@ -8,7 +8,7 @@ const Benefits = () => {
         Become a part of something extraordinary. Connect with developers around
         you and the globe to build your network and expand your horizons
       </p>
-      <ul className="flex flex-col gap-4 justify-start items-start text-background flex-1">
+      <ul className="flex flex-col gap-4 justify-start items-start text-background flex-1 font-medium">
         <li className="flex gap-3 items-center">
           <MdCheckCircle className="text-primary text-xl font-bold" /> Form
           study groups to prepare for tech interviews together
