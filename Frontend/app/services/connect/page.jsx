@@ -6,7 +6,7 @@ import Interlude from '@/components/services/connect/interlude'
 
 const Connect = () => {
   return (
-    <div>
+    <div className='max-w-7xl mx-auto'>
         <Hero />
         <Benefits />
         <Interlude />
