@@ -15,6 +15,7 @@ const Footer = () => {
   return (
     <footer className="flex flex-col gap-4 max-w-7xl w-full mx-auto px-4 mt-8 py-4 bg-primary">
       <div className="flex flex-col gap-4  flex-wrap sm:flex-row items-start justify-start lg:justify-between">
+        <div className="flex flex-col items-start justify-start gap-4">
           <Link
             href="/"
             className="text-3xl md:text-5xl text-background font-black"
