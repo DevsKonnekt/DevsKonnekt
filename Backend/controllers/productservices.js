@@ -8,6 +8,9 @@ import productService from "../models/productservices.js";
 
 export const createProductService = async (req, res) => {
   const productServiceData = req.body;
+  if (Object.keys(productServiceData).length === 0) {
+    return res.status(400).json({error: "The required data is missing."})
+  }
   const createProductService = new productService(productServiceData);
   try {
     await createProductService.save();
