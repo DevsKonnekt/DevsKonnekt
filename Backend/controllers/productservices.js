@@ -9,16 +9,17 @@ import productService from "../models/productservices.js";
  */
 
 export const createProductService = async (req, res) => {
-    const productServiceData = req.body;
-    const createProductService = new productService(productServiceData);
-    try {
-        await createProductService.save();
-        logger.info("ProductService created successfully.");
-        res.status(201).json(createProductService);
-    } catch (error) {
-        logger.error(`Error creating ProductService: ${error.message}`);
-        res.status(409).json({ message: error.message });
-    }
+  const productServiceData = req.body;
+  if (Object.keys(productServiceData).length === 0) {
+    return res.status(400).json({error: "The required data is missing."})
+  }
+  const createProductService = new productService(productServiceData);
+  try {
+    await createProductService.save();
+    req.status(201).json(new productService);
+  } catch (error) {
+    res.status(409).json({ message: error.message });
+  }
 };
 
 /**
