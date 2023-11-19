@@ -1,4 +1,6 @@
-import productService from "../models/productservices.js";
+import productService from "../models/productservices";
+import logger from "../config/logger";
+
 /**
  * @module controllers/productservices.js
  * @requires models/productServices.js
