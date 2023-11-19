@@ -1,9 +1,9 @@
 
 // controllers/someController.js
-import SomeModel from '../models/someModel';
+import SomeModel from "../models/someModel";
 
 const someFunction = (req, res) => {
-  // Controller logic
+    // Controller logic
 };
 
 export default { someFunction };
