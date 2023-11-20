@@ -14,6 +14,8 @@ import {
 } from "../controllers/productservices.js";
 
 const productServiceRouter = Router();
+
+const productServiceRouter = Router();
 /**
  * @name POST / productService
  * @description Create a new product/service
