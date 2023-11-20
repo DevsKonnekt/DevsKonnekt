@@ -1,4 +1,6 @@
-import productService from "../models/productservices";
+import logger from "../config/logger.js";
+import productService from "../models/productservices.js";
+
 /**
  * @module controllers/productservices.js
  * @requires models/productServices.js
@@ -11,8 +13,10 @@ export const createProductService = async (req, res) => {
     const createProductService = new productService(productServiceData);
     try {
         await createProductService.save();
-        req.status(201).json(new productService);
+        logger.info("ProductService created successfully.");
+        res.status(201).json(createProductService);
     } catch (error) {
+        logger.error(`Error creating ProductService: ${error.message}`);
         res.status(409).json({ message: error.message });
     }
 };
