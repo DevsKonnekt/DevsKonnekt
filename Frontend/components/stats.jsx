@@ -8,7 +8,7 @@ const Stats = () => {
   return (
     <>
       <section
-        className="min-w-[100vw] h-auto sm:h-[454px] mt-8 bg-blue-600"
+        className="w-[100vw] lg:w-full h-auto sm:h-[454px] mt-8 bg-secondary"
         style={{
           flexShrink: 0,
         }}

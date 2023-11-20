@@ -43,22 +43,34 @@ const Footer = () => {
               </Link>
             </li>
             <li>
-              <Link href="/jobs" className="text-background/80">
+              <Link
+                href="/jobs"
+                className="text-background/80"
+              >
                 Jobs
               </Link>
             </li>
             <li>
-              <Link href="/events" className="text-background/80">
+              <Link
+                href="/events"
+                className="text-background/80"
+              >
                 Events
               </Link>
             </li>
             <li>
-              <Link href="/news" className="text-background/80">
+              <Link
+                href="/news"
+                className="text-background/80"
+              >
                 News & Updates
               </Link>
             </li>
             <li>
-              <Link href="/developers" className="text-background/80">
+              <Link
+                href="/developers"
+                className="text-background/80"
+              >
                 Explore Profiles
               </Link>
             </li>
@@ -70,27 +82,42 @@ const Footer = () => {
           </h2>
           <ul className="flex flex-col items-start justify-start gap-4">
             <li>
-              <Link href="/about" className="text-background/80">
+              <Link
+                href="/about"
+                className="text-background/80"
+              >
                 About Us
               </Link>
             </li>
             <li>
-              <Link href="/team" className="text-background/80">
+              <Link
+                href="/team"
+                className="text-background/80"
+              >
                 Team
               </Link>
             </li>
             <li>
-              <Link href="#" className="text-background/80">
+              <Link
+                href="#"
+                className="text-background/80"
+              >
                 Sponsors
               </Link>
             </li>
             <li>
-              <Link href="#" className="text-background/80">
+              <Link
+                href="#"
+                className="text-background/80"
+              >
                 Blog
               </Link>
             </li>
             <li>
-              <Link href="#" className="text-background/80">
+              <Link
+                href="#"
+                className="text-background/80"
+              >
                 Careers
               </Link>
             </li>
@@ -102,12 +129,18 @@ const Footer = () => {
           </h2>
           <ul className="flex flex-col items-start justify-start gap-2">
             <li>
-              <Link href="/contact" className="text-background/80">
+              <Link
+                href="/contact"
+                className="text-background/80"
+              >
                 Contact Us
               </Link>
             </li>
             <li>
-              <Link href="#" className="text-background/80">
+              <Link
+                href="#"
+                className="text-background/80"
+              >
                 Support
               </Link>
             </li>
@@ -119,12 +152,18 @@ const Footer = () => {
           </h2>
           <ul className="flex flex-col items-start justify-start gap-2">
             <li>
-              <Link href="/privacy-policy" className="text-background/80">
+              <Link
+                href="/privacy-policy"
+                className="text-background/80"
+              >
                 Privacy Policy
               </Link>
             </li>
             <li>
-              <Link href="/terms-of-service" className="text-background/80">
+              <Link
+                href="/terms-of-service"
+                className="text-background/80"
+              >
                 Terms of Service
               </Link>
             </li>
