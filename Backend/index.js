@@ -22,8 +22,12 @@ app.use(morgan("combined"));
 app.use("/users", userRouter);
 app.use("/productservices", productServiceRouter);
 
+logger.info("Logging something");
+
 // eslint-disable-next-line no-undef
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
     logger.info(`Server is running on port ${port}`);
 });
+
+
