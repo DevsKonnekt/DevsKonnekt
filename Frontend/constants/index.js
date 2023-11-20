@@ -3,7 +3,9 @@ import {
   FaHandshake,
   FaNewspaper,
   FaShapes,
+  FaStar,
 } from "react-icons/fa";
+import { MdCheckCircle } from "react-icons/md";
 
 export const benefits = [
   {
@@ -85,6 +87,30 @@ export const testimonials = [
       alt: "Brian Ngorimwa",
     },
     text: "DevsKonnekt has been a game-changer for our recruitment process. Finding top talent has never been easier.",
+  },
+
+];
+
+export const mentorshipBenefits = [
+  {
+    icon: FaStar,
+    heading: "Connect with Experienced Mentors",
+    text: "Gain valuable insights and guidance from industry professionals",
+  },
+  {
+    icon: MdCheckCircle,
+    heading: "Personalized One-on-One Sessions",
+    text: "Receive individualized support tailored to your specific needs",
+  },
+  {
+    icon: FaHandshake,
+    heading: "Expand Your Network",
+    text: "Connect with like-minded professionals and expand your professional circle",
+  },
+  {
+    icon: FaShapes,
+    heading: "Share Your Knowledge",
+    text: "Guide others on their coding journey and make a positive impact in the developer community",
   },
 ];
 

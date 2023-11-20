@@ -3,7 +3,7 @@ import React from "react";
 const Section = () => {
   return (
     <section
-      className="min-w-[100vw] h-60 sm:h-80 md:h-[654px] relative mb-8"
+      className="w-[100vw] lg:w-full h-60 sm:h-80 md:h-[654px] relative mb-8"
       style={{
         flexShrink: 0,
         background: "url('/developers.png') lightgray 50% / cover no-repeat",
