@@ -88,6 +88,7 @@ export const testimonials = [
     },
     text: "DevsKonnekt has been a game-changer for our recruitment process. Finding top talent has never been easier.",
   },
+
 ];
 
 export const mentorshipBenefits = [
@@ -113,3 +114,29 @@ export const mentorshipBenefits = [
   },
 ];
 
+export const eventsPerks = [
+  {
+    image: {
+      src: "/images/services/events/2.jpeg",
+      alt: "Developers having a conversation",
+    },
+    heading: "Networking Fun",
+    text: "Dive into the delicious world of development! Share laughs, ideas, and maybe even the occasional high-five with amazing people in your local community.",
+  },
+  {
+    image: {
+      src: "/images/services/events/3.jpeg",
+      alt: "Developers at a conference",
+    },
+    heading: "Learn & Grow",
+    text: "Absorb the knowledge from industry experts. Participate in workshops or join panel discussions where you can build upon your expertise and gather new insights.",
+  },
+  {
+    image: {
+      src: "/images/services/events/4.jpeg",
+      alt: "Developers having a chat over a coffee",
+    },
+    heading: "Code Together",
+    text: "Satisfy your thirst for coding in the company of talented developers. Unleash your prowess in hackathons and team-based coding marathons.",
+  },
+];
