@@ -38,8 +38,12 @@ app.use("/api/v1/projects", defaultErrorHandler, projectRouter);
 
 logger.info("Logging something");
 
+logger.info("Logging something");
+
 // eslint-disable-next-line no-undef
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
   logger.info(`Server is running on port ${port}`);
 });
+
+
