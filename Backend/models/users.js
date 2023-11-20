@@ -1,5 +1,4 @@
 import mongoose, { Schema } from "mongoose";
-import bcrypt from "bcryptjs";
 
 // User schema that represents a developer
 

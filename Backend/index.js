@@ -8,6 +8,11 @@ import { connectDB } from "./config/db.js";
 import userRouter from "./routes/users.js";
 import productServiceRouter from "./routes/productservice.js";
 import { defaultErrorHandler } from "./middlewares/index.js";
+import authRoutes from './routes/auth.js';
+import categoriesRouter from './routes/categories.js';
+import eventsRoutes from './routes/events.js';
+import reviewsRouter from './routes/reviews.js';
+import venuesRouter from './routes/venues.js';
 
 dotenv.config();
 
@@ -19,8 +24,15 @@ app.use(cors());
 app.use(morgan("combined", { stream: winstonLoggerStream }));
 app.use(morgan("combined"));
 
-app.use("/users", defaultErrorHandler, userRouter);
-app.use("/productservices", defaultErrorHandler, productServiceRouter);
+// Routes
+app.use("/api/v1/", defaultErrorHandler, authRoutes);
+app.use("/api/v1/", defaultErrorHandler, categoriesRouter);
+app.use("/api/v1/", defaultErrorHandler, eventsRoutes);
+app.use("/api/v1/", defaultErrorHandler, reviewsRouter);
+app.use("/api/v1/", defaultErrorHandler, usersRoutes);
+app.use("/api/v1/", defaultErrorHandler, venuesRouter);
+app.use("/api/v1//users", defaultErrorHandler, userRouter);
+app.use("/a[i/v1/productservices", defaultErrorHandler, productServiceRouter);
 
 // eslint-disable-next-line no-undef
 const port = process.env.PORT || 3000;
