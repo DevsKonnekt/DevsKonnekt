@@ -2,7 +2,7 @@
  * @module controllers/venues
  * @requires models/venues
  */
-import Venue from "../models/venues.js";
+// import Venue from "../models/venues.js";
 
 /**
  * @function getVenues
@@ -15,7 +15,11 @@ import Venue from "../models/venues.js";
  */
 export const getVenues = async (req, res, next) => {
   // TODO: Implement this function.
-  return res.send("All Venues");
+  try {
+    return res.send("Venues found");
+  } catch (error) {
+    next(error);
+  }
 };
 
 /**
@@ -29,7 +33,11 @@ export const getVenues = async (req, res, next) => {
  */
 export const createVenue = async (req, res, next) => {
   // TODO: Implement this function.
-  return res.send("Venue created");
+  try {
+    return res.send("Venue created");
+  } catch (error) {
+    next(error);
+  }
 };
 
 /**
@@ -43,7 +51,11 @@ export const createVenue = async (req, res, next) => {
  */
 export const getVenue = async (req, res, next) => {
   // TODO: Implement this function.
-  return res.send("Venue found");
+  try {
+    return res.send("Venue found");
+  } catch (error) {
+    next(error);
+  }
 };
 
 /**
@@ -57,7 +69,11 @@ export const getVenue = async (req, res, next) => {
  */
 export const updateVenue = async (req, res, next) => {
   // TODO: Implement this function.
-  return res.send("Venue updated");
+  try {
+    return res.send("Venue updated");
+  } catch (error) {
+    next(error);
+  }
 };
 
 /**
@@ -71,5 +87,9 @@ export const updateVenue = async (req, res, next) => {
  */
 export const deleteVenue = async (req, res, next) => {
   // TODO: Implement this function.
-  return res.send("Venue deleted");
+  try {
+    return res.send("Venue deleted");
+  } catch (error) {
+    next(error);
+  }
 };

@@ -5,7 +5,7 @@ import productService from "../models/productservices.js";
  * @module controllers/productservices.js
  * @requires models/productServices.js
  * @description Create a new product or service in the database
- * 
+ *
  */
 
 export const createProductService = async (req, res) => {
@@ -60,7 +60,11 @@ export const getProductService = async (req, res) => {
 export const updateProductService = async (req, res) => {
   const { id } = req.params;
   try {
-    const updatedProductService = await productService.findOneAndUpdate({ _id: id }, { ...req.body }, { new: true });
+    const updatedProductService = await productService.findOneAndUpdate(
+      { _id: id },
+      { ...req.body },
+      { new: true }
+    );
     res.status(200).json(updatedProductService);
   } catch (error) {
     res.status(404).json({ message: error.message });
@@ -81,5 +85,3 @@ export const deleteProductService = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 };
-
-  

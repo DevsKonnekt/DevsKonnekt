@@ -16,8 +16,8 @@ import {
 const venuesRouter = Router();
 
 venuesRouter.get("/venues", getVenues).post("/venues", createVenue);
-venuesRouter.get("/venues/:id", getVenue)
-venuesRouter.patch("/venues/:id", updateVenue)
+venuesRouter.get("/venues/:id", getVenue);
+venuesRouter.patch("/venues/:id", updateVenue);
 venuesRouter.delete("/venues/:id", deleteVenue);
 
 export default venuesRouter;
