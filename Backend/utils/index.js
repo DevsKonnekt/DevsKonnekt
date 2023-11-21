@@ -79,3 +79,36 @@ export function verifyAccessToken(token) {
     return { success: false, error: "You are not authorized" };
   }
 }
+
+/**
+ * Verifies a refresh token.
+ *
+ * @param {string} token - The refresh token to be verified.
+ * @return {object} An object containing a success flag and the decoded token data, or an error message if verification fails.
+ */
+export function verifyRefreshToken(token) {
+  const secret = process.env.REFRESH_TOKEN_SECRET;
+
+  try {
+    const decoded = jwt.verify(token, secret);
+    return { success: true, data: decoded };
+  } catch (error) {
+    return { success: false, error: "You are not authorized" };
+  }
+}
+
+/**
+ * Checks if the provided data is valid.
+ *
+ * @param {any} data - The data to be checked.
+ * @return {boolean} True if the data is valid, false otherwise.
+ */
+export function isValidAuthData(data) {
+  if (!data) {
+    return false;
+  }
+  if (!data.userId || !data.roles) {
+    return false;
+  }
+  return true;
+}

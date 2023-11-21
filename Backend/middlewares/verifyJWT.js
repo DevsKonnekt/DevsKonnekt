@@ -1,20 +1,5 @@
-import { verifyAccessToken } from "../utils";
+import { verifyAccessToken, isValidAuthData as isValidData } from "../utils";
 
-/**
- * Checks if the provided data is valid.
- *
- * @param {any} data - The data to be checked.
- * @return {boolean} True if the data is valid, false otherwise.
- */
-const isValidData = (data) => {
-  if (!data) {
-    return false;
-  }
-  if (!data.userId || !data.roles) {
-    return false;
-  }
-  return true;
-};
 
 /**
  * Verify the token from the request header and assign the decoded user to the request object.
