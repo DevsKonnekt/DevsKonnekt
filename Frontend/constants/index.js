@@ -130,10 +130,6 @@ export const mentorshipBenefits = [
   },
 ];
 
-    text: "DevsKonnekt has been a game-changer for our recruitment process. Finding top talent has never been easier.",
-  },
-];
-
 export const eventsPerks = [
   {
     image: {
