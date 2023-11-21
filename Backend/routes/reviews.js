@@ -1,5 +1,5 @@
 /**
- * 
+ *
  * @module /routes/review
  * @requires express
  * @requires /controllers/review
@@ -7,11 +7,7 @@
  * @exports reviewsRouter
  */
 import { Router } from "express";
-import { 
-    averageRating,  
-    getReview, 
-    getReviews 
-} from "../controllers/review.js";
+import { averageRating, getReview, getReviews } from "../controllers/review.js";
 
 const reviewsRouter = Router();
 

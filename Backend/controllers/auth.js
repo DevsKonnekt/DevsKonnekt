@@ -17,8 +17,12 @@ dotenv.config();
  * @return {Promise<void>} - A promise that resolves when the registration is successful.
  */
 export const register = async (req, res, next) => {
-    // TODO: Implement this function.
-  return res.send("registration successful");
+  // TODO: Implement this function.
+  try {
+    return res.send("User created");
+  } catch (error) {
+    next(error);
+  }
 };
 
 /**
@@ -31,8 +35,12 @@ export const register = async (req, res, next) => {
  * @throws {Error} - Throws an error if the login is unsuccessful.
  */
 export const login = async (req, res, next) => {
-    // TODO: Implement this function.
-  return res.send("use logged in");
+  // TODO: Implement this function.
+  try {
+    return res.send("User logged in");
+  } catch (error) {
+    next(error);
+  }
 };
 
 /**
@@ -44,8 +52,12 @@ export const login = async (req, res, next) => {
  * @throws {Error} - Throws an error if the logout is unsuccessful.
  */
 export const logout = async (req, res, next) => {
-    // TODO: Implement this function.
-  return res.send("logged out");
+  // TODO: Implement this function.
+  try {
+    return res.send("User logged out");
+  } catch (error) {
+    next(error);
+  }
 };
 
 /**
@@ -58,8 +70,12 @@ export const logout = async (req, res, next) => {
  * @throws {Error} - Throws an error if the forgot password is unsuccessful.
  */
 export const forgotPassword = async (req, res, next) => {
-    // TODO: Implement this function.
-  return res.send("new passwor created");
+  // TODO: Implement this function.
+  try {
+    return res.send("password reset link sent");
+  } catch (error) {
+    next(error);
+  }
 };
 
 /**
@@ -72,8 +88,12 @@ export const forgotPassword = async (req, res, next) => {
  * @throws {Error} - Throws an error if the reset password is unsuccessful.
  */
 export const resetPassword = async (req, res, next) => {
-    // TODO: Implement this function.
-  return res.send("password reset successful");
+  // TODO: Implement this function.
+  try {
+    return res.send("password reset");
+  } catch (error) {
+    next(error);
+  }
 };
 
 /**
@@ -85,7 +105,10 @@ export const resetPassword = async (req, res, next) => {
  * @throws {Error} - Throws an error if the email is not verified.
  */
 export const verifyEmail = async (req, res, next) => {
-    // TODO: Implement this function.
-  return res.send("email verified");
+  // TODO: Implement this function.
+  try {
+    return res.send("email verified");
+  } catch (error) {
+    next(error);
+  }
 };
-

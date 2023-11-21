@@ -17,10 +17,10 @@ const NavBar = () => {
   };
 
   return (
-    <div className="fixed w-full h-20 shadow-xl z-[100]">
-      <div className="flex justify-between items-center w-full h-full px-2 2xl:px-16">
+    <div className="fixed w-full max-w-7xl px-4 sm:px-6 md:px-16 mx-auto h-20 shadow-xl z-[100]">
+      <div className="flex justify-between items-center h-full px-2 2xl:px-16">
         <Image
-          src="/developers-img.jpeg"
+          src="/logo.jpg"
           alt="DevsKonnekt Logo"
           width="60"
           height="60"
@@ -55,7 +55,10 @@ const NavBar = () => {
               </li>
             </Link>
           </ul>
-          <div className="block lg:hidden cursor-pointer" onClick={handleNavOpen}>
+          <div
+            className="block lg:hidden cursor-pointer"
+            onClick={handleNavOpen}
+          >
             <AiOutlineMenu size={25} />
           </div>
         </div>
@@ -90,7 +93,9 @@ const NavBar = () => {
             {nav && (
               <div className="border-b border-gray-400 my-4">
                 <p className="py-4 text-primary font-semibold">
-                  Let's Connect, <br className="block md:hidden" />Collaborate, and Conquer<br className="block md:hidden" /> the Coding World
+                  Let's Connect, <br className="block md:hidden" />
+                  Collaborate, and Conquer
+                  <br className="block md:hidden" /> the Coding World
                 </p>
               </div>
             )}
