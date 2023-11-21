@@ -1,6 +1,9 @@
 /* eslint-disable no-undef */
 import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 /**
  * Generate JWT access and refresh tokens.
@@ -58,4 +61,21 @@ export function sendEmail(to, subject, text) {
 
   // Send the email
   return transporter.sendMail(mailOptions);
+}
+
+/**
+ * Verifies a refresh token.
+ *
+ * @param {string} token - The refresh token to be verified.
+ * @return {object} An object containing a success flag and the decoded token data, or an error message if verification fails.
+ */
+export function verifyAccessToken(token) {
+  const secret = process.env.ACCESS_TOKEN_SECRET;
+
+  try {
+    const decoded = jwt.verify(token, secret);
+    return { success: true, data: decoded };
+  } catch (error) {
+    return { success: false, error: "You are not authorized" };
+  }
 }

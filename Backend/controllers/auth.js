@@ -8,7 +8,7 @@
 import User from "../models/users.js";
 import bcrypt from "bcrypt";
 import dotenv from "dotenv";
-import { generateTokens } from "../uils/index.js";
+import { generateTokens } from "../utils/index.js";
 
 dotenv.config();
 
