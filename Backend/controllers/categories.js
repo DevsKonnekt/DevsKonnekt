@@ -4,7 +4,6 @@
  * @exports Category
  * @description This module contains the controllers for categories.
  */
-import Category from "../models/categories.js";
 
 /**
  * Creates a new category.

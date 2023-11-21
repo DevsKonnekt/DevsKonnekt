@@ -11,8 +11,9 @@ import {
   getProductService,
   updateProductService,
   deleteProductService,
-  // Import other controller functions as needed
 } from "../controllers/productservices.js";
+
+const productServiceRouter = Router();
 
 const productServiceRouter = Router();
 /**

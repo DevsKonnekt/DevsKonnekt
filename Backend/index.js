@@ -13,6 +13,7 @@ import categoriesRouter from './routes/categories.js';
 import eventsRoutes from './routes/events.js';
 import reviewsRouter from './routes/reviews.js';
 import venuesRouter from './routes/venues.js';
+import projectRouter from './routes/projects.js';
 
 dotenv.config();
 
@@ -33,9 +34,15 @@ app.use("/api/v1/", defaultErrorHandler, usersRoutes);
 app.use("/api/v1/", defaultErrorHandler, venuesRouter);
 app.use("/api/v1//users", defaultErrorHandler, userRouter);
 app.use("/a[i/v1/productservices", defaultErrorHandler, productServiceRouter);
+app.use("/api/v1/projects", defaultErrorHandler, projectRouter);
+
+logger.info("Logging something");
+
+logger.info("Logging something");
 
 // eslint-disable-next-line no-undef
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
+  logger.info(`Server is running on port ${port}`);
   logger.info(`Server is running on port ${port}`);
 });
