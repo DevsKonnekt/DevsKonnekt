@@ -6,6 +6,10 @@
  */
 
 import dotenv from "dotenv";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import User from "../models/users.js";
+import { sendingMail } from "../utils/mailing.js";
 
 dotenv.config();
 
@@ -17,9 +21,39 @@ dotenv.config();
  * @return {Promise<void>} - A promise that resolves when the registration is successful.
  */
 export const register = async (req, res, next) => {
-  // TODO: Implement this function.
+  const registrationRequest = req.body;
   try {
-    return res.send("User created");
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(registrationRequest.password, salt);
+    registrationRequest.password = hashedPassword;
+
+    const newUser = await User.create(registrationRequest).exec;
+    if (!newUser) {
+      return res.status(400).json({
+        message: "Failed to register a new user! Please again",
+        newUser
+      })
+    }
+
+    const token = jwt.sign(
+      { email: newUser.email, id: newUser._id, role: newUser.role, },
+      process.env.ACTIVATION_SECRET,
+      { expiresIn: "30m" }
+    );
+
+    const link = `${process.env.CLIENT_URL}/auth/verify-email/${token}`;
+
+    await sendingMail({
+      from: process.env.MAIL_USERNAME,
+      to: newUser.email,
+      subject: "Verify your email",
+      text: `Hello ${newUser.firstName},\nPlease click on the link to activate your account.\n${link}`,
+    });
+
+    res.status(201).json({
+      message: "successful",
+      newUser
+    })
   } catch (error) {
     next(error);
   }
@@ -105,9 +139,27 @@ export const resetPassword = async (req, res, next) => {
  * @throws {Error} - Throws an error if the email is not verified.
  */
 export const verifyEmail = async (req, res, next) => {
-  // TODO: Implement this function.
   try {
-    return res.send("email verified");
+    const { token } = req.params;
+    const decoded = jwt.verify(token, process.env.ACTIVATION_SECRET);
+    const user = await User.findOneAndUpdate(
+      { email: decoded.email },
+      { isVerified: true },
+      { new: true }
+    );
+
+    if (!user) {
+      return res.status(400).json({ message: "User doesn't exist!" });
+    }
+
+    await sendingMail({
+      from: process.env.EMAIL,
+      to: user.email,
+      subject: "Email Verified Successfully",
+      text: `Hello ${user.name},\nYour email has been verified successfully.`,
+    });
+
+    res.status(200).json({ message: "Email verified successfully!" });
   } catch (error) {
     next(error);
   }
