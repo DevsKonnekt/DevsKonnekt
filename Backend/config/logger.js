@@ -89,9 +89,9 @@ export const logging = (req, res, next) => {
 export const winstonLoggerStream = (logger.stream = {
   write: function (message) {
     if (message.includes("error")) {
-      winstonLogger.error(message.trim());
+      logger.error(message.trim());
     } else {
-      winstonLogger.info(message.trim());
+      logger.info(message.trim());
     }
   },
 });

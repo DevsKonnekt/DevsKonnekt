@@ -41,7 +41,6 @@ export const sendingMail = async ({ from, to, subject, text }) => {
 
     return await transport.sendMail(mailOptions);
   } catch (error) {
-    console.error(error);
-    next();
+    throw new Error(error.message);
   }
 };
