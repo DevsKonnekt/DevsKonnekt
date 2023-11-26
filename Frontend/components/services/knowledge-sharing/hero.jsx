@@ -19,7 +19,7 @@ const Hero = () => {
           Expand your knowledge and gain valuable insights from a community of
           like-minded software developers in your city.
         </p>
-        <Link href="/signup" className="primary-btn-outline mt-8">
+        <Link href="/signup" className="secondary-btn mt-8">
             Try Now
         </Link>
       </div>

@@ -3,7 +3,7 @@ import React from "react";
 
 const Share = () => {
   return (
-    <div className="flex flex-col md:flex-row gap-4 items-center justify-center mt-6 py-8 px-4 bg-secondary/10">
+    <div className="flex flex-col md:flex-row gap-4 items-center justify-center mt-6 py-8 px-4 bg-secondary">
       <Image
         src="/images/services/knowledge-sharing/1.jpg"
         alt="Share"
@@ -12,7 +12,7 @@ const Share = () => {
         className="rounded-xl object-cover w-full max-w-[512px] max-h-[400px] flex-1"
       />
       <div className="flex flex-col gap-6 md:gap-8 flex-1 max-w-[680px]">
-        <h1 className="text-2xl text-secondary font-bold">
+        <h1 className="text-2xl text-primary font-bold">
           Share Knowledge and
           <br />
           Insights with

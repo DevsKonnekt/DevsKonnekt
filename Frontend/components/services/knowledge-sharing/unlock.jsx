@@ -13,7 +13,7 @@ const Unlock = () => {
         <p className="text-primary mt-2 max-w-[1000px]">
         At DevsKonnekt, we believe that knowledge sharing is the key to personal and professional growth. Our platform provides you with the opportunity to connect with like-minded professionals in your city and share your knowledge and insights. Whether you want to learn from others or contribute your expertise, DevsKonnekt is the perfect space for you to expand your coding knowledge and stay ahead in your career. Join our community today and unlock the power of knowledge sharing!
         </p>
-        <Link href="/signup" className="primary-btn-outline mt-6">
+        <Link href="/signup" className="secondary-btn mt-6">
             Sign Me Up
         </Link>
     </div>
