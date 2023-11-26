@@ -85,6 +85,17 @@ const UserSchema = new Schema({
     type: Boolean,
     required: [true, "Please specify your employement status!"],
   },
+  role: {
+    type: String,
+    required: [true, "role is required"],
+    enum: ["admin","user"],
+    default: "user",
+    index: true,
+  },
+  isVerified: {
+    type: Boolean,
+    defaultValue: false
+  },
   interests: {
     type: [mongoose.Schema.Types.ObjectId],
     ref: "Category",
