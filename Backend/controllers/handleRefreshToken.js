@@ -19,7 +19,7 @@ export default function handleRefreshToken(req, res, next) {
       res.clearCookie("refreshToken"); // Clear the refreshToken cookie
       return res.status(401).json({ error: "Unauthorized" });
     }
-    const { accessToken, newRefreshToken } = generateTokens(result.user);
+    const { accessToken, newRefreshToken } = generateTokens(result.user._id, result.user.email, result.user?.roles);
     res.cookie("refreshToken", newRefreshToken, {
       httpOnly: true,
       secure: true,
