@@ -5,7 +5,6 @@
  * @requires ../models/users
  * @description Defines functions for handling various auth handlers.
  */
-import User from "../models/users.js";
 import dotenv from "dotenv";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";

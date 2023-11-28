@@ -1,4 +1,4 @@
-import { generateTokens, verifyRefreshToken } from "../utils";
+import { generateTokens, verifyRefreshToken } from "../utils/index.js";
 
 /**
  * Handles the refresh token for authentication.
