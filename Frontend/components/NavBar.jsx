@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
+import AuthModal from "./auth/registration-form";
 
 const NavBar = () => {
   const [nav, setNav] = useState(false);
@@ -54,6 +55,7 @@ const NavBar = () => {
                 Jobs
               </li>
             </Link>
+            <li className="ml-10 text-sm uppercase hover:border-b tracking-widest font-bold"><AuthModal  /></li>
           </ul>
           <div
             className="block lg:hidden cursor-pointer"
@@ -125,6 +127,7 @@ const NavBar = () => {
               <Link href="/">
                 <li className="py-4 text:sm tracking-widest font-bold">Jobs</li>
               </Link>
+            <li className="ml-10 text-sm uppercase hover:border-b tracking-widest font-bold"><AuthModal /></li>
             </ul>
           </div>
         </div>

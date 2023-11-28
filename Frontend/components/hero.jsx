@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
-import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
+import AuthModal from "./auth/registration-form";
 
 function Main() {
   const [fadeIn, setFadeIn] = useState(false);
@@ -40,9 +40,7 @@ function Main() {
           local developer events in your community
         </p>
         <div className="flex justify-start items-center mt-16">
-          <button className="text-background text-base sm:text-lg border border-secondary bg-secondary transition-all duration-500 font-medium rounded-lg px-6 py-1 w-[150px] sm:w-auto text-center hover:bg-background hover:border-primary hover:text-primary">
-            Join Us
-          </button>
+          <AuthModal />
           <button className="text-primary text-base sm:text-lg bg-background transition-all duration-500 font-medium rounded-lg border border-primary px-6 py-1 ml-4 w-[150px] sm:auto text-center hover:bg-secondary hover:border-secondary hover:text-background">
             Contact
           </button>
