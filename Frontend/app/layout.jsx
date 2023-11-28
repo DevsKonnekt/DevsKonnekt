@@ -17,11 +17,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${poppins.className} bg-background max-w-7xl w-full mx-auto flex flex-col min-h-screen justify-between`}
+        className={`${poppins.className} bg-background`}
       >
+        <div className="max-w-7xl w-full mx-auto flex flex-col min-h-screen justify-between">
         <NavBar />
         {children}
         <Footer />
+        </div>
       </body>
     </html>
   );
