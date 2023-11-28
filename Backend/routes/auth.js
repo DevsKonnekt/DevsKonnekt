@@ -15,10 +15,11 @@ import {
   forgotPassword,
   resetPassword,
 } from "../controllers/auth.js";
+import { registrationValidation } from "../middlewares/authValidation.js";
 
 const authRoutes = Router();
 
-authRoutes.post("/register", register);
+authRoutes.post("/register", registrationValidation, register);
 authRoutes.post("/verify-email", verifyEmail);
 authRoutes.post("/login", login);
 authRoutes.post("/logout", logout);

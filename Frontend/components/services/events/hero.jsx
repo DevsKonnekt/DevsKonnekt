@@ -5,7 +5,7 @@ import React from "react";
 
 const Hero = () => {
   return (
-    <div className="w-screen 2xl:w-full -ml-4 2xl:ml-auto h-screen sm:h-[75vh] relative flex flex-col items-center justify-center gap-6 sm:gap-8 mt-[80px]">
+    <div className="w-screen xl:w-full -ml-4 xl:ml-auto h-screen sm:h-[75vh] md:h-[90vh] relative flex flex-col items-center justify-center gap-6 sm:gap-8 pt-[80px]">
       <Image
         src="/images/services/events/1.jpeg"
         alt="hero"
