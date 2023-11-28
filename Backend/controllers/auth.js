@@ -51,7 +51,7 @@ export const login = async (req, res, next) => {
       error.statusCode = 401;
       throw error;
     }
-    const { accessToken, refreshToken } = generateTokens(user._id, user?.roles);
+    const { accessToken, refreshToken } = generateTokens(user._id, user.email, user?.roles);
     user.refreshToken = refreshToken;
     await user.save();
     res.cookie("refreshToken", refreshToken, {

@@ -11,10 +11,10 @@ dotenv.config();
  * @param {string[]} roles - The roles of the user.
  * @returns {Object} - The generated access and refresh tokens.
  */
-export function generateTokens(userId, roles) {
+export function generateTokens(userId, email, roles) {
   // Generate access token
   const accessToken = jwt.sign(
-    { userId, roles },
+    { userId, email, roles },
     process.env.ACCESS_TOKEN_SECRET,
     { expiresIn: "15m" }
   );
