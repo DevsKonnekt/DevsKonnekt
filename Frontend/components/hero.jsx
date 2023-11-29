@@ -40,7 +40,7 @@ function Main() {
           local developer events in your community
         </p>
         <div className="flex justify-start items-center mt-16">
-          <AuthModal />
+          <AuthModal title="Join Us" />
           <button className="text-primary text-base sm:text-lg bg-background transition-all duration-500 font-medium rounded-lg border border-primary px-6 py-1 ml-4 w-[150px] sm:auto text-center hover:bg-secondary hover:border-secondary hover:text-background">
             Contact
           </button>
