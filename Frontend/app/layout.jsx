@@ -2,6 +2,7 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/footer";
+import { Toaster } from "@/components/ui/toaster"
 
 export const metadata = {
   title: "DevsKonnekt",
@@ -20,6 +21,7 @@ export default function RootLayout({ children }) {
         className={`${poppins.className} bg-background max-w-7xl w-full mx-auto flex flex-col min-h-screen justify-between`}
       >
         <NavBar />
+        <Toaster />
         {children}
         <Footer />
       </body>
