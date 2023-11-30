@@ -2,6 +2,7 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/footer";
+import ReduxProvider from "@/redux/Provider";
 
 export const metadata = {
   title: "DevsKonnekt",
@@ -19,9 +20,11 @@ export default function RootLayout({ children }) {
       <body
         className={`${poppins.className} bg-background max-w-7xl w-full mx-auto flex flex-col min-h-screen justify-between`}
       >
-        <NavBar />
-        {children}
-        <Footer />
+        <ReduxProvider>
+          <NavBar />
+          {children}
+          <Footer />
+        </ReduxProvider>
       </body>
     </html>
   );
