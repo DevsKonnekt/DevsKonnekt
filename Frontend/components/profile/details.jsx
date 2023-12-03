@@ -115,7 +115,7 @@ const Details = ({
       <Header />
       <div className="w-full flex justify-between items-start px-4">
         {/* Left pane containing availability for hire and collaboration, Bio, socials, skills, projects, etc */}
-        <div className="w-[35%] flex flex-col gap-4 mt-16 px-4">
+        <div className="w-full md:w-[35%] flex flex-col gap-4 mt-16 px-4">
           {/* Title and availability for hire and collaboration */}
           <div className="flex flex-col justify-between items-start w-full">
             <h1 className="text-2xl text-primary font-bold">
