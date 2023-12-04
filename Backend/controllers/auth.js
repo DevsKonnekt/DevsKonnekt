@@ -1,15 +1,16 @@
 /**
  * @module controllers/auth
  * @requires dotenv
+ * @requires bcrypt
  * @requires ../models/users
  * @description Defines functions for handling various auth handlers.
  */
-
 import dotenv from "dotenv";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/users.js";
 import { sendingMail } from "../utils/mailing.js";
+import { generateTokens } from "../utils/index.js";
 
 dotenv.config();
 
@@ -88,9 +89,34 @@ export const register = async (req, res, next) => {
  * @throws {Error} - Throws an error if the login is unsuccessful.
  */
 export const login = async (req, res, next) => {
-  // TODO: Implement this function.
   try {
-    return res.send("User logged in");
+    const user = await User.findOne({ email: req.body.email });
+    if (!user) {
+      const error = new Error("Incorrect email or password");
+      error.statusCode = 401;
+      throw error;
+    }
+    const isMatch = await bcrypt.compare(req.body.password, user.password);
+    if (!isMatch) {
+      const error = new Error("Incorrect email or password");
+      error.statusCode = 401;
+      throw error;
+    }
+    const { accessToken, refreshToken } = generateTokens(user._id, user.email, user?.roles);
+    user.refreshToken = refreshToken;
+    await user.save();
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      sameSite: "none",
+      secure: true,
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    });
+    return res.status(200).json({
+      accessToken,
+      email: user.email,
+      roles: user.roles,
+      id: user._id,
+    });
   } catch (error) {
     next(error);
   }
