@@ -1,8 +1,7 @@
-import Achievements from "@/components/profile/achievements";
-import AsideContent from "@/components/profile/asideContent";
+import Aside from "@/components/profile/aside";
 import Details from "@/components/profile/details";
 
-const dummyProjects = [
+export const dummyProjects = [
   {
     id: 1,
     title: "DevsKonnekt",
@@ -63,13 +62,12 @@ const dummyProjects = [
 
 const ProfilePage = () => {
   return (
-    <div className="max-w-7xl pt-24 mx-auto w-full">
-      <div className="flex flex-col md:flex-roe justify-between items-start">
+    <div className="max-w-7xl pt-20 mx-auto w-full">
+      <div className="flex justify-between items-start w-full">
         <Details />
-        <aside className="w-full md:w-[400px] h-full pb-8 px-4 pt-2 border-[0.5px] shadow-lg ml-2 rounded">
-          <Achievements />
-          <AsideContent projects={dummyProjects} />
-        </aside>
+        <div className="w-full lg:w-[400px] hidden lg:block">
+        <Aside />
+        </div>
       </div>
     </div>
   );

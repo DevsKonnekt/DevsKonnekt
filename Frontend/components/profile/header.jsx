@@ -1,6 +1,10 @@
 import Image from "next/image";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { Tabs, TabsList, TabsTrigger } from "../ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
+import About from "./about";
+import { dummyPosts } from "./details";
+import Post from "./post";
+import Aside from "./aside";
 
 const Header = ({
   firstName,
@@ -37,8 +41,8 @@ const Header = ({
               className="object-cover"
             />
           </Avatar>
-          <div className="hidden md:flex justify-between items-center -mt-10 w-full">
-            <div className="flex items-center space-y-2 md:space-x-2">
+          <div className="hidden lg:flex justify-between items-center w-full">
+            <div className="flex items-center space-x-2">
               <h1 className="text-2xl text-primary font-bold">
                 {firstName || lastName
                   ? `${firstName} ${lastName}`
@@ -57,7 +61,7 @@ const Header = ({
           </div>
         </div>
       </div>
-      <div className="flex flex-col justify-between items-center mt-12 px-4 md:hidden">
+      <div className="flex flex-col justify-between items-center mt-12 px-4 lg:hidden">
         <div className="flex items-center space-x-2">
           <h1 className="text-2xl text-primary font-bold">
             {firstName || lastName ? `${firstName} ${lastName}` : "John Doe"}
@@ -76,13 +80,35 @@ const Header = ({
 
       <Tabs
         defaultValue="about"
-        className="w-full mt-16 bg-background md:hidden"
+        className="w-full mt-4 bg-background lg:hidden"
       >
         <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="about">About</TabsTrigger>
-          <TabsTrigger value="portfolio">Portfolio</TabsTrigger>
-          <TabsTrigger value="posts">Posts</TabsTrigger>
+          <TabsTrigger value="about" className="font-bold text-xl">
+            About
+          </TabsTrigger>
+          <TabsTrigger value="portfolio" className="font-bold text-xl">
+            Portfolio
+          </TabsTrigger>
+          <TabsTrigger value="posts" className="font-bold text-xl">
+            Posts
+          </TabsTrigger>
         </TabsList>
+        <TabsContent value="about" className="px-4 py-2">
+          <About
+            linkedIn="https://www.linkedin.com/in//"
+            facebook="https://www.facebook.com/"
+            twitter="https://www.twitter.com/"
+            instagram="https://www.instagram.com/"
+            github="https://www.github.com/"
+            portfolio="#"
+          />
+        </TabsContent>
+        <TabsContent value="portfolio" className="px-4 py-2">
+          <Aside />
+        </TabsContent>
+        <TabsContent value="posts" className="px-4 py-2">
+          <Post posts={dummyPosts} />
+        </TabsContent>
       </Tabs>
     </>
   );

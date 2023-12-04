@@ -1,22 +1,13 @@
-import { FaMapMarkerAlt } from "react-icons/fa";
 import Header from "./header";
-import Link from "next/link";
-import {
-  BiGlobe,
-  BiLogoFacebook,
-  BiLogoGithub,
-  BiLogoInstagram,
-  BiLogoLinkedin,
-  BiLogoTwitter,
-} from "react-icons/bi";
 import Post from "./post";
+import About from "./about";
 
-const dummyPosts = [
+export const dummyPosts = [
   {
     id: 1,
     title:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.",
-    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.",
+    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum. Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore ab minima, ipsam deserunt voluptatibus placeat quaerat vero soluta culpa consequatur dolore recusandae a nisi! Aperiam obcaecati necessitatibus consequatur aliquam laborum.",
     image: "/images/profile/postPlaceholder.avif",
     votes: {
       upvotes: 10,
@@ -30,7 +21,7 @@ const dummyPosts = [
     id: 2,
     title:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.",
-    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.",
+    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad nulla sint debitis deleniti maxime amet, nostrum deserunt vero numquam eveniet placeat eius iste voluptas aperiam mollitia unde impedit voluptate tempore magni natus ex atque pariatur eligendi perferendis. Temporibus expedita nostrum esse hic. Est soluta odio adipisci tempore maxime illo accusamus praesentium minus autem obcaecati commodi consequatur pariatur nulla libero, vero assumenda explicabo quae, expedita modi nesciunt iste temporibus saepe? Illum officiis, libero cumque doloremque placeat hic quia porro sequi magnam! Quisquam, voluptatum.",
     image: "/images/profile/postPlaceholder.avif",
     votes: {
       upvotes: 10,
@@ -44,7 +35,7 @@ const dummyPosts = [
     id: 3,
     title:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.",
-    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.",
+    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum. Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis molestiae accusamus saepe eum quam sed veritatis deleniti veniam mollitia laboriosam ipsum magni, alias iusto quidem nobis sapiente odio, similique qui consequatur aspernatur, dolores neque architecto. Distinctio dolorum saepe perferendis? Quaerat nemo sit mollitia inventore totam laborum modi illo illum eos quas tempora, quis dolorem esse culpa commodi hic quos accusantium aspernatur rem exercitationem, maxime perferendis. Quaerat, tenetur. Sunt ab qui reiciendis consequuntur illo rem laboriosam. Quisquam, voluptatum.",
     image: "/images/profile/postPlaceholder.avif",
     votes: {
       upvotes: 10,
@@ -58,7 +49,7 @@ const dummyPosts = [
     id: 4,
     title:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.",
-    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.",
+    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo accusantium laudantium ex dolor quis. Amet fugiat expedita cupiditate animi itaque, fuga, consectetur quas error inventore rerum voluptatum non sunt id ab. Facilis necessitatibus nesciunt alias, animi nostrum autem deleniti illo tempore cum porro consectetur minus debitis, quos quia totam eaque aperiam beatae soluta iure repellat eum fugiat sint, sit laudantium. Adipisci rem pariatur tempore quidem, corporis distinctio impedit doloremque in ea assumenda iste dicta culpa illo delectus deleniti cumque ex nostrum error illum eum rerum. Cumque, dolore molestias cum eaque ea necessitatibus magnam quia soluta libero esse vitae enim magni impedit est consectetur? Rerum asperiores aperiam quam aspernatur at aut id magni laboriosam, adipisci ut expedita aliquam unde, recusandae voluptate temporibus dolorum! Eligendi doloribus necessitatibus in nulla hic, animi, velit laborum ullam commodi voluptate, ad corrupti ipsam quia illo eos magni dolor debitis facilis illum? Deleniti quasi alias corporis, vero quam ullam necessitatibus possimus ducimus, quod voluptatum praesentium numquam architecto accusantium molestiae maxime eligendi expedita cupiditate laborum, quidem eum ut velit? Vitae, veritatis? Eos eaque rerum, expedita asperiores tempora a fugit. Porro autem ea, accusantium sequi delectus harum similique doloribus nesciunt placeat perspiciatis aperiam in nihil at dolore cupiditate quis!",
     image: "/images/profile/postPlaceholder.avif",
     votes: {
       upvotes: 10,
@@ -72,7 +63,7 @@ const dummyPosts = [
     id: 5,
     title:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.",
-    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.",
+    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis odit debitis, recusandae, tempore, sint quos provident est sunt illo pariatur animi impedit. Obcaecati ea architecto dolorum doloremque a adipisci perferendis sit vitae doloribus, laboriosam libero, culpa est illum rem labore dolores quasi numquam deleniti dignissimos? Magni cupiditate vel quod id suscipit sequi eveniet blanditiis natus, quae delectus est sunt sint facere cumque necessitatibus earum et! Iste modi dignissimos voluptatibus provident harum tenetur doloremque obcaecati iure, minima soluta animi, suscipit consequuntur. Minus facere corporis voluptatum neque maiores, sed maxime recusandae perferendis vero autem amet voluptas quod ratione reiciendis officia temporibus unde sapiente molestias illum commodi modi! Velit, temporibus laboriosam tempora, recusandae ea nobis atque dolor maxime iure odio maiores omnis neque provident nostrum inventore voluptatibus sequi excepturi magni reprehenderit hic debitis. Alias saepe reprehenderit quam numquam laboriosam eaque ratione, porro itaque voluptatem nobis soluta quisquam architecto quis accusantium sapiente est iusto minus praesentium repellendus perferendis rem error voluptate. Impedit maxime quisquam itaque labore? Quae ullam corrupti error? Voluptatibus molestiae tempore necessitatibus rem totam alias, possimus repudiandae omnis doloremque atque quo ab quam exercitationem cupiditate impedit facilis consequatur sunt aliquid dolor culpa ipsam corrupti natus voluptates deserunt! At, quos tenetur aut deleniti aliquid quisquam delectus, laudantium nostrum excepturi incidunt magnam numquam eum sunt quo id soluta! Ipsam labore porro saepe numquam aliquam dolor. Temporibus, accusantium. Recusandae quod labore, laborum consectetur voluptate obcaecati error porro reiciendis quos nemo repudiandae animi dolorum. Iste esse veritatis magnam accusantium maiores obcaecati deleniti perspiciatis, suscipit sequi fugiat est explicabo temporibus nemo animi repellat ipsam mollitia error quae laborum repellendus, corporis, sed quisquam quidem dicta. Sapiente, unde officiis ipsam reprehenderit earum molestias esse est at vitae? Dolor distinctio quidem ratione labore voluptate? Iste impedit sint pariatur laboriosam? Accusantium dignissimos et modi nemo asperiores, consectetur nihil fuga harum officia. Molestias itaque architecto consequatur dolore laboriosam animi sit iure quisquam beatae debitis, nihil ex tempore accusamus adipisci. Provident praesentium voluptate laborum assumenda voluptatibus dolorum in nihil ad iure, aspernatur eaque doloremque ea consequuntur ullam, consectetur autem maiores itaque obcaecati. Sunt cumque ipsum ducimus quos maiores! Laboriosam veniam quidem, vero perspiciatis magni at, unde autem, vel iusto accusantium amet! Blanditiis beatae porro voluptas, doloremque dolorum vel magni maiores quasi vitae quo possimus nihil nostrum hic nulla eum culpa aliquid quod mollitia. Illum, ad earum? Harum deserunt odio tempore magni molestiae reiciendis facere illo? Facilis cum explicabo numquam ducimus facere vel doloremque, corporis atque nam qui deserunt, harum quibusdam sapiente, ipsa eligendi aut impedit excepturi aliquam? Repellat id quia consequuntur nulla distinctio, nemo ab fuga? Nulla eligendi corporis veniam unde quia temporibus. Quisquam, voluptatum.",
     image: "/images/profile/postPlaceholder.avif",
     votes: {
       upvotes: 10,
@@ -86,7 +77,7 @@ const dummyPosts = [
     id: 6,
     title:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.",
-    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.",
+    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error ex perferendis exercitationem qui ab laboriosam officiis nisi quam repellendus magnam! Iste voluptate, debitis molestiae esse ipsa repudiandae minima nulla quod tempore nostrum nemo modi temporibus optio similique quisquam recusandae qui architecto labore nam et vero expedita, quos a adipisci. Impedit cupiditate reiciendis at quas voluptatem libero a ullam deleniti, sunt autem eum provident sit sed tempora quae, nobis doloremque architecto quam corrupti? Ipsam sed error facilis suscipit dignissimos maiores! Ipsam impedit architecto veritatis consequatur dolorem recusandae modi unde ea inventore dicta, alias iste consectetur neque odit numquam non sequi eum?",
     image: "/images/profile/postPlaceholder.avif",
     votes: {
       upvotes: 10,
@@ -113,107 +104,19 @@ const Details = ({
   return (
     <div className="w-full flex flex-col items-start">
       <Header />
-      <div className="w-full flex justify-between items-start px-4">
-        {/* Left pane containing availability for hire and collaboration, Bio, socials, skills, projects, etc */}
-        <div className="w-full md:w-[35%] flex flex-col gap-4 mt-16 px-4">
-          {/* Title and availability for hire and collaboration */}
-          <div className="flex flex-col justify-between items-start w-full">
-            <h1 className="text-2xl text-primary font-bold">
-              FullStack Developer
-            </h1>
-            <h2 className="text-xl mt-4 text-primary font-semibold">
-              Availability
-            </h2>
-            <div className="flex items-start gap-4">
-              <p className=" flex gap-2 items-center font-medium">
-                <span className="w-2 h-2 bg-red-600 rounded-full" /> Hire
-              </p>
-              <p className=" flex gap-2 items-center font-medium">
-                <span className="w-2 h-2 bg-green-600 rounded-full" />{" "}
-                Collaboration
-              </p>
-            </div>
-          </div>
-          {/* Bio */}
-          <div className="flex flex-col justify-between items-start w-full -mt-2">
-            <h2 className="text-xl mt-4 text-primary font-semibold">Bio</h2>
-            <p className="text-primary/80">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam
-              voluptatem, quia, voluptatum, quidem nemo voluptate dolorum
-              accusantium quod voluptates quibusdam autem? Quisquam, quibusdam
-              voluptatem. Quisquam, quibusdam voluptatem.
-            </p>
-          </div>
-          {/* Location */}
-          <div className="flex items-center gap-2 w-full font-semibold text-md">
-            <FaMapMarkerAlt className="text-primary/70" />
-            <p className="text-primary/80">Gokwe, Zimbabwe</p>
-          </div>
-          {/* Socials */}
-          <div className="flex w-full justify-between items-center gap-2">
-            <Link href={`${facebook ? facebook : "#"}`} target="_blank">
-              <BiLogoFacebook className="text-primary/70 cursor-pointer text-2xl" />
-            </Link>
-            <Link href={`${instagram ? instagram : "#"}`} target="_blank">
-              <BiLogoInstagram className="text-primary/70 cursor-pointer text-2xl" />
-            </Link>
-            <Link href={`${twitter ? twitter : "#"}`} target="_blank">
-              <BiLogoTwitter className="text-primary/70 cursor-pointer text-2xl" />
-            </Link>
-            <Link href={`${linkedIn ? linkedIn : "#"}`} target="_blank">
-              <BiLogoLinkedin className="text-primary/70 cursor-pointer text-2xl" />
-            </Link>
-            <Link href={`${github ? github : "#"}`} target="_blank">
-              <BiLogoGithub className="text-primary/70 cursor-pointer text-2xl" />
-            </Link>
-            <Link href={`${portfolio ? portfolio : "#"}`} target="_blank">
-              <BiGlobe className="text-primary/70 cursor-pointer text-2xl" />
-            </Link>
-          </div>
-          {/* Skills */}
-          <div className="flex flex-col justify-between items-start w-full">
-            <h2 className="text-xl mt-4 text-primary font-semibold">Skills</h2>
-            <div className="flex flex-wrap gap-2">
-              <span className="px-2 py-1 bg-primary/10 rounded-md text-primary/80 font-medium">
-                React
-              </span>
-              <span className="px-2 py-1 bg-primary/10 rounded-md text-primary/80 font-medium">
-                NextJS
-              </span>
-              <span className="px-2 py-1 bg-primary/10 rounded-md text-primary/80 font-medium">
-                NodeJS
-              </span>
-              <span className="px-2 py-1 bg-primary/10 rounded-md text-primary/80 font-medium">
-                ExpressJS
-              </span>
-              <span className="px-2 py-1 bg-primary/10 rounded-md text-primary/80 font-medium">
-                MongoDB
-              </span>
-              <span className="px-2 py-1 bg-primary/10 rounded-md text-primary/80 font-medium">
-                PostgreSQL
-              </span>
-              <span className="px-2 py-1 bg-primary/10 rounded-md text-primary/80 font-medium">
-                GraphQL
-              </span>
-              <span className="px-2 py-1 bg-primary/10 rounded-md text-primary/80 font-medium">
-                Apollo
-              </span>
-              <span className="px-2 py-1 bg-primary/10 rounded-md text-primary/80 font-medium">
-                TailwindCSS
-              </span>
-              <span className="px-2 py-1 bg-primary/10 rounded-md text-primary/80 font-medium">
-                ChakraUI
-              </span>
-              <span className="px-2 py-1 bg-primary/10 rounded-md text-primary/80 font-medium">
-                MaterialUI
-              </span>
-            </div>
-          </div>
-        </div>
+      <div className="w-full hidden lg:flex justify-between items-start px-4">
+        {/* Left pane containing availability for hire and collaboration, Bio, socials, skills, etc */}
+        <About
+          linkedIn={linkedIn}
+          facebook={facebook}
+          twitter={twitter}
+          instagram={instagram}
+          github={github}
+          portfolio={portfolio}
+        />
         {/* Right pane containing posts */}
-        {/* Posts */}
-        <div className="hidden md:flex flex-col gap-4 w-[65%] mt-16 px-4">
-        <Post posts={dummyPosts} />
+        <div className="hidden lg:flex flex-col gap-4 w-full">
+          <Post posts={dummyPosts} />
         </div>
       </div>
     </div>
