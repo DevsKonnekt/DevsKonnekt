@@ -34,9 +34,10 @@ app.use("/api/v1/", defaultErrorHandler, categoriesRouter);
 app.use("/api/v1/", defaultErrorHandler, eventsRoutes);
 app.use("/api/v1/", defaultErrorHandler, reviewsRouter);
 app.use("/api/v1/", defaultErrorHandler, venuesRouter);
-app.use("/api/v1//users", defaultErrorHandler, userRouter);
-app.use("/api/v1/productservices", defaultErrorHandler, productServiceRouter);
-app.use("/api/v1/projects", defaultErrorHandler, projectRouter);
+app.use("/api/v1/auth/", defaultErrorHandler, authRoutes);
+app.use("/api/v1//users/", defaultErrorHandler, userRouter);
+app.use("/api/v1/productservices/", defaultErrorHandler, productServiceRouter);
+app.use("/api/v1/projects/", defaultErrorHandler, projectRouter);
 
 // eslint-disable-next-line no-undef
 const port = process.env.PORT || 3000;
