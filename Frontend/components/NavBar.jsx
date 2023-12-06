@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
+import AuthModal from "./auth/registration-form";
 
 const NavBar = () => {
   const [nav, setNav] = useState(false);
@@ -19,12 +20,7 @@ const NavBar = () => {
   return (
     <div className="fixed w-full max-w-7xl px-4 sm:px-6 md:px-16 mx-auto h-20 shadow-xl z-[100]">
       <div className="flex justify-between items-center h-full px-2 2xl:px-16">
-        <Image
-          src="/logo.jpg"
-          alt="DevsKonnekt Logo"
-          width="60"
-          height="60"
-        />
+        <Image src="/logo.jpg" alt="DevsKonnekt Logo" width="60" height="60" />
 
         {/* Full Screen Menu */}
         <div>
@@ -54,6 +50,9 @@ const NavBar = () => {
                 Jobs
               </li>
             </Link>
+            <li className="ml-10 text-sm uppercase hover:border-b tracking-widest font-bold">
+              <AuthModal title="Sign In" />
+            </li>
           </ul>
           <div
             className="block lg:hidden cursor-pointer"
@@ -125,6 +124,9 @@ const NavBar = () => {
               <Link href="/">
                 <li className="py-4 text:sm tracking-widest font-bold">Jobs</li>
               </Link>
+              <li className="ml-10 text-sm uppercase hover:border-b tracking-widest font-bold">
+                <AuthModal title="Sign In" />
+              </li>
             </ul>
           </div>
         </div>
