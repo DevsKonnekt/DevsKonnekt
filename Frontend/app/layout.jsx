@@ -17,7 +17,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${poppins.className} bg-background`}
+        className={`${poppins.className} bg-background text-primary`}
       >
         <div className="max-w-7xl w-full mx-auto flex flex-col min-h-screen justify-between">
         <NavBar />
