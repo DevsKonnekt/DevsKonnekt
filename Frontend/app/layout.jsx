@@ -2,6 +2,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/footer";
+import { Toaster } from "@/components/ui/toaster"
 import ReduxProvider from "@/redux/Provider";
 
 export const metadata = {
