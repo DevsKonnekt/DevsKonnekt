@@ -2,6 +2,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/footer";
+import ReduxProvider from "@/redux/Provider";
 
 export const metadata = {
   title: "DevsKonnekt",
@@ -20,9 +21,11 @@ export default function RootLayout({ children }) {
         className={`${poppins.className} bg-background text-primary`}
       >
         <div className="max-w-7xl w-full mx-auto flex flex-col min-h-screen justify-between">
-        <NavBar />
-        {children}
-        <Footer />
+          <ReduxProvider>
+           <NavBar />
+           {children}
+           <Footer />
+          </ReduxProvider>
         </div>
       </body>
     </html>
