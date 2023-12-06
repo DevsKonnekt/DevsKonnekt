@@ -16,6 +16,7 @@ import {
   resetPassword,
 } from "../controllers/auth.js";
 import { registrationValidation } from "../middlewares/authValidation.js";
+import handleRefreshToken from "../controllers/handleRefreshToken.js";
 
 const authRoutes = Router();
 
@@ -25,5 +26,6 @@ authRoutes.post("/login", login);
 authRoutes.post("/logout", logout);
 authRoutes.post("/forgot-password", forgotPassword);
 authRoutes.post("/reset-password", resetPassword);
+authRoutes.get("/refresh-token", handleRefreshToken);
 
 export default authRoutes;

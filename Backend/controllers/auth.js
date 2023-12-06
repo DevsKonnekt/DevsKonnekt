@@ -1,15 +1,16 @@
 /**
  * @module controllers/auth
  * @requires dotenv
+ * @requires bcrypt
  * @requires ../models/users
  * @description Defines functions for handling various auth handlers.
  */
-
+import User from "../models/users.js";
 import dotenv from "dotenv";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import User from "../models/users.js";
 import { sendingMail } from "../utils/mailing.js";
+import { generateTokens } from "../uils/index.js";
 
 dotenv.config();
 
@@ -24,11 +25,14 @@ export const register = async (req, res, next) => {
   const registrationRequest = req.body;
   try {
     const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(registrationRequest.password, salt);
+    const hashedPassword = await bcrypt.hash(
+      registrationRequest.password,
+      salt
+    );
     registrationRequest.password = hashedPassword;
     // check if user with email or username already exists
     let userExists = await User.findOne({
-      email: registrationRequest.email 
+      email: registrationRequest.email,
     });
     if (userExists) {
       return res.status(400).json({
@@ -36,7 +40,7 @@ export const register = async (req, res, next) => {
       });
     }
     userExists = await User.findOne({
-      username: registrationRequest.username 
+      username: registrationRequest.username,
     });
     if (userExists) {
       return res.status(400).json({
@@ -47,12 +51,12 @@ export const register = async (req, res, next) => {
     if (!newUser) {
       return res.status(400).json({
         message: "Failed to register a new user! Please again",
-        newUser
-      })
+        newUser,
+      });
     }
 
     const token = jwt.sign(
-      { email: newUser.email, id: newUser._id, role: newUser.role, },
+      { email: newUser.email, id: newUser._id, role: newUser.role },
       process.env.ACTIVATION_SECRET,
       { expiresIn: "30m" }
     );
@@ -68,8 +72,8 @@ export const register = async (req, res, next) => {
 
     res.status(201).json({
       message: "successful",
-      newUser
-    })
+      newUser,
+    });
   } catch (error) {
     next(error);
   }
@@ -85,9 +89,34 @@ export const register = async (req, res, next) => {
  * @throws {Error} - Throws an error if the login is unsuccessful.
  */
 export const login = async (req, res, next) => {
-  // TODO: Implement this function.
   try {
-    return res.send("User logged in");
+    const user = await User.findOne({ email: req.body.email });
+    if (!user) {
+      const error = new Error("Incorrect email or password");
+      error.statusCode = 401;
+      throw error;
+    }
+    const isMatch = await bcrypt.compare(req.body.password, user.password);
+    if (!isMatch) {
+      const error = new Error("Incorrect email or password");
+      error.statusCode = 401;
+      throw error;
+    }
+    const { accessToken, refreshToken } = generateTokens(user._id, user.email, user?.roles);
+    user.refreshToken = refreshToken;
+    await user.save();
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      sameSite: "none",
+      secure: true,
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    });
+    return res.status(200).json({
+      accessToken,
+      email: user.email,
+      roles: user.roles,
+      id: user._id,
+    });
   } catch (error) {
     next(error);
   }
@@ -102,9 +131,20 @@ export const login = async (req, res, next) => {
  * @throws {Error} - Throws an error if the logout is unsuccessful.
  */
 export const logout = async (req, res, next) => {
-  // TODO: Implement this function.
   try {
-    return res.send("User logged out");
+    const { refreshToken } = req.cookies;
+    if (!refreshToken) {
+      return res.status(400).json({ message: "User not logged in!" });
+    }
+    const decoded = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+    const user = await User.findOne({ email: decoded.email });
+    if (!user) {
+      return res.status(400).json({ message: "User doesn't exist!" });
+    }
+    user.refreshToken = "";
+    await user.save();
+    res.clearCookie("refreshToken");
+    res.status(200).json({ message: "User logged out successfully!" });
   } catch (error) {
     next(error);
   }
@@ -120,9 +160,30 @@ export const logout = async (req, res, next) => {
  * @throws {Error} - Throws an error if the forgot password is unsuccessful.
  */
 export const forgotPassword = async (req, res, next) => {
-  // TODO: Implement this function.
   try {
-    return res.send("password reset link sent");
+    const { email } = req.body;
+    if (!email) {
+      return res.status(400).json({ message: "Email is required!" });
+    }
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res
+        .status(400)
+        .json({ message: "User with that email doesn't exist!" });
+    }
+    const token = jwt.sign(
+      { email: user.email, id: user._id },
+      process.env.RESET_PASSWORD_SECRET,
+      { expiresIn: "30m" }
+    );
+    const link = `${process.env.CLIENT_URL}/auth/reset-password/${token}`;
+    await sendingMail({
+      from: process.env.EMAIL,
+      to: user.email,
+      subject: "Reset Password",
+      text: `Hello ${user.name},\nPlease click on the link to reset your password.\n${link}`,
+    });
+    res.status(200).json({ message: "Password reset link sent successfully!" });
   } catch (error) {
     next(error);
   }
@@ -138,9 +199,33 @@ export const forgotPassword = async (req, res, next) => {
  * @throws {Error} - Throws an error if the reset password is unsuccessful.
  */
 export const resetPassword = async (req, res, next) => {
-  // TODO: Implement this function.
   try {
-    return res.send("password reset");
+    const { token } = req.params;
+    const { password } = req.body;
+    if (!password) {
+      return res.status(400).json({ message: "Password is required!" });
+    }
+    const decoded = jwt.verify(token, process.env.RESET_PASSWORD_SECRET);
+    const user = await User.findOne({ email: decoded.email });
+    if (!user) {
+      return res
+        .status(400)
+        .json({ message: "User with that email doesn't exist!" });
+    }
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    await User.findOneAndUpdate(
+      { email: decoded.email },
+      { password: hashedPassword },
+      { new: true }
+    );
+    await sendingMail({
+      from: process.env.EMAIL,
+      to: user.email,
+      subject: "Password Reset Successfully",
+      text: `Hello ${user.name},\nYour password has been reset successfully.`,
+    });
+    res.status(200).json({ message: "Password reset successfully!" });
   } catch (error) {
     next(error);
   }
