@@ -19,6 +19,10 @@ import {
 } from "../ui/form";
 import { Textarea } from "../ui/textarea";
 import { Checkbox } from "../ui/checkbox";
+import Image from "next/image";
+import { useState } from "react";
+import { Avatar, AvatarImage } from "../ui/avatar";
+import { BiCamera } from "react-icons/bi";
 
 const poppins = Poppins({
   weight: ["400", "600"],
@@ -59,6 +63,12 @@ const formSchema = z.object({
 });
 
 const EditProfile = () => {
+  const [profileImage, setProfileImage] = useState(
+    "/images/profile/profilePlaceholder.avif"
+  );
+  const [coverImage, setCoverImage] = useState(
+    "/images/profile/coverPlaceholder.avif"
+  );
   const { toast } = useToast();
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -85,8 +95,13 @@ const EditProfile = () => {
   });
 
   function onSubmit(values) {
+    const newValues = {
+      ...values,
+      profileImage,
+      coverImage,
+    };
     setTimeout(() => {
-      console.log(values);
+      console.log(newValues);
       form.reset();
       toast({
         title: "Profile Update",
@@ -103,17 +118,45 @@ const EditProfile = () => {
           Edit Profile
         </button>
       </DialogTrigger>
-      <DialogContent className="flex flex-col items-center justify-start md:max-w-4xl w-full md:max-h-[80vh] shadow-xl shadow-primary rounded-xl mx-auto bg-white overflow-y-scroll no-scrollbar">
-        <h1 className="text-2xl font-bold text-primary">Update Your Profile</h1>
-        <p className="text-primary text-md text-start font-semibold mt-2 mb-6">
-          Update your profile to get more konnektions and opportunities
-        </p>
+      <DialogContent className="flex flex-col items-center justify-start md:max-w-3xl w-full max-h-[80vh] shadow-xl shadow-primary rounded-xl mx-auto bg-white overflow-y-scroll no-scrollbar">
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
             className={`${poppins.className} flex w-full flex-col gap-4 justify-center items-start`}
           >
-            <div className="flex flex-col md:flex-row gap-4 w-full">
+            <div className="w-full relative group transition-all delay-300 duration-1000 ease-in-out">
+              <div className="h-[150px] md:h-[200px] w-full rounded-lg">
+                <Image
+                  src={`${
+                    coverImage
+                      ? coverImage
+                      : "/images/profile/coverPlaceholder.avif"
+                  }`}
+                  alt="cover"
+                  height={1080}
+                  width={1920}
+                  className="object-cover w-full h-full rounded-lg"
+                />
+                <BiCamera className="absolute top-1/2 right-1/2 text-4xl text-background/50 md:opacity-0 group-hover:opacity-100 cursor-pointer" />
+              </div>
+              <div className="absolute bottom-[-50px] left-0 px-4 w-full flex items-start gap-4">
+                <Avatar className="h-[100px] w-[100px] border-4 border-secondary/50 shadow-md block relative group">
+                  <AvatarImage
+                    src={
+                      profileImage
+                        ? profileImage
+                        : "/images/profile/profilePlaceholder.avif"
+                    }
+                    alt="avatar"
+                    height={300}
+                    width={300}
+                    className="object-cover"
+                  />
+                  <BiCamera className="absolute top-1/3 right-1/3 text-4xl text-background/50 md:opacity-0 group-hover:opacity-100 cursor-pointer" />
+                </Avatar>
+              </div>
+            </div>
+            <div className="flex flex-col md:flex-row gap-4 mt-10 w-full">
               <FormField
                 control={form.control}
                 name="firstName"
@@ -262,7 +305,7 @@ const EditProfile = () => {
                 control={form.control}
                 name="avilableForHire"
                 render={({ field }) => (
-                  <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4 shadow">
+                  <FormItem className="flex flex-1 flex-row items-start space-x-3 space-y-0 rounded-md border p-4 shadow">
                     <FormControl>
                       <Checkbox
                         checked={field.value}
@@ -283,7 +326,7 @@ const EditProfile = () => {
                 control={form.control}
                 name="avilableForCollab"
                 render={({ field }) => (
-                  <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4 shadow">
+                  <FormItem className="flex flex-row flex-1 items-start space-x-3 space-y-0 rounded-md border p-4 shadow">
                     <FormControl>
                       <Checkbox
                         checked={field.value}
@@ -420,7 +463,7 @@ const EditProfile = () => {
               />
             </div>
             <div className="flex flex-col md:flex-row gap-4 w-full">
-            <FormField
+              <FormField
                 control={form.control}
                 name="linkedin"
                 render={({ field }) => (
@@ -466,7 +509,7 @@ const EditProfile = () => {
               />
             </div>
             <div className="flex flex-col md:flex-row gap-4 w-full">
-            <FormField
+              <FormField
                 control={form.control}
                 name="facebook"
                 render={({ field }) => (
@@ -538,7 +581,7 @@ const EditProfile = () => {
             <Button
               disabled={form.formState.isSubmitting}
               type="submit"
-              className="primary-btn !w-full disabled:cursor-not-allowed disabled:bg-gray-500"
+              className="primary-btn disabled:cursor-not-allowed disabled:bg-gray-500 self-end"
             >
               Save Changes
             </Button>
