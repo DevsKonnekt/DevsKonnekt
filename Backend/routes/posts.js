@@ -10,11 +10,8 @@ import {
 
 const postsRoutes = Router();
 
-postsRoutes.post("/", createPosts);
-postsRoutes.patch("/:id", updatePost);
-postsRoutes.get("/", getPosts);
-postsRoutes.get("/:id", getPost);
+postsRoutes.route("/").post(createPosts).get(getPosts);
+postsRoutes.route("/:id").patch(updatePost).get(getPost).delete(deletePost);
 postsRoutes.get("/author/:id", getPostsByAuthor);
-postsRoutes.delete("/:id", deletePost);
 
 export default postsRoutes;

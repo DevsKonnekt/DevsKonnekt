@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /**
  * @module backend/utils/mailing
  * @requires nodemailer
@@ -30,7 +31,7 @@ export const sendingMail = async ({ from, to, subject, text }) => {
     };
 
     const transport = nodemailer.createTransport({
-      host: process.env.MAIL_SERVICE || 'smtp.gmail.com',
+      host: process.env.MAIL_SERVICE || "smtp.gmail.com",
       port: 465,
       secure: true,
       auth: {
