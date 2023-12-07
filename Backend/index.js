@@ -15,6 +15,8 @@ import eventsRoutes from "./routes/events.js";
 import reviewsRouter from "./routes/reviews.js";
 import venuesRouter from "./routes/venues.js";
 import projectRouter from "./routes/projects.js";
+import postsRoutes from "./routes/posts.js";
+import commentsRouter from "./routes/comments.js";
 
 
 dotenv.config();
@@ -38,6 +40,8 @@ app.use("/api/v1/auth/", defaultErrorHandler, authRoutes);
 app.use("/api/v1//users/", defaultErrorHandler, userRouter);
 app.use("/api/v1/productservices/", defaultErrorHandler, productServiceRouter);
 app.use("/api/v1/projects/", defaultErrorHandler, projectRouter);
+app.use("/api/v1/posts/", defaultErrorHandler, postsRoutes);
+app.use("/api/v1/comments/", defaultErrorHandler, commentsRouter);
 
 // eslint-disable-next-line no-undef
 const port = process.env.PORT || 3000;

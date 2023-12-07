@@ -7,11 +7,16 @@
  * @exports updateComment
  * @exports deleteComment
  */
+import {
+  PropertyRequiredError,
+  ValidationError,
+} from "../middlewares/customError.js";
 import Comment from "../models/comments.js";
 
 /**
  * @name createComment
  * @method POST
+ * @access Private
  * @description Creates a comment
  * @memberof module:controllers/comments
  * @param {Object} req - Request object
@@ -28,11 +33,18 @@ export const createComment = async (req, res, next) => {
       _id: "5f7d8e3b46d3d6a4e8d4f0f5",
     };
     if (!req.user) {
-      const error = new Error("You are not authorized to create a comment");
+      const error = new ValidationError(
+        "You are not authorized to create a comment"
+      );
       error.statusCode = 401;
       throw error;
     }
-    commentData.authour = req.user._id;
+    if (!commentData || !commentData.post || !commentData.body) {
+      const error = new ValidationError("Missing required properties");
+      error.statusCode = 400;
+      throw error;
+    }
+    commentData.author = req.user._id;
     const comment = await Comment.create(commentData);
     res.status(201).json({
       success: true,
@@ -46,6 +58,7 @@ export const createComment = async (req, res, next) => {
 /**
  * @name getComment
  * @method GET
+ * @access Public
  * @description Gets a comment by id
  * @memberof module:controllers/comments
  * @param {Object} req - Request object
@@ -73,6 +86,7 @@ export const getComment = async (req, res, next) => {
 /**
  * @name updateComment
  * @method PUT
+ * @access Private
  * @description Updates a comment by id
  * @memberof module:controllers/comments
  * @param {Object} req - Request object
@@ -98,8 +112,15 @@ export const updateComment = async (req, res, next) => {
       error.statusCode = 401;
       throw error;
     }
+    if (!req.body.body) {
+      const error = new PropertyRequiredError("body");
+      error.statusCode = 400;
+      throw error;
+    }
     if (comment.author.toString() !== req.user._id.toString()) {
-      const error = new Error("You are not authorized to update this comment");
+      const error = new ValidationError(
+        "You are not authorized to update this comment"
+      );
       error.statusCode = 403;
       throw error;
     }
@@ -117,6 +138,7 @@ export const updateComment = async (req, res, next) => {
 /**
  * @name deleteComment
  * @method DELETE
+ * @access Private
  * @description Deletes a comment by id
  * @memberof module:controllers/comments
  * @param {Object} req - Request object
@@ -157,6 +179,7 @@ export const deleteComment = async (req, res, next) => {
 /**
  * @name getCommentsByPost
  * @method GET
+ * @access Public
  * @description Gets all comments of a post
  * @memberof module:controllers/comments
  * @param {Object} req - Request object
