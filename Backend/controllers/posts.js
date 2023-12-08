@@ -47,8 +47,59 @@ export const createPosts = async (req, res, next) => {
  * @returns Object, status code and message
  */
 export const getPosts = async (req, res, next) => {
+  const {
+    limit = 10,
+    page = 1,
+    sortField = "createdAt",
+    sortOrder = -1,
+  } = req.query;
+  const filter = {};
+
+  ["title", "body", "tags"].forEach((key) => {
+    if (req.query[key]) {
+      filter[key] = req.query[key];
+    }
+  });
+  const conditions = Object.keys(filter).length
+    ? [
+      { title: { $regex: filter.title, $options: "i" } },
+      { body: { $regex: filter.body, $options: "i" } },
+      { tags: { $regex: filter.tags, $options: "i" } },
+    ]
+    : [{}];
   try {
-    const posts = await Posts.find(req.query).populate();
+    const posts = await Posts.find(
+      {
+        $or: conditions,
+      },
+      {
+        sort: {
+          [sortField]: sortOrder,
+        },
+        skip: (Number(page) - 1) * Number(limit),
+        limit: Number(limit),
+      }
+    )
+      .populate({
+        path: "comments",
+        populate: {
+          path: "author",
+          populate: {
+            path: "profile",
+            select: "firstName lastName username profilePicture _id",
+          },
+        },
+      })
+      .populate({
+        path: "author",
+        populate: {
+          path: "profile",
+          select: "firstName lastName username profilePicture _id",
+        },
+      })
+      .populate({
+        path: "votes",
+      });
     if (posts.length > 0) {
       res.status(200).json({
         message: "Successful",
@@ -74,7 +125,27 @@ export const getPosts = async (req, res, next) => {
 export const getPost = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const post = await Posts.findById(id).exec();
+    const post = await Posts.findById(id)
+      .populate({
+        path: "comments",
+        populate: {
+          path: "author",
+          populate: {
+            path: "profile",
+            select: "firstName lastName username profilePicture _id",
+          },
+        },
+      })
+      .populate({
+        path: "author",
+        populate: {
+          path: "profile",
+          select: "firstName lastName username profilePicture _id",
+        },
+      })
+      .populate({
+        path: "votes",
+      });
     if (post) {
       res.status(404).json({
         message: "Post does not exist",
@@ -101,7 +172,27 @@ export const getPost = async (req, res, next) => {
 export const getPostsByAuthor = async (req, res, next) => {
   try {
     const id = req.params.author;
-    const posts = await Posts.find({ author: id }).exec();
+    const posts = await Posts.find({ author: id })
+      .populate({
+        path: "comments",
+        populate: {
+          path: "author",
+          populate: {
+            path: "profile",
+            select: "firstName lastName username profilePicture _id",
+          },
+        },
+      })
+      .populate({
+        path: "author",
+        populate: {
+          path: "profile",
+          select: "firstName lastName username profilePicture _id",
+        },
+      })
+      .populate({
+        path: "votes",
+      });
     if (posts.length > 0) {
       res.status(200).json({
         message: "Successful",
@@ -202,6 +293,149 @@ export const deletePost = async (req, res, next) => {
     return res.status(204).json({});
   } catch (error) {
     console.log(error);
+    next(error);
+  }
+};
+
+/**
+ * @name bookmarkPost
+ * @method POST
+ * @access Private
+ * @description Bookmark a post.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @param {Function} next - The next middleware function.
+ * @returns {Promise<void>} - A promise that resolves when the post is bookmarked successfully.
+ */
+export const bookmarkPost = async (req, res, next) => {
+  const id = new mongoose.Types.ObjectId(req.params.id);
+  // the following line is for testing purposes. Must be removed once authentication is implemented
+  req.user = {
+    _id: "60a6a8a0c7d4b7c9b4c8b1a1",
+  };
+  if (!req.user._id) {
+    return res.status(403).json({
+      message: "You are not authorized to perform this action",
+    });
+  }
+  try {
+    const post = await Posts.findById(id);
+    if (!post) {
+      const error = new Error(`Post not found with id: ${req.params.id}`);
+      error.statusCode = 404;
+      throw error;
+    }
+    if (post.bookmarks.includes(req.user._id)) {
+      const error = new Error("You have already bookmarked this post");
+      error.statusCode = 400;
+      throw error;
+    }
+    await Posts.updateOne({ _id: id }, { $push: { bookmarks: req.user._id } });
+    return res.status(200).json({ message: "Post bookmarked successfully" });
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
+
+/**
+ * @name unbookmarkPost
+ * @method PATCH
+ * @access Private
+ * @description Unbookmark a post.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @param {Function} next - The next middleware function.
+ * @returns {Promise<void>} - A promise that resolves when the post is unbookmarked successfully.
+ */
+export const unbookmarkPost = async (req, res, next) => {
+  const id = new mongoose.Types.ObjectId(req.params.id);
+  // the following line is for testing purposes. Must be removed once authentication is implemented
+  req.user = {
+    _id: "60a6a8a0c7d4b7c9b4c8b1a1",
+  };
+  if (!req.user._id) {
+    return res.status(403).json({
+      message: "You are not authorized to perform this action",
+    });
+  }
+  try {
+    const post = await Posts.findById(id);
+    if (!post) {
+      const error = new Error(`Post not found with id: ${req.params.id}`);
+      error.statusCode = 404;
+      throw error;
+    }
+    if (!post.bookmarks.includes(req.user._id)) {
+      const error = new Error("You have not bookmarked this post");
+      error.statusCode = 400;
+      throw error;
+    }
+    await Posts.updateOne({ _id: id }, { $pull: { bookmarks: req.user._id } });
+    return res.status(200).json({ message: "Post unbookmarked successfully" });
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
+
+/**
+ * @name getMyBookmarkedPosts
+ * @method GET
+ * @access Private
+ * @description Get all bookmarked posts of a user.
+ * @memberof module:controllers/posts
+ * @param {Object} req - Request object
+ * @param {Object} res - Response object
+ * @param {Function} next - Next middleware
+ * @returns {Promise<void>} - A promise that resolves with the bookmarked posts of the user.
+ */
+export const getMyBookmarkedPosts = async (req, res, next) => {
+  try {
+    // the following line is for testing purposes. Must be removed once authentication is implemented
+    req.user = {
+      _id: "60a6a8a0c7d4b7c9b4c8b1a1",
+    };
+    if (!req.user._id) {
+      const error = new Error("You are not authorized to perform this action");
+      error.statusCode = 403;
+      throw error;
+    }
+    const posts = await Posts.find({
+      bookmarks: { $in: [req.user._id] },
+    })
+      .populate({
+        path: "comments",
+        populate: {
+          path: "author",
+          populate: {
+            path: "profile",
+            select: "firstName lastName username profilePicture _id",
+          },
+        },
+      })
+      .populate({
+        path: "author",
+        populate: {
+          path: "profile",
+          select: "firstName lastName username profilePicture _id",
+        },
+      })
+      .populate({
+        path: "votes",
+      });
+    if (posts.length > 0) {
+      res.status(200).json({
+        message: "Successful",
+        data: posts,
+      });
+    } else {
+      res.status(404).json({
+        message: "No posts found",
+      });
+    }
+  } catch (error) {
+    console.error(error);
     next(error);
   }
 };
