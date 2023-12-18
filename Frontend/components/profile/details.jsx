@@ -1,6 +1,7 @@
 import Header from "./header";
 import Post from "./post";
 import About from "./about";
+import EditProfile from "./editProfile";
 
 export const dummyPosts = [
   {
@@ -102,9 +103,12 @@ const Details = ({
   posts,
 }) => {
   return (
-    <div className="w-full flex flex-col items-start">
+    <div className="w-full flex flex-col items-start relative">
       <Header />
-      <div className="w-full hidden lg:flex justify-between items-start px-4">
+      <div className="absolute top-40 sm:top-[19rem] right-4 lg:right-auto lg:left-32 w-max">
+        <EditProfile />
+      </div>
+      <div className="w-full hidden lg:flex justify-between items-start mt-2 px-4">
         {/* Left pane containing availability for hire and collaboration, Bio, socials, skills, etc */}
         <About
           linkedIn={linkedIn}

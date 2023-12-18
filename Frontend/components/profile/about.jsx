@@ -1,7 +1,15 @@
 import Link from "next/link";
 import React from "react";
-import { BiGlobe, BiLogoFacebook, BiLogoGithub, BiLogoInstagram, BiLogoLinkedin, BiLogoTwitter } from "react-icons/bi";
+import {
+  BiGlobe,
+  BiLogoFacebook,
+  BiLogoGithub,
+  BiLogoInstagram,
+  BiLogoLinkedin,
+  BiLogoTwitter,
+} from "react-icons/bi";
 import { FaMapMarkerAlt } from "react-icons/fa";
+import { Input } from "../ui/input";
 
 const About = ({
   linkedIn,
@@ -12,7 +20,7 @@ const About = ({
   portfolio,
 }) => {
   return (
-    <div className="w-full lg:w-[35%] flex flex-col gap-4 mt-4 lg:mt-16 px-4">
+    <div className="w-full lg:w-[45%] flex flex-col gap-4 mt-4 lg:mt-16 px-4">
       {/* Title and availability for hire and collaboration */}
       <div className="flex flex-col justify-between items-start w-full">
         <h1 className="text-2xl text-primary font-bold">FullStack Developer</h1>
@@ -102,6 +110,13 @@ const About = ({
             MaterialUI
           </span>
         </div>
+        <Input
+          name="skill"
+          id="skill"
+          placeholder="Add skill"
+          className="input mt-4"
+        />
+        <button className="primary-btn mt-2 !w-full !font-semibold">Add</button>
       </div>
     </div>
   );
