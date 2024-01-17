@@ -198,3 +198,132 @@ export const getCommentsByPost = async (req, res, next) => {
     next(error);
   }
 };
+
+/**
+ * @name bookmarkComment
+ * @method PATCH
+ * @access Private
+ * @description Bookmarks a comment
+ * @memberof module:controllers/comments
+ * @param {Object} req - Request object
+ * @param {Object} res - Response object
+ * @param {Function} next - Next middleware
+ * @returns {Object} - Message object
+ */
+export const bookmarkComment = async (req, res, next) => {
+  try {
+    const comment = await Comment.findById(req.params.id);
+    // the user id is taken from the request object.
+    // the following line shoulb be deleted when the authentication is implemented
+    req.user = {
+      _id: "5f7d8e3b46d3d6a4e8d4f0f5",
+    };
+    if (!comment) {
+      const error = new Error(`Comment not found with id: ${req.params.id}`);
+      error.statusCode = 404;
+      throw error;
+    }
+    if (!req.user) {
+      const error = new Error(
+        "You are not authorized to bookmark this comment"
+      );
+      error.statusCode = 401;
+      throw error;
+    }
+    if (comment.bookmarks.includes(req.user._id)) {
+      const error = new Error("Comment already bookmarked");
+      error.statusCode = 400;
+      throw error;
+    }
+    comment.bookmarks.push(req.user._id);
+    await comment.save();
+    res.status(200).json({
+      message: "Comment bookmarked",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * @name unbookmarkComment
+ * @method PATCH
+ * @access Private
+ * @description Unbookmarks a comment
+ * @memberof module:controllers/comments
+ * @param {Object} req - Request object
+ * @param {Object} res - Response object
+ * @param {Function} next - Next middleware
+ * @returns {Object} - Message object
+ */
+export const unbookmarkComment = async (req, res, next) => {
+  try {
+    const comment = await Comment.findById(req.params.id);
+    // the user id is taken from the request object.
+    // the following line shoulb be deleted when the authentication is implemented
+    req.user = {
+      _id: "5f7d8e3b46d3d6a4e8d4f0f5",
+    };
+    if (!comment) {
+      const error = new Error(`Comment not found with id: ${req.params.id}`);
+      error.statusCode = 404;
+      throw error;
+    }
+    if (!req.user) {
+      const error = new Error(
+        "You are not authorized to unbookmark this comment"
+      );
+      error.statusCode = 401;
+      throw error;
+    }
+    if (!comment.bookmarks.includes(req.user._id)) {
+      const error = new Error("Comment not bookmarked");
+      error.statusCode = 400;
+      throw error;
+    }
+    comment.bookmarks.pull(req.user._id);
+    await comment.save();
+    res.status(200).json({
+      message: "Comment unbookmarked",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * @name getMyBookmarkedComments
+ * @method GET
+ * @access Private
+ * @description Gets all comments bookmarked by the user
+ * @memberof module:controllers/comments
+ * @param {Object} req - Request object
+ * @param {Object} res - Response object
+ * @param {Function} next - Next middleware
+ * @returns Array - Array of Comment objects
+ */
+export const getMyBookmarkedComments = async (req, res, next) => {
+  try {
+    // the user id is taken from the request object.
+    // the following line shoulb be deleted when the authentication is implemented
+    req.user = {
+      _id: "5f7d8e3b46d3d6a4e8d4f0f5",
+    };
+    if (!req.user) {
+      const error = new Error(
+        "You are not authorized to get your bookmarked comments"
+      );
+      error.statusCode = 401;
+      throw error;
+    }
+    const comments = await Comment.find({
+      bookmarks: { $in: [req.user._id] },
+    });
+    res.status(200).json({
+      success: true,
+      data: comments,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
