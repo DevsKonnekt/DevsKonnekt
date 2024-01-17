@@ -1,8 +1,10 @@
 import mongoose from "mongoose";
 import Posts from "../models/posts.js";
+import { ValidationError } from "../middlewares/customError.js";
 
 /**
  * @description Creates a new post
+ * @access Private
  * @param {Object} req The request object
  * @param {Object} res The response object
  * @param {Function} next The next middleware
@@ -16,15 +18,10 @@ export const createPosts = async (req, res, next) => {
   };
   postData.author = req.user._id;
 
-  if (!postData) {
-    return res.status(400).json({
-      message: "No data supplied!",
-    });
-  }
-  if (!postData.author || !postData.title || !postData.body) {
-    return res.status(400).json({
-      message: "input required fields",
-    });
+  if (!postData || !postData.author || !postData.title || !postData.body) {
+    const error = new ValidationError("Missing required properties");
+    error.statusCode = 400;
+    return next(error);
   }
 
   try {
@@ -40,7 +37,12 @@ export const createPosts = async (req, res, next) => {
 };
 
 /**
- * @description Gets all posts
+ * @description Gets all posts.
+ * @description The posts can be filtered by title, body and tags
+ * @description The posts are paginated, the default limit is 10 and the default page is 1
+ * @description The posts can be sorted by createdAt and title in ascending or descending order
+ * @description The posts are populated with comments, author and votes
+ * @access Public
  * @param {Object} req The request object
  * @param {Object} res The response object
  * @param {Function} next The next middleware
@@ -99,6 +101,11 @@ export const getPosts = async (req, res, next) => {
       })
       .populate({
         path: "votes",
+        populate: {
+          path: "user",
+          select: "firstName lastName username profilePicture _id",
+        },
+
       });
     if (posts.length > 0) {
       res.status(200).json({
@@ -106,9 +113,9 @@ export const getPosts = async (req, res, next) => {
         posts,
       });
     } else {
-      res.status(404).json({
-        message: "No posts found",
-      });
+      const error = new Error("No posts found");
+      error.statusCode = 404;
+      throw error;
     }
   } catch (error) {
     next(error);
@@ -117,6 +124,7 @@ export const getPosts = async (req, res, next) => {
 
 /**
  * @description Gets a single post by id
+ * @access Public
  * @param {Object} req The request object
  * @param {Object} res The response object
  * @param {Function} next The next middleware
@@ -145,6 +153,10 @@ export const getPost = async (req, res, next) => {
       })
       .populate({
         path: "votes",
+        populate: {
+          path: "user",
+          select: "firstName lastName username profilePicture _id",
+        },
       });
     if (post) {
       res.status(404).json({
@@ -164,6 +176,7 @@ export const getPost = async (req, res, next) => {
 
 /**
  * @description Gets all posts by a single user
+ * @access Public
  * @param {Object} req The request object
  * @param {Object} res The response object
  * @param {Function} next The next middleware
@@ -192,6 +205,10 @@ export const getPostsByAuthor = async (req, res, next) => {
       })
       .populate({
         path: "votes",
+        populate: {
+          path: "user",
+          select: "firstName lastName username profilePicture _id",
+        },
       });
     if (posts.length > 0) {
       res.status(200).json({
@@ -211,6 +228,7 @@ export const getPostsByAuthor = async (req, res, next) => {
 
 /**
  * @description Updates a single post by id
+ * @access Private
  * @param {Object} req The request object
  * @param {Object} res The response object
  * @param {Function} next The next middleware
@@ -260,6 +278,7 @@ export const updatePost = async (req, res, next) => {
 
 /**
  * @description Deletes a single post by id
+ * @access Private
  * @param {Object} req The request object
  * @param {Object} res The response object
  * @param {Function} next The next middleware
