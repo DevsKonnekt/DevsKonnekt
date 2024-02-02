@@ -75,64 +75,26 @@
   }
 }
 
-.primary-btn {
-  @apply bg-secondary text-white hover:bg-secondary/75 px-4 py-1 rounded-md transition-all duration-500 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 focus:ring-offset-background hover:scale-105 w-full sm:w-auto flex items-center justify-center;
-}
-
-.secondary-btn {
-  @apply bg-primary text-background hover:opacity-80 border border-primary px-4 py-1 rounded-md transition-all duration-500 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 focus:ring-offset-background hover:scale-105 w-full sm:w-[215px] flex items-center justify-center font-semibold;
-}
-
-.input {
-  @apply bg-background text-foreground border border-primary/60 rounded-md px-4 h-[35px] w-full focus:outline-none focus:ring-2 focus:ring-background focus:ring-offset-2 focus:ring-offset-background;
-}
-
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-
-/* Hide scrollbar for IE, Edge and Firefox */
-.no-scrollbar {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-}
-.moving-text-section {
-  padding: 1rem;
-  overflow: hidden;
-  width: 100%;
-}
-
-.container {
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.moving-text {
-  animation: moveText linear infinite;
-  animation-duration: 20s;
-  animation-timing-function: linear;
-  white-space: nowrap;
-  position: relative;
-}
-
-.moving-text span {
-  display: inline-flex;
-  align-items: center;
-}
-
-.spacer {
-  margin: 0 1.5rem; /* Increase the margin to add more space */
-}
-
-.star {
-  margin-right: 0.5rem;
-}
-
-@keyframes moveText {
-  0% {
-    transform: translateX(100%);
+@layer components {
+  .primary-btn {
+    @apply bg-secondary text-white hover:bg-secondary/75 px-4 py-1 rounded-md transition-all duration-500 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 focus:ring-offset-background hover:scale-105 w-full sm:w-auto flex items-center justify-center;
   }
-  100% {
-    transform: translateX(-100%);
+
+  .secondary-btn {
+    @apply bg-primary text-background hover:opacity-80 border border-primary px-4 py-1 rounded-md transition-all duration-500 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 focus:ring-offset-background hover:scale-105 w-full sm:w-[215px] flex items-center justify-center font-semibold;
+  }
+
+  .input {
+    @apply bg-background text-foreground border border-primary/60 rounded-md px-4 h-[35px] w-full focus:outline-none focus:ring-2 focus:ring-background focus:ring-offset-2 focus:ring-offset-background;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
   }
 }
