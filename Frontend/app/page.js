@@ -5,8 +5,8 @@ import Features from "@/components/features";
 import Services from "@/components/services";
 import Testimonials from "@/components/testimonials";
 import Stats from "@/components/stats";
-import MovingTextSection from "@/components/motion";
 import MovingSection from "@/components/motionsection";
+import MovingTextSection from "@/components/movingText";
 
 export default function Home() {
   return (
