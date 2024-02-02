@@ -8,7 +8,7 @@ import React from 'react'
 
 const EventsService = () => {
   return (
-    <div className='flex flex-col gap-4 max-w-7xl w-full mx-auto px-4'>
+    <div className='flex flex-col gap-4 w-full mx-auto px-4'>
         <Hero />
         <Description />
         <Perks />

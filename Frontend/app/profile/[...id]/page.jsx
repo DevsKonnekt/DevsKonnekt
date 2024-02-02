@@ -62,7 +62,7 @@ export const dummyProjects = [
 
 const ProfilePage = () => {
   return (
-    <div className="max-w-7xl pt-20 mx-auto w-full">
+    <div className="pt-20 mx-auto w-full">
       <div className="flex justify-between items-start w-full">
         <Details />
         <div className="w-full lg:w-[400px] hidden lg:block">

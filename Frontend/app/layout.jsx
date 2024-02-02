@@ -28,7 +28,7 @@ export default function RootLayout({ children }) {
             enableSystem
             disableTransitionOnChange
           >
-            <div className="max-w-7xl w-full mx-auto flex flex-col min-h-screen justify-between">
+            <div className="max-w-[1440px] w-full mx-auto flex flex-col min-h-screen justify-between">
               <ReduxProvider>
                 <NavBar />
                 {children}
