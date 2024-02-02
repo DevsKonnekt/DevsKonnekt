@@ -4,6 +4,7 @@ import NavBar from "@/components/NavBar";
 import Footer from "@/components/footer";
 import { Toaster } from "@/components/ui/toaster"
 import ReduxProvider from "@/redux/Provider";
+import { ClerkProvider } from '@clerk/nextjs'
 
 export const metadata = {
   title: "DevsKonnekt",
@@ -17,6 +18,8 @@ const poppins = Poppins({
 
 export default function RootLayout({ children }) {
   return (
+    <ClerkProvider>
+      
     <html lang="en">
       <body
         className={`${poppins.className} bg-background text-primary`}
@@ -30,5 +33,6 @@ export default function RootLayout({ children }) {
         </div>
       </body>
     </html>
+    </ClerkProvider>
   );
 }
