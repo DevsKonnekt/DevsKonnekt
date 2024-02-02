@@ -156,3 +156,22 @@ export const eventsPerks = [
     text: "Satisfy your thirst for coding in the company of talented developers. Unleash your prowess in hackathons and team-based coding marathons.",
   },
 ];
+
+export const navLinks = [
+  {
+    name: "Home",
+    href: "/",
+  },
+  {
+    name: "Services",
+    href: "/services",
+  },
+  {
+    name: "About",
+    href: "/about",
+  },
+  {
+    name: "Contact",
+    href: "/contact",
+  },
+];

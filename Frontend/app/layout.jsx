@@ -21,7 +21,9 @@ export default function RootLayout({ children }) {
   return (
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
-        <body className={`${poppins.className} bg-background text-primary`}>
+        <body
+          className={`${poppins.className} bg-background text-primary dark:bg-gray-700 dark:text-background`}
+        >
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
@@ -34,8 +36,8 @@ export default function RootLayout({ children }) {
                 {children}
                 <Footer />
               </ReduxProvider>
-              <Toaster />
             </div>
+            <Toaster />
           </ThemeProvider>
         </body>
       </html>
