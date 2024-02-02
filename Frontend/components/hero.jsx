@@ -1,34 +1,9 @@
-"use client";
 import Image from "next/image";
-import React, { useEffect, useRef, useState } from "react";
 import AuthModal from "./auth/registration-form";
 
 function Main() {
-  const [fadeIn, setFadeIn] = useState(false);
-  const mainRef = useRef(null);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const { top } = mainRef.current.getBoundingClientRect();
-      const isVisible = top < window.innerHeight;
-      setFadeIn(isVisible);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    handleScroll(); // Check initial visibility on mount
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
   return (
-    <main
-      className={`w-full min-h-screen flex flex-col gap-4 justify-between items-center mx-4 pt-36 sm:pt-24 md:pt-0 md:px-12 md:flex-row ${
-        fadeIn ? "fade-in" : ""
-      }`}
-      ref={mainRef}
-    >
+    <main className="w-full min-h-screen flex flex-col gap-4 justify-between items-center mx-4 pt-36 sm:pt-24 md:pt-0 md:px-12 md:flex-row">
       <div className="mb-14 lg:mb-0 md:w-1/2 flex-1 w-full">
         <h1 className="text-2xl leading-none text-primary font-bold lg:text-3xl sm:text-xl text-start lg:leading-tight mb-5 sm:pt-14 sm:mb-12">
           Connect, Collaborate, and <br className="hidden sm:block" />

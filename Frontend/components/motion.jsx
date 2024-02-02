@@ -4,7 +4,7 @@ import { FaStar } from "react-icons/fa";
 
 const MovingTextSection = () => {
   return (
-    <section className="moving-text-section bg-blue-950">
+    <section className="moving-text-section bg-blue-950 w-full">
       <div className="container">
         <h2 className="moving-text text-white text-2xl font-bold">
           <span>

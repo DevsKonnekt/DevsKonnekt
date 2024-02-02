@@ -3,7 +3,7 @@ import React from "react";
 
 const Mentors = () => {
   return (
-    <section className="w-full max-w-7xl px-4 md:px-8 2xl:px-auto flex flex-col-reverse sm:flex-row gap-6 lg:gap-10 items-center justify-between mt-8">
+    <section className="w-full px-4 md:px-8 2xl:px-auto flex flex-col-reverse sm:flex-row gap-6 lg:gap-10 items-center justify-between mt-8">
       <Image
         src="/images/services/mentorship/second.jpeg"
         loading="lazy"

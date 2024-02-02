@@ -9,7 +9,7 @@ import CTA from "@/components/services/cta";
 
 export default function Home() {
   return (
-    <div className="flex max-w-7xl mx-auto bg-primary flex-col items-center justify-between w-full">
+    <div className="flex mx-auto bg-primary flex-col items-center justify-between w-full">
       <Services />
       <Services1 />
       <Services2 />
