@@ -6,7 +6,7 @@ import Services from "@/components/services";
 import Testimonials from "@/components/testimonials";
 import Stats from "@/components/stats";
 import MovingSection from "@/components/motionsection";
-import MovingTextSection from "@/components/movingText";
+import MovingTextSection from "@/components/motion";
 
 export default function Home() {
   return (

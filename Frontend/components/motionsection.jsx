@@ -1,55 +1,47 @@
 "use client";
-import React from "react";
-import { FaArrowDown} from "react-icons/fa";
+
+import { motion } from "framer-motion";
+import { FaArrowDown } from "react-icons/fa";
+
+const marqueeVariants = {
+  animate: {
+    x: [0, -1035],
+    transition: {
+      x: {
+        repeat: Infinity,
+        repeatType: "loop",
+        duration: 15,
+        ease: "linear",
+      },
+    },
+  },
+};
 
 const MovingSection = () => {
   return (
     <>
-    <section className="moving-text-section mt-4 mb-8">
-      <div className="container">
-        <h2 className="moving-text text-blue-500 text-2xl font-bold">
-          <span>
-            <FaArrowDown className="star text-blue-500" /> Ignite Your Creativity.{" "}
-            <FaArrowDown className="star text-blue-500" />
-            
-          </span>
-          <span className="spacer"></span>
-          <span>
-            <FaArrowDown className="star text-blue-500" /> Unleash Your Connectivity{" "}
-            <FaArrowDown className="star text-blue-500" />
-          </span>
-          <span className="spacer"></span>
-          <span>
-            <FaArrowDown className="star text-blue-500" /> Experience The Magic{" "}
-            <FaArrowDown className="star text-blue-500" />
-          </span>
-          <span className="spacer"></span>
-          <span>
-            <FaArrowDown className="star text-blue-500" /> Ignite Your Creativity.{" "}
-            <FaArrowDown className="star text-blue-500" />
-          </span>
-          <span className="spacer"></span>
-          <span>
-            <FaArrowDown className="star text-blue-500" /> Unleash Your Connectivity{" "}
-            <FaArrowDown className="star text-blue-500" />
-          </span>
-          <span className="spacer"></span>
-          <span>
-            <FaArrowDown className="star text-blue-500" /> Experience The Magic{" "}
-            <FaArrowDown className="star text-blue-500" />
-          </span>
-        </h2>
-      </div>
-      <div
-          style={{
-            content: "",
-            display: "block",
-            borderBottom: "2px solid gray",
-            marginTop: "1rem",
-          }}
-        ></div>
-    </section>
-    <br/><br/>
+      <section className="relative w-screen max-w-[1440px] h-[80px] overflow-x-hidden mt-4 mb-8 border-b-2 border-b-primary/50">
+        <motion.div
+          className=" absolute whitespace-nowrap top-1/3 -translate-y-1/2"
+          variants={marqueeVariants}
+          animate="animate"
+        >
+          <h1 className="text-blue-500 text-2xl font-bold flex gap-4">
+            <FaArrowDown className="text-blue-500" /> Ignite Your Creativity.
+            <FaArrowDown className="text-blue-500" /> Unleash Your Connectivity.{" "}
+            <FaArrowDown className="text-blue-500" />
+            Experience The Magic.
+            <FaArrowDown className="text-blue-500" /> Ignite Your Creativity.
+            <FaArrowDown className="text-blue-500" /> Unleash Your Connectivity.{" "}
+            <FaArrowDown className="text-blue-500" />
+            Experience The Magic.
+            <FaArrowDown className="text-blue-500" /> Ignite Your Creativity.
+            <FaArrowDown className="text-blue-500" /> Unleash Your Connectivity.{" "}
+            <FaArrowDown className="text-blue-500" />
+            Experience The Magic.
+          </h1>
+        </motion.div>
+      </section>
     </>
   );
 };
