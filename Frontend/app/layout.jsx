@@ -2,9 +2,10 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/footer";
-import { Toaster } from "@/components/ui/toaster"
+import { Toaster } from "@/components/ui/toaster";
 import ReduxProvider from "@/redux/Provider";
-import { ClerkProvider } from '@clerk/nextjs'
+import { ClerkProvider } from "@clerk/nextjs";
+import { ThemeProvider } from "@/components/themeprovider";
 
 export const metadata = {
   title: "DevsKonnekt",
@@ -19,20 +20,25 @@ const poppins = Poppins({
 export default function RootLayout({ children }) {
   return (
     <ClerkProvider>
-      
-    <html lang="en">
-      <body
-        className={`${poppins.className} bg-background text-primary`}
-      >
-        <div className="max-w-7xl w-full mx-auto flex flex-col min-h-screen justify-between">
-          <ReduxProvider>
-           <NavBar />
-           {children}
-           <Footer />
-          </ReduxProvider>
-        </div>
-      </body>
-    </html>
+      <html lang="en" suppressHydrationWarning>
+        <body className={`${poppins.className} bg-background text-primary`}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <div className="max-w-7xl w-full mx-auto flex flex-col min-h-screen justify-between">
+              <ReduxProvider>
+                <NavBar />
+                {children}
+                <Footer />
+              </ReduxProvider>
+              <Toaster />
+            </div>
+          </ThemeProvider>
+        </body>
+      </html>
     </ClerkProvider>
   );
 }
