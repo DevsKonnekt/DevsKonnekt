@@ -5,8 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
-import AuthModal from "./auth/registration-form";
 import { Button } from "./ui/button";
+import { ModeToggle } from "./themeToggle";
 
 const NavBar = () => {
   const [nav, setNav] = useState(false);
@@ -53,6 +53,7 @@ const NavBar = () => {
               </li>
             </Link>
             <li className="ml-10 text-sm uppercase hover:border-b tracking-widest font-bold">
+              <ModeToggle />
               <SignedIn>
               <UserButton afterSignOutUrl="/" />
               </SignedIn>
@@ -135,9 +136,6 @@ const NavBar = () => {
               <Link href="/">
                 <li className="py-4 text:sm tracking-widest font-bold">Jobs</li>
               </Link>
-              <li className="ml-10 text-sm uppercase hover:border-b tracking-widest font-bold">
-                <AuthModal title="Sign In" />
-              </li>
             </ul>
           </div>
         </div>
