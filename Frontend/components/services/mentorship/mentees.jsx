@@ -5,14 +5,14 @@ const Mentees = () => {
   return (
     <section className=" w-full px-4 md:px-8 2xl:px-auto flex flex-col sm:flex-row gap-6 items-center justify-center mt-8">
       <div className="w-full sm:w-1/2 flex flex-col items-start justify-center">
-        <h2 className="text-2xl font-bold text-primary mb-4">
+        <h2 className="text-2xl font-bold  mb-4">
           Transform Your Coding
           <br />
           Journey With Expert
           <br />
           Guidance
         </h2>
-        <p className="max-w-lg text-primary">
+        <p className="max-w-lg ">
           Get a helping hand from seasoned developers who can catapult you to
           coding greatness. Trust us, they&#39;ve been there, done that, and
           debugged it.

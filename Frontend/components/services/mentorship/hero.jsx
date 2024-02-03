@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const Hero = () => {
   return (
-    <div className="w-full h-screen sm:h-[50vh] lg:h-[75vh] flex flex-col justify-center items-center p-4 gap-4 relative">
+    <div className="w-full h-screen sm:h-[50vh] lg:h-[75vh] flex flex-col justify-center items-center p-4 gap-4 relative overflow-x-hidden">
       <Image
         src="/images/services/mentorship/main.jpeg"
         alt="Home image"
@@ -19,7 +19,7 @@ const Hero = () => {
         </h1>
         <Link
           href="/mentorship/search"
-          className="bg-background font-semibold hover:bg-background/75 px-4 py-1 rounded-md transition-all duration-500 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 focus:ring-offset-secondary hover:scale-105 w-full sm:w-auto flex items-center justify-center min-w-[280px] mt-8"
+          className="bg-background font-semibold hover:bg-background/75 text-primary hover:text-primary/75 px-4 py-1 rounded-md transition-all duration-500 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 focus:ring-offset-secondary hover:scale-105 w-full sm:w-auto flex items-center justify-center min-w-[280px] mt-8"
         >
           Find a Mentor
         </Link>

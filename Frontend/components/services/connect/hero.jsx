@@ -27,7 +27,10 @@ const Hero = () => {
             Connect & <br className="" />
             Turn Up the Fun
           </h1>
-          <Button className="primary-btn mt-4 font-semibold">
+          <Button
+            variant="secondary"
+            className="primary-btn mt-4 font-semibold"
+          >
             <Link href="/developers">Browse Developer Profiles</Link>
           </Button>
         </div>

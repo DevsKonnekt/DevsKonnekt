@@ -3,10 +3,10 @@ import React from "react";
 const Description = () => {
   return (
     <section className="flex flex-col gap-4 justify-start items-start px-4 sm:px-6">
-      <h1 className="text-3xl sm:text-4xl font-bold text-primary">
+      <h1 className="text-3xl sm:text-4xl font-bold ">
         Explore the opportunities down the block
       </h1>
-      <p className="text-lg sm:text-xl text-primary/80 font-semibold mb-4">
+      <p className="text-lg sm:text-xl opacity-80 font-semibold mb-4">
         Say goodbye to mundane connections and hello to a world of exciting
         coding encounters.
       </p>

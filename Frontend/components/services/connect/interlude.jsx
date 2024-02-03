@@ -18,7 +18,10 @@ const Interlude = () => {
           Join us to create lifelong memories, fantastic collaborations, and
           friendships that last a lifetime.
         </p>
-        <Button className="primary-btn mt-8 min-w-[256px] font-semibold">
+        <Button
+          variant="secondary"
+          className="primary-btn mt-8 min-w-[256px] font-semibold"
+        >
           <Link href="/developers">Join Now</Link>
         </Button>
       </div>

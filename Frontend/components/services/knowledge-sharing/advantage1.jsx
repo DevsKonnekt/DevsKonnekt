@@ -4,12 +4,12 @@ const Advantage1 = () => {
   return (
     <div className="flex flex-col md:flex-row gap-4 items-center justify-center mt-6 py-8 px-4">
       <div className="flex flex-col gap-6 md:gap-8 flex-1 max-w-[535px]">
-        <h1 className="text-2xl text-primary font-bold">
+        <h1 className="text-2xl  font-bold">
           Transform Your Ideas into
           <br />
           Towering Concepts
         </h1>
-        <p className="text-primary">
+        <p className="">
           Uncover a wealth of hidden insights lurking deep in the minds of your
           fellow developers. Plunge into the depths of your craft and emerge
           wiser, stronger, and more fearsome than before.

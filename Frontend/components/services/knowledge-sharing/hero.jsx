@@ -1,4 +1,5 @@
 "use client";
+import SignUpButton from "@/components/signUpButton";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -8,20 +9,18 @@ const Hero = () => {
   return (
     <div className="flex flex-col md:flex-row gap-4 items-center justify-center pt-28 px-4">
       <div className="flex-1 flex flex-col">
-        <h1 className="text-4xl md:text-3xl lg:text-4xl text-primary mb-6 font-bold">
+        <h1 className="text-4xl md:text-3xl lg:text-4xl  mb-6 font-bold">
           Konnekt, Learn, and
           <br />
           Grow with <br />
           DevsKonnekt
         </h1>
-        <Separator className="h-1 bg-primary" />
-        <p className="text-lg text-primary mt-3">
+        <Separator className="h-1 bg-primary dark:bg-gray-300" />
+        <p className="text-lg  mt-3">
           Expand your knowledge and gain valuable insights from a community of
           like-minded software developers in your city.
         </p>
-        <Link href="/signup" className="secondary-btn mt-8">
-            Try Now
-        </Link>
+        <SignUpButton variant={"default"} title={"Try Now"} />
       </div>
       <Image
         src="/images/services/knowledge-sharing/hero.jpg"

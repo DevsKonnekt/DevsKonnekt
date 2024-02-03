@@ -86,8 +86,7 @@ export const testimonials = [
       src: "/images/testimonials/1.jpeg",
       alt: "Christian Levi",
     },
-    text: "DevsKonnekt has revolutionized the way I network with other developers.. The platform is user friendly and the community is supportive and engaged.",
-    text: "DevsKonnekt has revolutionized the way I network with other developers.. The platform is user friendly and the community is supportive and engaged.",
+    text: "DevsKonnekt has revolutionized the way I network with other developers. The platform is user friendly and the community is supportive and engaged.",
   },
   {
     name: "Emily Siyachitema",

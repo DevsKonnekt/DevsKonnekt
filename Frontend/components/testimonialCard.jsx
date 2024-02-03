@@ -17,7 +17,9 @@ const TestimonialCard = ({ name, image, text }) => {
           <hr className="w-1/2 mx-auto mt-2" />
         </div>
       </CardHeader>
-      <CardContent className="text-center">{text}</CardContent>
+      <CardContent className="py-4">
+        <p className="text-center line-clamp-3 text-ellipsis">{text} </p>
+      </CardContent>
     </Card>
   );
 };

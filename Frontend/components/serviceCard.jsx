@@ -11,7 +11,7 @@ import Link from "next/link";
 
 const ServiceCard = ({ image, title, description }) => {
   return (
-    <Card className="flex flex-col space-y-1.5 p-2 sm:p-4 md:p-6 w-full sm:max-w-[400px] shadow-sm shadow-secondary">
+    <Card className="flex flex-col space-y-1.5 p-2 sm:p-4 md:p-6 w-full sm:max-w-[400px] shadow-sm shadow-secondary dark:bg-primary/30 dark:text-background">
       <CardHeader className="p-0 mx-0 w-full">
         <Image
           src={image.src}
@@ -23,10 +23,10 @@ const ServiceCard = ({ image, title, description }) => {
         />
       </CardHeader>
       <CardContent className="p-2 mx-0 w-full">
-        <CardTitle className="text-xl text-primary font-semibold mb-4">
+        <CardTitle className="text-xl text-primary dark:text-background font-semibold mb-4">
           {title}
         </CardTitle>
-        <p className="text-primary">{description}</p>
+        <p className="text-primary dark:text-background">{description}</p>
       </CardContent>
       <CardFooter>
         <Link

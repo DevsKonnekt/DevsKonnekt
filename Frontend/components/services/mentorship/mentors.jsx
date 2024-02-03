@@ -13,12 +13,12 @@ const Mentors = () => {
         className="object-cover w-full max-w-[513px] max-h-[418px] rounded-[40px] sm:w-1/2"
       />
       <div className="w-full sm:w-1/2 flex flex-col items-start justify-center">
-        <h2 className="text-2xl font-bold text-primary mb-4">
+        <h2 className="text-2xl font-bold mb-4">
           Become a Mentor and
           <br />
           Share Your Wisdom
         </h2>
-        <p className="max-w-lg text-primary">
+        <p className="max-w-lg">
           Time to give back? Guide fledgling developers along their paths and
           witness their growth firsthand. Feel the pride swell as they conquer
           the coding world.
