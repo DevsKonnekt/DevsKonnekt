@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const BattleTypes = () => {
   return (
-    <section className="w-full  flex flex-col gap-8 justify-between items-center my-8 pt-8 md:flex-row">
+    <section className="w-full px-4 sm:px-6 md:px-8 flex flex-col gap-8 justify-between items-center my-8 pt-8 md:flex-row">
       <div className="w-full md:w-1/2 flex flex-col items-start justify-center gap-4">
         <Image
           src="/images/services/coding-challenges/head-to-head-wars.avif"

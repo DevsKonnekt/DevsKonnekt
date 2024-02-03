@@ -7,7 +7,7 @@ import WhyUs from "@/components/services/coding-challenges/whyUs";
 
 const CodingChallenges = () => {
   return (
-    <main className="flex flex-col gap-4 w-full mx-auto px-4">
+    <main className="flex flex-col gap-4 w-full mx-auto">
       <Hero />
       <BattleTypes />
       <WhyUs />
