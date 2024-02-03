@@ -174,3 +174,21 @@ export const navLinks = [
     href: "/contact",
   },
 ];
+
+export const codingChallengesPerks = [
+  {
+    heading: "Diverse Challenges",
+    text: "Level up coding skills",
+    image: "/images/services/coding-challenges/challenges.avif",
+  },
+  {
+    heading: "Leaderboard Fame",
+    text: "Climb the ranks swiftly",
+    image: "/images/services/coding-challenges/leaderboard.avif",
+  },
+  {
+    heading: "Employer Connections",
+    text: "Land your dream job",
+    image: "/images/services/coding-challenges/job-offer.avif",
+  },
+];
