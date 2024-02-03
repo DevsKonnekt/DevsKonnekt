@@ -5,10 +5,10 @@ import { landingServices as services } from "@/constants";
 
 const Services = () => {
   return (
-    <section className="flex flex-col gap-4 w-full my-4 mt-10">
+    <section className="flex flex-col gap-4 w-full my-4 mt-10 px-4 md:px-auto">
       <div className="flex flex-col sm:flex-row gap-4 justify-between items-center w-full">
         <div className="flex flex-col gap-2">
-          <h2 className="text-3xl text-primary font-bold">
+          <h2 className="text-3xl text-primary dark:text-background font-bold">
             Developer Community Services
           </h2>
           <p className="text-lg text-secondary font-semibold">
