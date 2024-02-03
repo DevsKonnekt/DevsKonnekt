@@ -8,7 +8,7 @@ import Why from "@/components/services/mentorship/why";
 
 const Mentoship = () => {
   return (
-    <div>
+    <main className="overflow-x-hidden">
       <Hero />
       <Description />
       <Mentees />
@@ -16,7 +16,7 @@ const Mentoship = () => {
       <Why />
       <Benefits />
       <CTA />
-    </div>
+    </main>
   );
 };
 

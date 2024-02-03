@@ -5,12 +5,12 @@ const Unleash = () => {
         Unleash Your Developer Genius
       </h1>
       <div className="flex flex-col md:flex-row gap-4 items-center justify-center">
-        <p className="text-primary mt-3 flex-1">
+        <p className=" mt-3 flex-1">
           Welcome to the Knowledge Hub, where developers evolve into masters of
           the coding universe. Join forces with like-minded mavericks to absorb
           their tips, tricks, and top-secret strategies!
         </p>
-        <p className="text-primary mt-3 flex-1">
+        <p className=" mt-3 flex-1">
           Become a revered authority in your tribe by sharing your expert
           knowledge with the world. Rejoice as developers far and wide bask in
           the warm glow of your unmatched wisdom.

@@ -7,9 +7,7 @@ import { Button } from "./ui/button";
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
   SheetHeader,
-  SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { ModeToggle } from "./themeToggle";
@@ -53,7 +51,10 @@ const NavBar = () => {
           </SignedIn>
           <SignedOut>
             <SignInButton mode="modal">
-              <Button className="text-sm text-background font-bold">
+              <Button
+                variant="secondary"
+                className="text-sm text-background font-bold"
+              >
                 Sign In
               </Button>
             </SignInButton>
@@ -63,7 +64,7 @@ const NavBar = () => {
               <SheetTrigger asChild>
                 <MenuIcon />
               </SheetTrigger>
-              <SheetContent side="left" className="w-72 px-0">
+              <SheetContent side="left" className="w-72 px-0 dark:bg-gray-700">
                 <SheetHeader className="p-4 mt-4">
                   <Image
                     src="/logo.jpg"
@@ -73,13 +74,13 @@ const NavBar = () => {
                     className="rounded-full block mx-auto"
                   />
                 </SheetHeader>
-                <Separator className="h-[2px] bg-primary opacity-45" />
+                <Separator className="h-[2px] bg-primary dark:bg-background opacity-45" />
                 <ul className="p-4 w-full flex flex-col gap-4 mb-8 justify-between">
                   {navLinks.map((link) => (
                     <li key={link.name} className="px-4 w-full hover:underline">
                       <Link
                         href={link.href}
-                        className="w-full text-md tracking-widest font-semibold hover:font-bold opacity-70 hover:opacity-100"
+                        className="w-full text-md dark:text-background tracking-widest font-semibold hover:font-bold opacity-70 hover:opacity-100"
                       >
                         {link.name}
                       </Link>

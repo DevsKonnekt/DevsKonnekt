@@ -17,7 +17,7 @@ function Services5() {
         </p>
         <Link
           href="/services/mentorship"
-          className="primary-btn mt-4 sm:w-[256px] font-semibold"
+          className="primary-btn bg-background hover:bg-background/80 text-primary mt-4 sm:w-[256px] font-semibold"
         >
           Learn More
         </Link>

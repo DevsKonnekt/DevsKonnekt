@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { SignUpButton } from "@clerk/nextjs";
 import { Button } from "./ui/button";
+import SignUpButton from "./signUpButton";
 
 function Main() {
   return (
@@ -16,17 +16,10 @@ function Main() {
           local developer events in your community
         </p>
         <div className="flex justify-start items-center mt-16">
-          <SignUpButton>
-            <Button
-              variant="secondary"
-              className="primary-btn text-background font-semibold py-0 md:min-w-[256px]"
-            >
-              Join Us
-            </Button>
-          </SignUpButton>
+          <SignUpButton variant="secondary" title="Join Us" />
           <Button
             variant="outline"
-            className="text-primary dark:text-background text-base sm:text-lg bg-transparent transition-all duration-500 font-medium rounded-lg border border-primary dark:border-background  px-6 py-1 ml-4 w-[150px] sm:auto text-center hover:bg-secondary hover:border-secondary hover:text-background"
+            className="mt-4 text-primary dark:text-background text-base sm:text-lg bg-transparent transition-all duration-500 font-medium rounded-lg border border-primary dark:border-background  px-6 py-1 ml-4 w-[150px] sm:auto text-center hover:bg-secondary hover:border-secondary hover:text-background"
           >
             Contact
           </Button>
