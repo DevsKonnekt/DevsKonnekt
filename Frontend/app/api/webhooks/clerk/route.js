@@ -1,5 +1,8 @@
 import { Webhook } from "svix";
 import { headers } from "next/headers";
+import axios from "axios";
+import { clerkClient } from "@clerk/nextjs";
+import { NextResponse } from "next/server";
 
 export async function POST(req) {
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the webhook
@@ -47,32 +50,56 @@ export async function POST(req) {
     });
   }
 
-  // Get the ID and type
   const eventType = evt.type;
 
   const { id, email_addresses, username, first_name, last_name, image_url } =
     evt.data;
-  // if (eventType === "user.created") {
-  // try {
-  // const response = await axios.post(process.env.BaCKEND_URL, {
-  //   clerkId: id,
-  //   email: email_addresses[0].email_address,
-  //   username,
-  //   firstName: first_name,
-  //   lastName: last_name,
-  //   profilePhoto: image_url,
-  //  });
-  //  if (response.data?._id) {
-  //    await clerkClient.updateUserMetadata(id, {
-  //      publicMetadata: {
-  //        userId: response.data._id,
-  //      },
-  //    });
-  //  }
-  // } catch (error) {
-  //   console.log(error);
-  // }
-  // return new NextResponse.json({message: "Ok", user: response.data });
-  // }
-  return new Response("", { status: 200 });
+  if (eventType === "user.created") {
+    try {
+      const response = await axios.post(`${process.env.BACKEND_URL}/users/`, {
+        clerkId: id,
+        email: email_addresses[0].email_address,
+        username,
+        firstName: first_name,
+        lastName: last_name,
+        profilePicture: image_url,
+      });
+      if (response.data?._id) {
+        await clerkClient.updateUserMetadata(id, {
+          publicMetadata: {
+            userId: response.data._id,
+          },
+        });
+      }
+    } catch (error) {
+      return new NextResponse.json({ message: "Error", error });
+    }
+    return new NextResponse.json({ message: "Ok", user: response.data });
+  } else if (eventType === "user.updated") {
+    try {
+      const response = await axios.put(
+        `${process.env.BACKEND_URL}/users/${evt.data.publicMetadata.userId}/`,
+        {
+          email: email_addresses[0].email_address,
+          username,
+          firstName: first_name,
+          lastName: last_name,
+          profilePicture: image_url,
+        }
+      );
+      return new NextResponse.json({ message: "Ok", user: response.data });
+    } catch (error) {
+      return new NextResponse.json({ message: "Error", error });
+    }
+  } else if (eventType === "user.deleted") {
+    try {
+      const response = await axios.delete(
+        `${process.env.BACKEND_URL}/users/${evt.data.publicMetadata.userId}/`
+      );
+      return new NextResponse.json({ message: "Ok", user: response.data });
+    } catch (error) {
+      return new NextResponse.json({ message: "Error", error });
+    }
+  }
+  return new Response("Something is wrong with your request.", { status: 400 });
 }
