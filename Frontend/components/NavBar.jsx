@@ -6,6 +6,7 @@ import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { Button } from "./ui/button";
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetHeader,
   SheetTrigger,
@@ -78,12 +79,14 @@ const NavBar = () => {
                 <ul className="p-4 w-full flex flex-col gap-4 mb-8 justify-between">
                   {navLinks.map((link) => (
                     <li key={link.name} className="px-4 w-full hover:underline">
-                      <Link
-                        href={link.href}
-                        className="w-full text-md dark:text-background tracking-widest font-semibold hover:font-bold opacity-70 hover:opacity-100"
-                      >
-                        {link.name}
-                      </Link>
+                      <SheetClose asChild>
+                        <Link
+                          href={link.href}
+                          className="w-full text-md dark:text-background tracking-widest font-semibold hover:font-bold opacity-70 hover:opacity-100"
+                        >
+                          {link.name}
+                        </Link>
+                      </SheetClose>
                     </li>
                   ))}
                 </ul>
