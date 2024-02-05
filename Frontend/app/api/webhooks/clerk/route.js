@@ -72,7 +72,7 @@ export async function POST(req) {
         });
       }
     } catch (error) {
-      console.log(error);
+      return new NextResponse.json({ message: "Error", error });
     }
     return new NextResponse.json({ message: "Ok", user: response.data });
   } else if (eventType === "user.updated") {
@@ -101,5 +101,5 @@ export async function POST(req) {
       return new NextResponse.json({ message: "Error", error });
     }
   }
-  return new Response("", { status: 200 });
+  return new Response("Something is wrong with your request.", { status: 400 });
 }
