@@ -3,7 +3,6 @@ import mongoose, { Schema } from "mongoose";
 // User schema that represents a developer
 
 const UserSchema = new Schema({
-  
   email: {
     type: String,
     unique: true,
@@ -14,35 +13,41 @@ const UserSchema = new Schema({
       },
     },
   },
-  password: {
+  clerkId: {
     type: String,
-    required: [true, "Please provide a password."],
-    validate: {
-      validator: (value) => {
-        return /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/.test(
-          value
-        );
-      },
-      message: "Password and password confirmation do not match.",
-    },
+    unique: true,
+    required: [true, "Clerk ID is required"],
   },
-  bio: {
+  firstName: {
     type: String,
-    maxlength: [1000, "Bio cannot be more than 1000 characters."],
+    required: [true, "Please provide a first name."],
+    minlength: [2, "Please provide a first name with at least 2 characters."],
+    maxlength: [50, "Please provide a first name with at most 50 characters."],
+  },
+  lastName: {
+    type: String,
+    minlength: [2, "Please provide a last name with at least 2 characters."],
+    maxlength: [50, "Please provide a last name with at most 50 characters."],
+  },
+  username: {
+    type: String,
+    required: [true, "Please provide a username."],
+    minlength: [3, "Please provide a username with at least 3 characters."],
+    maxlength: [25, "Please provide a username with at most 25 characters."],
+    unique: true,
+  },
+  profilePicture: {
+    type: String,
   },
   role: {
     type: String,
     required: [true, "role is required"],
-    enum: ["admin","user"],
+    enum: ["admin", "user"],
     default: "user",
     index: true,
   },
-  refreshToken: String,
-  resetToken: String,
 });
 
 const User = mongoose.model("User", UserSchema);
 
 export default User;
-
-

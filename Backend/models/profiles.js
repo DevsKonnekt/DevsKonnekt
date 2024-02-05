@@ -8,29 +8,6 @@ import mongoose from "mongoose";
 
 const profilesSchema = new mongoose.Schema(
   {
-    firstName: {
-      type: String,
-      required: [true, "Please provide a first name."],
-      minlength: [2, "Please provide a first name with at least 2 characters."],
-      maxlength: [50, "Please provide a first name with at most 50 characters."],
-    },
-    lastName: {
-      type: String,
-      required: [true, "Please provide a last name."],
-      minlength: [2, "Please provide a last name with at least 2 characters."],
-      maxlength: [50, "Please provide a last name with at most 50 characters."],
-    },
-    username: {
-      type: String,
-      required: [true, "Please provide a username."],
-      minlength: [3, "Please provide a username with at least 3 characters."],
-      maxlength: [25, "Please provide a username with at most 25 characters."],
-      unique: true,
-    },
-    profilePicture: {
-      type: String,
-      default: "https://via.placeholder.com/150",
-    },
     twitter: {
       type: String,
       validate: {
@@ -56,17 +33,15 @@ const profilesSchema = new mongoose.Schema(
       type: String,
       validate: {
         validator: (value) => {
-          return /^http(s)?:\/\/(www.)?github.com\/[a-zA-Z0-9]+\/?$/.test(value);
+          return /^http(s)?:\/\/(www.)?github.com\/[a-zA-Z0-9]+\/?$/.test(
+            value
+          );
         },
       },
     },
     employed: {
       type: Boolean,
       required: [true, "Please specify your employement status!"],
-    },
-    isVerified: {
-      type: Boolean,
-      defaultValue: false
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,
@@ -97,6 +72,10 @@ const profilesSchema = new mongoose.Schema(
       enum: ["beginner", "junior", "senior"],
       default: "beginner",
     },
+    achievements: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "Achievement",
+    },
     overallRating: {
       type: Number,
     },
@@ -107,4 +86,3 @@ const profilesSchema = new mongoose.Schema(
 const Profile = mongoose.model("Profile", profilesSchema);
 
 export default Profile;
-
