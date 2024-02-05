@@ -70,8 +70,8 @@ const NavBar = () => {
                   <Image
                     src="/logo.svg"
                     alt="DevsKonnekt Logo"
-                    width="60"
-                    height="60"
+                    width="80"
+                    height="80"
                     className="rounded-full block mx-auto"
                   />
                 </SheetHeader>
