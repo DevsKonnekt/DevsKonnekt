@@ -7,11 +7,6 @@ const UserSchema = new Schema({
     type: String,
     unique: true,
     required: [true, " Please provide an email address."],
-    validate: {
-      validator: (value) => {
-        return /^([a-z0-9_.-]+)@([\da-z.-]+)\.([a-z.]{2,6})$/gm.test(value);
-      },
-    },
   },
   clerkId: {
     type: String,

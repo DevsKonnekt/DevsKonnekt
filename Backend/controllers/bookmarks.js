@@ -5,8 +5,8 @@
  * @exports getAllBookmarks
  * @exports removeAllBookmarks
  */
-import Posts from "../models/posts";
-import Comments from "../models/comments";
+import Posts from "../models/posts.js";
+import Comments from "../models/comments.js";
 
 /**
  * @name getAllBookmarks
