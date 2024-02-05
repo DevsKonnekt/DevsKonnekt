@@ -16,7 +16,7 @@ function Services3() {
           area. Get exclusive access to amazing job opportunities.
         </p>
         <Link
-          href="/services/job-listings"
+          href="/services/jobs-service"
           className="primary-btn mt-4 sm:w-[256px] font-semibold"
         >
           Learn More
