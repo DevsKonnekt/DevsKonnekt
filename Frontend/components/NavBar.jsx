@@ -22,7 +22,7 @@ const NavBar = () => {
       <nav className="flex justify-between items-center h-full px-2 2xl:px-16">
         <Link href="/">
           <Image
-            src="/logo.jpg"
+            src="/logo.svg"
             alt="DevsKonnekt Logo"
             width="60"
             height="60"
@@ -68,7 +68,7 @@ const NavBar = () => {
               <SheetContent side="left" className="w-72 px-0 dark:bg-gray-700">
                 <SheetHeader className="p-4 mt-4">
                   <Image
-                    src="/logo.jpg"
+                    src="/logo.svg"
                     alt="DevsKonnekt Logo"
                     width="60"
                     height="60"
