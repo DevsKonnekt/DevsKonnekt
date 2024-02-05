@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const Hero = () => {
   return (
-    <div className="w-screen xl:w-full -ml-4 xl:ml-auto h-screen sm:h-[75vh] md:h-[90vh] relative flex flex-col items-center justify-center gap-6 sm:gap-8 pt-[80px]">
+    <div className="w-screen xl:w-full  h-screen sm:h-[75vh] md:h-[90vh] relative flex flex-col items-center justify-center gap-6 sm:gap-8 pt-[80px]">
       <Image
         src="/images/services/jobs-service/hero.avif"
         alt="hero"
