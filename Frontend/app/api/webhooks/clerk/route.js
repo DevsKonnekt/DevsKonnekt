@@ -48,11 +48,31 @@ export async function POST(req) {
   }
 
   // Get the ID and type
-  const { id } = evt.data;
   const eventType = evt.type;
 
-  console.log(`Webhook with and ID of ${id} and type of ${eventType}`);
-  console.log("Webhook body received:", body);
-
+  const { id, email_addresses, username, first_name, last_name, image_url } =
+    evt.data;
+  // if (eventType === "user.created") {
+  // try {
+  // const response = await axios.post(process.env.BaCKEND_URL, {
+  //   clerkId: id,
+  //   email: email_addresses[0].email_address,
+  //   username,
+  //   firstName: first_name,
+  //   lastName: last_name,
+  //   profilePhoto: image_url,
+  //  });
+  //  if (response.data?._id) {
+  //    await clerkClient.updateUserMetadata(id, {
+  //      publicMetadata: {
+  //        userId: response.data._id,
+  //      },
+  //    });
+  //  }
+  // } catch (error) {
+  //   console.log(error);
+  // }
+  // return new NextResponse.json({message: "Ok", user: response.data });
+  // }
   return new Response("", { status: 200 });
 }
