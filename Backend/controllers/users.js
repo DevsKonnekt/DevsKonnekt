@@ -1,7 +1,6 @@
 /**
  * @module controllers/users
  * @requires models/users
- * @requires bcryptjs
  * @description Controllers for users
  */
 
@@ -33,7 +32,7 @@ export const getAllUsers = async (req, res, next) => {
 export const getUser = async (req, res, next) => {
   const { id } = req.params;
   try {
-    const user = await User.findById(id);
+    const user = await User.findOne({ clerkId: id });
     res.status(200).json(user);
   } catch (error) {
     next(error);
@@ -71,7 +70,7 @@ export const updateUser = async (req, res, next) => {
 export const deleteUser = async (req, res, next) => {
   const { id } = req.params;
   try {
-    await User.findOneAndDelete({ id });
+    await User.findOneAndDelete({ clerkId: id });
     res.status(204);
   } catch (error) {
     next(error);
