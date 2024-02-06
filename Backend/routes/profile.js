@@ -6,11 +6,16 @@
  * @description This module contains the routes definitions for profile.
  */
 import { Router } from "express";
-import { getProfile, updateProfile } from "../controllers/profile.js";
+import {
+  getProfile,
+  updateProfile,
+  getAllProfiles,
+} from "../controllers/profile.js";
 
 const profileRouter = Router();
 
-profileRouter.get("/profile/:userId", getProfile);
-profileRouter.put("/profile/:userId", updateProfile);
+profileRouter.get("/profiles", getAllProfiles);
+profileRouter.get("/profiles/:userId", getProfile);
+profileRouter.put("/profiles/:userId", updateProfile);
 
 export default profileRouter;
