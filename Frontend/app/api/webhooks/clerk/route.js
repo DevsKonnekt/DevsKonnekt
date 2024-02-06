@@ -54,52 +54,53 @@ export async function POST(req) {
 
   const { id, email_addresses, username, first_name, last_name, image_url } =
     evt.data;
-  if (eventType === "user.created") {
-    try {
-      const response = await axios.post(`${process.env.BACKEND_URL}/users/`, {
-        clerkId: id,
-        email: email_addresses[0].email_address,
-        username,
-        firstName: first_name,
-        lastName: last_name,
-        profilePicture: image_url,
-      });
-      if (response.data?._id) {
-        await clerkClient.updateUserMetadata(id, {
-          publicMetadata: {
-            userId: response.data._id,
-          },
-        });
-      }
-    } catch (error) {
-      return new NextResponse.json({ message: "Error", error });
-    }
-    return new NextResponse.json({ message: "Ok", user: response.data });
-  } else if (eventType === "user.updated") {
-    try {
-      const response = await axios.put(
-        `${process.env.BACKEND_URL}/users/${evt.data.publicMetadata.userId}/`,
-        {
+  switch (eventType) {
+    case "user.created":
+      try {
+        const response = await axios.post(`${process.env.BACKEND_URL}/users/`, {
+          clerkId: id,
           email: email_addresses[0].email_address,
           username,
           firstName: first_name,
           lastName: last_name,
           profilePicture: image_url,
+        });
+        if (response.data?._id) {
+          await clerkClient.updateUserMetadata(id, {
+            publicMetadata: {
+              userId: response.data._id,
+            },
+          });
         }
-      );
+      } catch (error) {
+        return new NextResponse.json({ message: "Error", error });
+      }
       return new NextResponse.json({ message: "Ok", user: response.data });
-    } catch (error) {
-      return new NextResponse.json({ message: "Error", error });
-    }
-  } else if (eventType === "user.deleted") {
-    try {
-      const response = await axios.delete(
-        `${process.env.BACKEND_URL}/users/${evt.data.publicMetadata.userId}/`
-      );
-      return new NextResponse.json({ message: "Ok", user: response.data });
-    } catch (error) {
-      return new NextResponse.json({ message: "Error", error });
-    }
+    case "user.updated":
+      try {
+        const response = await axios.put(
+          `${process.env.BACKEND_URL}/users/${evt.data.publicMetadata.userId}/`,
+          {
+            email: email_addresses[0].email_address,
+            username,
+            firstName: first_name,
+            lastName: last_name,
+            profilePicture: image_url,
+          }
+        );
+        return new NextResponse.json({ message: "Ok", user: response.data });
+      } catch (error) {
+        return new NextResponse.json({ message: "Error", error });
+      }
+    case "user.deleted":
+      try {
+        const response = await axios.delete(
+          `${process.env.BACKEND_URL}/users/${evt.data.publicMetadata.userId}/`
+        );
+        return new NextResponse.json({ message: "Ok", user: response.data });
+      } catch (error) {
+        return new NextResponse.json({ message: "Error", error });
+      }
   }
   return new Response("Something is wrong with your request.", { status: 400 });
 }

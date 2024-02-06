@@ -89,6 +89,10 @@ export const createUser = async (req, res, next) => {
   const { clerkId, firstName, lastName, username, email, profilePicture } =
     req.body;
   try {
+    const userExists = await User.findOne({ email });
+    if (userExists) {
+      return res.status(400).json({ error: "User already exists" });
+    }
     const user = await User.create({
       clerkId,
       firstName,
