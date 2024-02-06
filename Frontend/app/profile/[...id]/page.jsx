@@ -60,13 +60,13 @@ export const dummyProjects = [
   },
 ];
 
-const ProfilePage = () => {
+const ProfilePage = async () => {
   return (
     <div className="pt-20 mx-auto w-full">
       <div className="flex justify-between items-start w-full">
         <Details />
         <div className="w-full lg:w-[400px] hidden lg:block">
-        <Aside />
+          <Aside />
         </div>
       </div>
     </div>

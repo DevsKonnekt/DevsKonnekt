@@ -30,15 +30,6 @@ const poppins = Poppins({
 });
 
 const formSchema = z.object({
-  username: z.string().min(3, {
-    message: "Username must be at least 3 characters long",
-  }),
-  firstName: z.string().min(2, {
-    message: "First name must be at least 2 characters long",
-  }),
-  lastName: z.string().min(2, {
-    message: "Last name must be at least 2 characters long",
-  }),
   bio: z.string().optional(),
   employed: z.boolean(),
   avilableForHire: z.boolean(),
@@ -62,10 +53,7 @@ const formSchema = z.object({
   website: z.string().optional(),
 });
 
-const EditProfile = () => {
-  const [profileImage, setProfileImage] = useState(
-    "/images/profile/profilePlaceholder.avif"
-  );
+const EditProfile = ({ user, profile }) => {
   const [coverImage, setCoverImage] = useState(
     "/images/profile/coverPlaceholder.avif"
   );
@@ -73,9 +61,6 @@ const EditProfile = () => {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
-      firstName: "",
-      lastName: "",
       bio: "",
       employed: false,
       avilableForHire: false,
@@ -156,78 +141,7 @@ const EditProfile = () => {
                 </Avatar>
               </div>
             </div>
-            <div className="flex flex-col md:flex-row gap-4 mt-10 w-full">
-              <FormField
-                control={form.control}
-                name="firstName"
-                render={({ field }) => (
-                  <FormItem className="!w-full">
-                    <FormLabel>First Name:</FormLabel>
-                    <FormControl>
-                      <Input
-                        id="firstName"
-                        {...field}
-                        placeholder="John"
-                        type="text"
-                        className="input !w-full"
-                      />
-                    </FormControl>
-                    <FormDescription className="hidden">
-                      This is the first name you used to sign up for your
-                      Devskonnekt account.
-                    </FormDescription>
-                    <FormMessage className="text-xs text-red-500" />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="lastName"
-                render={({ field }) => (
-                  <FormItem className="!w-full">
-                    <FormLabel>Last Name:</FormLabel>
-                    <FormControl>
-                      <Input
-                        id="lastName"
-                        {...field}
-                        placeholder="Doe"
-                        type="text"
-                        className="input !w-full"
-                      />
-                    </FormControl>
-                    <FormDescription className="hidden">
-                      This is the last name you used to sign up for your
-                      Devskonnekt account.
-                    </FormDescription>
-                    <FormMessage className="text-xs text-red-500" />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <div className="flex flex-col md:flex-row gap-4 w-full">
-              <FormField
-                control={form.control}
-                name="username"
-                render={({ field }) => (
-                  <FormItem className="!w-full">
-                    <FormLabel>Username:</FormLabel>
-                    <FormControl>
-                      <Input
-                        id="username"
-                        {...field}
-                        placeholder="johndoe"
-                        type="text"
-                        className="input !w-full"
-                      />
-                    </FormControl>
-                    <FormDescription className="hidden">
-                      This is the username you used to sign up for your
-                      Devskonnekt account.
-                    </FormDescription>
-                    <FormMessage className="text-xs text-red-500" />
-                  </FormItem>
-                )}
-              />
+            <div className="flex flex-col  gap-4 w-full">
               <FormField
                 control={form.control}
                 name="bio"
@@ -243,7 +157,7 @@ const EditProfile = () => {
                         className="input !w-full"
                       />
                     </FormControl>
-                    <FormDescription className="hidden">
+                    <FormDescription className="sr-only">
                       This is the bio you used to sign up for your Devskonnekt
                       account.
                     </FormDescription>
