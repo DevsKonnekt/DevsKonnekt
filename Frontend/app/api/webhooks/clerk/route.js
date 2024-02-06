@@ -56,7 +56,7 @@ export async function POST(req) {
     evt.data;
   switch (eventType) {
     case "user.created":
-      user = {
+      const user = {
         clerkId: id,
         email: email_addresses[0].email_address,
         username,
@@ -85,7 +85,7 @@ export async function POST(req) {
           lastName: last_name,
           profilePicture: image_url,
         });
-        return new NextResponse.json({ message: "Ok", user: updateUser });
+        return new NextResponse.json({ message: "Ok", user: updatedUser });
       } catch (error) {
         return new NextResponse.json({ message: "Error", error });
       }
