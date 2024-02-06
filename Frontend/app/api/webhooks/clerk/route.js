@@ -14,7 +14,7 @@ export async function POST(req) {
 
   // Get the body
   const evt = await req.json();
-
+  console.log(evt);
   const eventType = evt.type;
 
   const { id, email_addresses, username, first_name, last_name, image_url } =
