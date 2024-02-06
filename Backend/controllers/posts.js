@@ -368,9 +368,10 @@ export const unbookmarkPost = async (req, res, next) => {
  * @returns {Promise<void>} - A promise that resolves with the bookmarked posts of the user.
  */
 export const getMyBookmarkedPosts = async (req, res, next) => {
+  const { user } = req.params;
   try {
     const posts = await Posts.find({
-      bookmarks: { $in: [req.body.user] },
+      bookmarks: { $in: [user] },
     })
       .populate({
         path: "comments",
