@@ -71,7 +71,7 @@ export const updateUser = async (req, res, next) => {
 export const deleteUser = async (req, res, next) => {
   const { id } = req.params;
   try {
-    await User.findOneAndDelete({ id });
+    await User.findOneAndDelete({ clerkId: id });
     res.status(204);
   } catch (error) {
     next(error);
