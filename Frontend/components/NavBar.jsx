@@ -48,7 +48,7 @@ const NavBar = () => {
         <div className="flex items-center gap-4">
           <ModeToggle />
           <SignedIn>
-            <UserButton />
+            <UserButton afterSignOutUrl="/" />
           </SignedIn>
           <SignedOut>
             <SignInButton mode="modal">
