@@ -23,6 +23,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { Avatar, AvatarImage } from "../ui/avatar";
 import { BiCamera } from "react-icons/bi";
+import { updateMyProfile } from "@/lib/actions/profile.actions";
 
 const poppins = Poppins({
   weight: ["400", "600"],
@@ -30,19 +31,10 @@ const poppins = Poppins({
 });
 
 const formSchema = z.object({
-  username: z.string().min(3, {
-    message: "Username must be at least 3 characters long",
-  }),
-  firstName: z.string().min(2, {
-    message: "First name must be at least 2 characters long",
-  }),
-  lastName: z.string().min(2, {
-    message: "Last name must be at least 2 characters long",
-  }),
   bio: z.string().optional(),
   employed: z.boolean(),
   avilableForHire: z.boolean(),
-  avilableForCollab: z.boolean(),
+  availableForCollaboration: z.boolean(),
   jobTitle: z.string().min(2, {
     message: "Job title must be at least 2 characters long",
   }),
@@ -62,53 +54,43 @@ const formSchema = z.object({
   website: z.string().optional(),
 });
 
-const EditProfile = () => {
-  const [profileImage, setProfileImage] = useState(
-    "/images/profile/profilePlaceholder.avif"
-  );
-  const [coverImage, setCoverImage] = useState(
-    "/images/profile/coverPlaceholder.avif"
-  );
+const EditProfile = ({ user, profile }) => {
+  const [coverImage, setCoverImage] = useState(profile?.coverImage);
   const { toast } = useToast();
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
-      firstName: "",
-      lastName: "",
-      bio: "",
-      employed: false,
-      avilableForHire: false,
-      avilableForCollab: false,
-      jobTitle: "",
-      country: "",
-      city: "",
-      state: "",
-      linkedin: "",
-      github: "",
-      twitter: "",
-      facebook: "",
-      instagram: "",
-      otherVCS: "",
-      website: "",
+      bio: profile?.bio || "",
+      employed: profile?.employed || false,
+      avilableForHire: profile?.avilableForHire || true,
+      availableForCollaboration: profile?.availableForCollaboration || true,
+      jobTitle: profile?.jobTitle || "",
+      country: profile?.country || "",
+      city: profile?.city || "",
+      state: profile?.state || "",
+      linkedin: profile?.linkedin || "",
+      github: profile?.github || "",
+      otherVCS: profile?.otherVCS || "",
+      twitter: profile?.twitter || "",
+      website: profile?.website || "",
     },
   });
 
-  function onSubmit(values) {
-    const newValues = {
-      ...values,
-      profileImage,
-      coverImage,
-    };
-    setTimeout(() => {
-      console.log(newValues);
-      form.reset();
-      toast({
-        title: "Profile Update",
-        description: "Your profile have been supdated successifully ☑️",
-        status: "success",
+  async function onSubmit(values) {
+    try {
+      await updateMyProfile(user.publicMetadata.userId, {
+        ...values,
+        coverImage,
       });
-    }, 3000);
+      toast({
+        description: "Profile updated successfully",
+      });
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        description: error.message,
+      });
+    }
   }
 
   return (
@@ -142,92 +124,16 @@ const EditProfile = () => {
               <div className="absolute bottom-[-50px] left-0 px-4 w-full flex items-start gap-4">
                 <Avatar className="h-[100px] w-[100px] border-4 border-secondary/50 shadow-md block relative group">
                   <AvatarImage
-                    src={
-                      profileImage
-                        ? profileImage
-                        : "/images/profile/profilePlaceholder.avif"
-                    }
+                    src={user.imageUrl}
                     alt="avatar"
                     height={300}
                     width={300}
                     className="object-cover"
                   />
-                  <BiCamera className="absolute top-1/3 right-1/3 text-4xl text-background/50 md:opacity-0 group-hover:opacity-100 cursor-pointer" />
                 </Avatar>
               </div>
             </div>
-            <div className="flex flex-col md:flex-row gap-4 mt-10 w-full">
-              <FormField
-                control={form.control}
-                name="firstName"
-                render={({ field }) => (
-                  <FormItem className="!w-full">
-                    <FormLabel>First Name:</FormLabel>
-                    <FormControl>
-                      <Input
-                        id="firstName"
-                        {...field}
-                        placeholder="John"
-                        type="text"
-                        className="input !w-full"
-                      />
-                    </FormControl>
-                    <FormDescription className="hidden">
-                      This is the first name you used to sign up for your
-                      Devskonnekt account.
-                    </FormDescription>
-                    <FormMessage className="text-xs text-red-500" />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="lastName"
-                render={({ field }) => (
-                  <FormItem className="!w-full">
-                    <FormLabel>Last Name:</FormLabel>
-                    <FormControl>
-                      <Input
-                        id="lastName"
-                        {...field}
-                        placeholder="Doe"
-                        type="text"
-                        className="input !w-full"
-                      />
-                    </FormControl>
-                    <FormDescription className="hidden">
-                      This is the last name you used to sign up for your
-                      Devskonnekt account.
-                    </FormDescription>
-                    <FormMessage className="text-xs text-red-500" />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <div className="flex flex-col md:flex-row gap-4 w-full">
-              <FormField
-                control={form.control}
-                name="username"
-                render={({ field }) => (
-                  <FormItem className="!w-full">
-                    <FormLabel>Username:</FormLabel>
-                    <FormControl>
-                      <Input
-                        id="username"
-                        {...field}
-                        placeholder="johndoe"
-                        type="text"
-                        className="input !w-full"
-                      />
-                    </FormControl>
-                    <FormDescription className="hidden">
-                      This is the username you used to sign up for your
-                      Devskonnekt account.
-                    </FormDescription>
-                    <FormMessage className="text-xs text-red-500" />
-                  </FormItem>
-                )}
-              />
+            <div className="flex flex-col  gap-4 w-full">
               <FormField
                 control={form.control}
                 name="bio"
@@ -243,7 +149,7 @@ const EditProfile = () => {
                         className="input !w-full"
                       />
                     </FormControl>
-                    <FormDescription className="hidden">
+                    <FormDescription className="sr-only">
                       This is the bio you used to sign up for your Devskonnekt
                       account.
                     </FormDescription>
@@ -324,15 +230,15 @@ const EditProfile = () => {
               />
               <FormField
                 control={form.control}
-                name="avilableForCollab"
+                name="availableForCollaboration"
                 render={({ field }) => (
                   <FormItem className="flex flex-row flex-1 items-start space-x-3 space-y-0 rounded-md border p-4 shadow">
                     <FormControl>
                       <Checkbox
                         checked={field.value}
                         onCheckedChange={field.onChange}
-                        id="availableForCollab"
-                        name="availableForCollab"
+                        id="availableForCollaboration"
+                        name="availableForCollaboration"
                       />
                     </FormControl>
                     <FormLabel>Available for Collaboration</FormLabel>
@@ -502,52 +408,6 @@ const EditProfile = () => {
                     </FormControl>
                     <FormDescription className="hidden">
                       This is your Twitter profile link.
-                    </FormDescription>
-                    <FormMessage className="text-xs text-red-500" />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <div className="flex flex-col md:flex-row gap-4 w-full">
-              <FormField
-                control={form.control}
-                name="facebook"
-                render={({ field }) => (
-                  <FormItem className="!w-full">
-                    <FormLabel>Facebook:</FormLabel>
-                    <FormControl>
-                      <Input
-                        id="facebook"
-                        {...field}
-                        placeholder="https://www.facebook.com/johndoe"
-                        type="url"
-                        className="input !w-full"
-                      />
-                    </FormControl>
-                    <FormDescription className="hidden">
-                      This is your Facebook profile link.
-                    </FormDescription>
-                    <FormMessage className="text-xs text-red-500" />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="instagram"
-                render={({ field }) => (
-                  <FormItem className="!w-full">
-                    <FormLabel>Instagram:</FormLabel>
-                    <FormControl>
-                      <Input
-                        id="instagram"
-                        {...field}
-                        placeholder="https://www.instagram.com/johndoe"
-                        type="url"
-                        className="input !w-full"
-                      />
-                    </FormControl>
-                    <FormDescription className="hidden">
-                      This is your Instagram profile link.
                     </FormDescription>
                     <FormMessage className="text-xs text-red-500" />
                   </FormItem>

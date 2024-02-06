@@ -18,6 +18,6 @@ postsRoutes.route("/:id").patch(updatePost).get(getPost).delete(deletePost);
 postsRoutes.patch("/:id/bookmark", bookmarkPost);
 postsRoutes.patch("/:id/unbookmark", unbookmarkPost);
 postsRoutes.get("/author/:id", getPostsByAuthor);
-postsRoutes.get("/bookmarks", getMyBookmarkedPosts);
+postsRoutes.get("/:user/bookmarks", getMyBookmarkedPosts);
 
 export default postsRoutes;

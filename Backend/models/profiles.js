@@ -39,17 +39,38 @@ const profilesSchema = new mongoose.Schema(
         },
       },
     },
+    portfolio: {
+      type: String,
+    },
+    otherVCS: {
+      type: String,
+    },
     employed: {
       type: Boolean,
       required: [true, "Please specify your employement status!"],
+      default: false,
+    },
+    jobTitle: {
+      type: String,
+      required: [
+        function () {
+          return this.employed;
+        },
+        "Please specify your job title!",
+      ],
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       required: [true, "User ID is required"],
       ref: "User",
     },
+    country: {
+      type: String,
+    },
+    city: {
+      type: String,
+    },
     skills: {
-      //languages and technologies
       type: [mongoose.Schema.Types.ObjectId],
     },
     interests: {
@@ -75,6 +96,14 @@ const profilesSchema = new mongoose.Schema(
     achievements: {
       type: [mongoose.Schema.Types.ObjectId],
       ref: "Achievement",
+    },
+    availableForHire: {
+      type: Boolean,
+      default: true,
+    },
+    availableForCollaboration: {
+      type: Boolean,
+      default: true,
     },
     overallRating: {
       type: Number,

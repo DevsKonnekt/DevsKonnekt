@@ -1,6 +1,6 @@
-import { BiSolidTrophy, BiTrophy } from "react-icons/bi";
+import { BiSolidTrophy } from "react-icons/bi";
 
-const Achievements = () => {
+const Achievements = ({ achievements }) => {
   return (
     <div className="flex flex-col w-full mt-4 lg:mt-0 lg:mx-2">
       <h1 className="text-2xl font-semibold text-start flex items-center gap-2 mb-4">

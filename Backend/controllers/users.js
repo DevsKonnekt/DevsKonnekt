@@ -1,9 +1,13 @@
 /**
  * @module controllers/users
  * @requires models/users
+ * @requires models/profile
+ * @requires models/projects
  * @description Controllers for users
  */
 
+import Profile from "../models/profiles.js";
+import Project from "../models/projects.js";
 import User from "../models/users.js";
 
 /**
@@ -65,12 +69,16 @@ export const updateUser = async (req, res, next) => {
  * @param {Request} req http request
  * @param {Response} res http response
  * @param {NextFunction} next next function to be called
- * @description Find and delete user from the database
+ * @description Find and delete user from the database.
+ * Delete all projects, comments and profile associated with the user
+ * Will have to add the isDeleted field later
  */
 export const deleteUser = async (req, res, next) => {
   const { id } = req.params;
   try {
-    await User.findOneAndDelete({ clerkId: id });
+    const user = await User.findOneAndDelete({ clerkId: id });
+    await Profile.findOneAndDelete({ user: user._id });
+    await Project.deleteMany({ owner: user._id });
     res.status(204);
   } catch (error) {
     next(error);
@@ -103,6 +111,7 @@ export const createUser = async (req, res, next) => {
     if (!user) {
       return res.status(400).json({ message: "User not created" });
     }
+    await Profile.create({ user: user._id });
     res.status(201).json(user);
   } catch (error) {
     next(error);
