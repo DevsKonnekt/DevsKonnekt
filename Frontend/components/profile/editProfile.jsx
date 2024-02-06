@@ -23,6 +23,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { Avatar, AvatarImage } from "../ui/avatar";
 import { BiCamera } from "react-icons/bi";
+import { updateMyProfile } from "@/lib/actions/profile.actions";
 
 const poppins = Poppins({
   weight: ["400", "600"],
@@ -75,21 +76,21 @@ const EditProfile = ({ user, profile }) => {
     },
   });
 
-  function onSubmit(values) {
-    const newValues = {
-      ...values,
-      profileImage,
-      coverImage,
-    };
-    setTimeout(() => {
-      console.log(newValues);
-      form.reset();
-      toast({
-        title: "Profile Update",
-        description: "Your profile have been supdated successifully ☑️",
-        status: "success",
+  async function onSubmit(values) {
+    try {
+      await updateMyProfile(user.publicMetadata.userId, {
+        ...values,
+        coverImage,
       });
-    }, 3000);
+      toast({
+        description: "Profile updated successfully",
+      });
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        description: error.message,
+      });
+    }
   }
 
   return (
@@ -123,17 +124,12 @@ const EditProfile = ({ user, profile }) => {
               <div className="absolute bottom-[-50px] left-0 px-4 w-full flex items-start gap-4">
                 <Avatar className="h-[100px] w-[100px] border-4 border-secondary/50 shadow-md block relative group">
                   <AvatarImage
-                    src={
-                      profileImage
-                        ? profileImage
-                        : "/images/profile/profilePlaceholder.avif"
-                    }
+                    src={user.imageUrl}
                     alt="avatar"
                     height={300}
                     width={300}
                     className="object-cover"
                   />
-                  <BiCamera className="absolute top-1/3 right-1/3 text-4xl text-background/50 md:opacity-0 group-hover:opacity-100 cursor-pointer" />
                 </Avatar>
               </div>
             </div>
