@@ -28,8 +28,13 @@ export async function POST(req) {
   }
 
   // Get the body
-  const payload = await req.json();
-  const body = JSON.stringify(payload);
+  let body;
+  try {
+    const payload = await req.json();
+    body = JSON.stringify(payload);
+  } catch (err) {
+    console.error("Error parsing request body:", err);
+  }
 
   // Create a new Svix instance with your secret.
   const wh = new Webhook(WEBHOOK_SECRET);
