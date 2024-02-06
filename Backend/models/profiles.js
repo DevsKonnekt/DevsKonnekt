@@ -39,9 +39,13 @@ const profilesSchema = new mongoose.Schema(
         },
       },
     },
+    otherVCS: {
+      type: String,
+    },
     employed: {
       type: Boolean,
       required: [true, "Please specify your employement status!"],
+      default: false,
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,

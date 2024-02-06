@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import mongoose from "mongoose";
 import Posts from "../models/posts.js";
 import { ValidationError } from "../middlewares/customError.js";
@@ -12,12 +13,6 @@ import { ValidationError } from "../middlewares/customError.js";
  */
 export const createPosts = async (req, res, next) => {
   const postData = req.body;
-  // the following line is for testing purposes. Must be removed once authentication is implemented
-  req.user = {
-    _id: "60a6a8a0c7d4b7c9b4c8b1a1",
-  };
-  postData.author = req.user._id;
-
   if (!postData || !postData.author || !postData.title || !postData.body) {
     const error = new ValidationError("Missing required properties");
     error.statusCode = 400;
@@ -64,10 +59,10 @@ export const getPosts = async (req, res, next) => {
   });
   const conditions = Object.keys(filter).length
     ? [
-      { title: { $regex: filter.title, $options: "i" } },
-      { body: { $regex: filter.body, $options: "i" } },
-      { tags: { $regex: filter.tags, $options: "i" } },
-    ]
+        { title: { $regex: filter.title, $options: "i" } },
+        { body: { $regex: filter.body, $options: "i" } },
+        { tags: { $regex: filter.tags, $options: "i" } },
+      ]
     : [{}];
   try {
     const posts = await Posts.find(
@@ -105,7 +100,6 @@ export const getPosts = async (req, res, next) => {
           path: "user",
           select: "firstName lastName username profilePicture _id",
         },
-
       });
     if (posts.length > 0) {
       res.status(200).json({
@@ -235,18 +229,9 @@ export const getPostsByAuthor = async (req, res, next) => {
  * @returns Object, status code and message
  */
 export const updatePost = async (req, res, next) => {
-  // the following line is for testing purposes. Must be removed once authentication is implemented
-  req.user = {
-    _id: "60a6a8a0c7d4b7c9b4c8b1a1",
-  };
   if (!req.body) {
     return res.status(400).json({
       message: "No data supplied!",
-    });
-  }
-  if (!req.user._id) {
-    return res.status(403).json({
-      message: "You are not authorized to perform this action",
     });
   }
   try {
@@ -259,7 +244,7 @@ export const updatePost = async (req, res, next) => {
       });
     }
     // check if the user is the author of the post. Only the author can update the post
-    if (post.author.toString() !== req.user._id) {
+    if (post.author.toString() !== req.body.author.toString()) {
       return res.status(403).json({
         message: "You are not authorized to perform this action",
       });
@@ -286,15 +271,6 @@ export const updatePost = async (req, res, next) => {
  */
 export const deletePost = async (req, res, next) => {
   const id = new mongoose.Types.ObjectId(req.params.id);
-  // the following line is for testing purposes. Must be removed once authentication is implemented
-  req.user = {
-    _id: "60a6a8a0c7d4b7c9b4c8b1a1",
-  };
-  if (!req.user._id) {
-    return res.status(403).json({
-      message: "You are not authorized to perform this action",
-    });
-  }
   try {
     const post = await Posts.findById(id);
     if (!post) {
@@ -303,7 +279,7 @@ export const deletePost = async (req, res, next) => {
       });
     }
     // check if the user is the author of the post. Only the author can delete the post
-    if (post.author.toString() !== req.user._id) {
+    if (post.author.toString() !== req.body.author.toString()) {
       return res.status(403).json({
         message: "You are not authorized to perform this action",
       });
@@ -328,15 +304,6 @@ export const deletePost = async (req, res, next) => {
  */
 export const bookmarkPost = async (req, res, next) => {
   const id = new mongoose.Types.ObjectId(req.params.id);
-  // the following line is for testing purposes. Must be removed once authentication is implemented
-  req.user = {
-    _id: "60a6a8a0c7d4b7c9b4c8b1a1",
-  };
-  if (!req.user._id) {
-    return res.status(403).json({
-      message: "You are not authorized to perform this action",
-    });
-  }
   try {
     const post = await Posts.findById(id);
     if (!post) {
@@ -369,15 +336,6 @@ export const bookmarkPost = async (req, res, next) => {
  */
 export const unbookmarkPost = async (req, res, next) => {
   const id = new mongoose.Types.ObjectId(req.params.id);
-  // the following line is for testing purposes. Must be removed once authentication is implemented
-  req.user = {
-    _id: "60a6a8a0c7d4b7c9b4c8b1a1",
-  };
-  if (!req.user._id) {
-    return res.status(403).json({
-      message: "You are not authorized to perform this action",
-    });
-  }
   try {
     const post = await Posts.findById(id);
     if (!post) {
@@ -411,17 +369,8 @@ export const unbookmarkPost = async (req, res, next) => {
  */
 export const getMyBookmarkedPosts = async (req, res, next) => {
   try {
-    // the following line is for testing purposes. Must be removed once authentication is implemented
-    req.user = {
-      _id: "60a6a8a0c7d4b7c9b4c8b1a1",
-    };
-    if (!req.user._id) {
-      const error = new Error("You are not authorized to perform this action");
-      error.statusCode = 403;
-      throw error;
-    }
     const posts = await Posts.find({
-      bookmarks: { $in: [req.user._id] },
+      bookmarks: { $in: [req.body.user] },
     })
       .populate({
         path: "comments",
