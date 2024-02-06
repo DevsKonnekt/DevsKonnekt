@@ -33,7 +33,7 @@ const formSchema = z.object({
   bio: z.string().optional(),
   employed: z.boolean(),
   avilableForHire: z.boolean(),
-  avilableForCollab: z.boolean(),
+  availableForCollaboration: z.boolean(),
   jobTitle: z.string().min(2, {
     message: "Job title must be at least 2 characters long",
   }),
@@ -54,28 +54,24 @@ const formSchema = z.object({
 });
 
 const EditProfile = ({ user, profile }) => {
-  const [coverImage, setCoverImage] = useState(
-    "/images/profile/coverPlaceholder.avif"
-  );
+  const [coverImage, setCoverImage] = useState(profile?.coverImage);
   const { toast } = useToast();
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      bio: "",
-      employed: false,
-      avilableForHire: false,
-      avilableForCollab: false,
-      jobTitle: "",
-      country: "",
-      city: "",
-      state: "",
-      linkedin: "",
-      github: "",
-      twitter: "",
-      facebook: "",
-      instagram: "",
-      otherVCS: "",
-      website: "",
+      bio: profile?.bio || "",
+      employed: profile?.employed || false,
+      avilableForHire: profile?.avilableForHire || true,
+      availableForCollaboration: profile?.availableForCollaboration || true,
+      jobTitle: profile?.jobTitle || "",
+      country: profile?.country || "",
+      city: profile?.city || "",
+      state: profile?.state || "",
+      linkedin: profile?.linkedin || "",
+      github: profile?.github || "",
+      otherVCS: profile?.otherVCS || "",
+      twitter: profile?.twitter || "",
+      website: profile?.website || "",
     },
   });
 
@@ -238,15 +234,15 @@ const EditProfile = ({ user, profile }) => {
               />
               <FormField
                 control={form.control}
-                name="avilableForCollab"
+                name="availableForCollaboration"
                 render={({ field }) => (
                   <FormItem className="flex flex-row flex-1 items-start space-x-3 space-y-0 rounded-md border p-4 shadow">
                     <FormControl>
                       <Checkbox
                         checked={field.value}
                         onCheckedChange={field.onChange}
-                        id="availableForCollab"
-                        name="availableForCollab"
+                        id="availableForCollaboration"
+                        name="availableForCollaboration"
                       />
                     </FormControl>
                     <FormLabel>Available for Collaboration</FormLabel>
@@ -416,52 +412,6 @@ const EditProfile = ({ user, profile }) => {
                     </FormControl>
                     <FormDescription className="hidden">
                       This is your Twitter profile link.
-                    </FormDescription>
-                    <FormMessage className="text-xs text-red-500" />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <div className="flex flex-col md:flex-row gap-4 w-full">
-              <FormField
-                control={form.control}
-                name="facebook"
-                render={({ field }) => (
-                  <FormItem className="!w-full">
-                    <FormLabel>Facebook:</FormLabel>
-                    <FormControl>
-                      <Input
-                        id="facebook"
-                        {...field}
-                        placeholder="https://www.facebook.com/johndoe"
-                        type="url"
-                        className="input !w-full"
-                      />
-                    </FormControl>
-                    <FormDescription className="hidden">
-                      This is your Facebook profile link.
-                    </FormDescription>
-                    <FormMessage className="text-xs text-red-500" />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="instagram"
-                render={({ field }) => (
-                  <FormItem className="!w-full">
-                    <FormLabel>Instagram:</FormLabel>
-                    <FormControl>
-                      <Input
-                        id="instagram"
-                        {...field}
-                        placeholder="https://www.instagram.com/johndoe"
-                        type="url"
-                        className="input !w-full"
-                      />
-                    </FormControl>
-                    <FormDescription className="hidden">
-                      This is your Instagram profile link.
                     </FormDescription>
                     <FormMessage className="text-xs text-red-500" />
                   </FormItem>
