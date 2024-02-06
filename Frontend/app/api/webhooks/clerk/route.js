@@ -1,8 +1,8 @@
 import { Webhook } from "svix";
 import { headers } from "next/headers";
-import axios from "axios";
 import { clerkClient } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
+import { createUser, deleteUser, updateUser } from "@/lib/actions/user.actions";
 
 export async function POST(req) {
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the webhook
@@ -28,7 +28,7 @@ export async function POST(req) {
   }
 
   // Get the body
-  const payload = req.body;
+  const payload = req.json();
   const body = JSON.stringify(payload);
 
   // Create a new Svix instance with your secret.
@@ -56,48 +56,43 @@ export async function POST(req) {
     evt.data;
   switch (eventType) {
     case "user.created":
+      user = {
+        clerkId: id,
+        email: email_addresses[0].email_address,
+        username,
+        firstName: first_name,
+        lastName: last_name,
+        profilePicture: image_url,
+      };
       try {
-        const response = await axios.post(`${process.env.BACKEND_URL}/users/`, {
-          clerkId: id,
-          email: email_addresses[0].email_address,
+        const newUser = await createUser(user);
+        if (newUser?._id) {
+          await clerkClient.updateUserMetadata(id, {
+            publicMetadata: {
+              userId: newUser._id,
+            },
+          });
+        }
+        return new NextResponse.json({ message: "Ok", user: newUser });
+      } catch (error) {
+        return new NextResponse.json({ message: "Error", error });
+      }
+    case "user.updated":
+      try {
+        const updatedUser = await updateUser(id, {
           username,
           firstName: first_name,
           lastName: last_name,
           profilePicture: image_url,
         });
-        if (response.data?._id) {
-          await clerkClient.updateUserMetadata(id, {
-            publicMetadata: {
-              userId: response.data._id,
-            },
-          });
-        }
-      } catch (error) {
-        return new NextResponse.json({ message: "Error", error });
-      }
-      return new NextResponse.json({ message: "Ok", user: response.data });
-    case "user.updated":
-      try {
-        const response = await axios.put(
-          `${process.env.BACKEND_URL}/users/${evt.data.publicMetadata.userId}/`,
-          {
-            email: email_addresses[0].email_address,
-            username,
-            firstName: first_name,
-            lastName: last_name,
-            profilePicture: image_url,
-          }
-        );
-        return new NextResponse.json({ message: "Ok", user: response.data });
+        return new NextResponse.json({ message: "Ok", user: updateUser });
       } catch (error) {
         return new NextResponse.json({ message: "Error", error });
       }
     case "user.deleted":
       try {
-        const response = await axios.delete(
-          `${process.env.BACKEND_URL}/users/${evt.data.publicMetadata.userId}/`
-        );
-        return new NextResponse.json({ message: "Ok", user: response.data });
+        const deletedUser = await deleteUser(id);
+        return new NextResponse.json({ message: "Ok", user: deletedUser });
       } catch (error) {
         return new NextResponse.json({ message: "Error", error });
       }
