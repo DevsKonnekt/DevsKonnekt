@@ -11,8 +11,11 @@
 import Skill from "../models/skills.js";
 
 export const getSkills = async (req, res) => {
+  const { query } = req;
   try {
-    const skills = await Skill.find();
+    const skills = await Skill.find({
+      name: { $regex: query && query.name, $options: "i" },
+    });
     res.status(200).json(skills);
   } catch (error) {
     res.status(404).json({ message: error.message });
