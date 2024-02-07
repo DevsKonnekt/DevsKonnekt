@@ -1,5 +1,7 @@
 "use server";
 
+import axios from "axios";
+
 export const addSkill = async (skill) => {
   try {
     const response = await axios.post(`${process.env.BACKEND_URL}/skills/`, {

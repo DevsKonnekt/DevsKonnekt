@@ -7,18 +7,6 @@ import {
   BiLogoTwitter,
 } from "react-icons/bi";
 import { FaMapMarkerAlt } from "react-icons/fa";
-import { Input } from "../ui/input";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
 import { cn } from "@/lib/utils";
 import AddSkills from "./addSkills";
 
@@ -98,13 +86,13 @@ const About = ({ profile }) => {
         </Link>
       </div>
       {/* Skills */}
-      <div className="flex flex-col justify-between items-start w-full mb-4">
-        <h2 className="text-xl mt-4 text-primary font-semibold">Skills</h2>
-        <div className="flex flex-wrap gap-2 ">
+      <div className="flex flex-col justify-between items-start w-full">
+        <h2 className="text-xl mt-4 text-primary font-semibold mb-4">Skills</h2>
+        <div className="flex flex-wrap gap-2 mb-4 ">
           {profile?.skills?.length > 0 &&
-            profile.skills.map((skill, index) => (
+            profile.skills.map((skill) => (
               <span
-                key={index}
+                key={skill._id}
                 className="px-2 py-1 bg-primary/10 rounded-md text-primary/80 font-medium"
               >
                 {skill.name}

@@ -66,7 +66,9 @@ export const getAllProfiles = async (req, res, next) => {
 export const getProfile = async (req, res, next) => {
   const { userId } = req.params;
   try {
-    const profile = await Profile.findOne({ user: userId }).populate("user");
+    const profile = await Profile.findOne({ user: userId })
+      .populate({ path: "user" })
+      .populate({ path: "skills" });
     if (!profile) {
       const error = new Error("Profile not found");
       error.statusCode = 404;
