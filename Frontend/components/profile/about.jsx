@@ -20,6 +20,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { cn } from "@/lib/utils";
+import AddSkills from "./addSkills";
 
 const About = ({ profile }) => {
   return (
@@ -97,9 +98,9 @@ const About = ({ profile }) => {
         </Link>
       </div>
       {/* Skills */}
-      <div className="flex flex-col justify-between items-start w-full">
+      <div className="flex flex-col justify-between items-start w-full mb-4">
         <h2 className="text-xl mt-4 text-primary font-semibold">Skills</h2>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2 ">
           {profile?.skills?.length > 0 &&
             profile.skills.map((skill, index) => (
               <span
@@ -110,34 +111,7 @@ const About = ({ profile }) => {
               </span>
             ))}
         </div>
-        <AlertDialog>
-          <AlertDialogTrigger asChild>
-            <button className="primary-btn mt-2 !w-full !font-semibold">
-              Add New Skill
-            </button>
-          </AlertDialogTrigger>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Add A Skill</AlertDialogTitle>
-              <AlertDialogDescription>
-                <Input
-                  type="text"
-                  name="skill"
-                  placeholder="Skill"
-                  className="w-full"
-                />
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction>
-                <button className="primary-btn !w-full !font-semibold">
-                  Add
-                </button>
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
+        <AddSkills />
       </div>
     </div>
   );
