@@ -2,7 +2,13 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import {
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+  useUser,
+} from "@clerk/nextjs";
 import { Button } from "./ui/button";
 import {
   Sheet,
@@ -17,6 +23,7 @@ import { MenuIcon } from "lucide-react";
 import { Separator } from "./ui/separator";
 
 const NavBar = () => {
+  const user = useUser();
   return (
     <header className="fixed w-full left-0 px-4 sm:px-6 md:px-16 mx-auto h-20 shadow-xl z-50 dark:bg-gray-700">
       <nav className="flex justify-between items-center h-full px-2 2xl:px-16">
@@ -43,6 +50,16 @@ const NavBar = () => {
                 </Link>
               </li>
             ))}
+            <SignedIn>
+              <li className="px-4">
+                <Link
+                  href={user.isLoaded ? `/profile/${user?.user?.id}` : "/"}
+                  className="text-sm tracking-widest font-bold "
+                >
+                  My Profile
+                </Link>
+              </li>
+            </SignedIn>
           </ul>
         </div>
         <div className="flex items-center gap-4">
@@ -89,6 +106,20 @@ const NavBar = () => {
                       </SheetClose>
                     </li>
                   ))}
+                  <SignedIn>
+                    <li className="px-4">
+                      <SheetClose asChild>
+                        <Link
+                          href={
+                            user.isLoaded ? `/profile/${user?.user?.id}` : "/"
+                          }
+                          className="text-sm tracking-widest font-bold "
+                        >
+                          My Profile
+                        </Link>
+                      </SheetClose>
+                    </li>
+                  </SignedIn>
                 </ul>
               </SheetContent>
             </Sheet>

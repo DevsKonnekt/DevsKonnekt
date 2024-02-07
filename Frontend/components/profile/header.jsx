@@ -2,7 +2,6 @@ import Image from "next/image";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import About from "./about";
-import { dummyPosts } from "./details";
 import Post from "./post";
 import Aside from "./aside";
 
@@ -24,7 +23,7 @@ const Header = async ({ user, coverImage }) => {
         <div className="absolute bottom-[-50px] left-0 px-4 w-full flex items-start gap-4">
           <Avatar className="h-[100px] w-[100px] border-4 border-secondary/50 shadow-md block">
             <AvatarImage
-              src={user.imageUrl}
+              src={user?.imageUrl}
               alt="avatar"
               height={300}
               width={300}
@@ -34,7 +33,7 @@ const Header = async ({ user, coverImage }) => {
           <div className="hidden lg:flex justify-between items-center w-full">
             <div className="flex items-center space-x-2">
               <h1 className="text-2xl text-primary font-bold">
-                {user.firstName} {user.lastName && user.lastName}
+                {user.firstName} {user?.lastName && user.lastName}
               </h1>
               <span className="text-primary/60">(@{user.username})</span>
             </div>
@@ -52,7 +51,7 @@ const Header = async ({ user, coverImage }) => {
       <div className="flex flex-col justify-between items-center mt-12 px-4 lg:hidden">
         <div className="flex items-center space-x-2">
           <h1 className="text-2xl text-primary font-bold">
-            {user.firstName} {user.lastName && user.lastName}
+            {user.firstName} {user?.lastName && user.lastName}
           </h1>
           <span className="text-primary/60">(@{user.username})</span>
         </div>
@@ -95,7 +94,7 @@ const Header = async ({ user, coverImage }) => {
           <Aside />
         </TabsContent>
         <TabsContent value="posts" className="px-4 py-2">
-          <Post posts={dummyPosts} />
+          {/* <Post posts={dummyPosts} /> */}
         </TabsContent>
       </Tabs>
     </>
