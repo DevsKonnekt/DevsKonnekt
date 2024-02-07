@@ -78,21 +78,24 @@ const EditProfile = () => {
   const { toast } = useToast();
   const form = useForm({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      bio: profile?.bio || "",
-      employed: profile?.employed || false,
-      avilableForHire: profile?.avilableForHire || true,
-      availableForCollaboration: profile?.availableForCollaboration || true,
-      jobTitle: profile?.jobTitle || "",
-      country: profile?.country || "",
-      city: profile?.city || "",
-      state: profile?.state || "",
-      linkedin: profile?.linkedin || "",
-      github: profile?.github || "",
-      otherVCS: profile?.otherVCS || "",
-      twitter: profile?.twitter || "",
-      website: profile?.website || "",
-      interests: profile?.interests || "",
+    defaultValues: async () => {
+      const myProfile = await getProfile(user.publicMetadata.userId);
+      return {
+        bio: myProfile?.bio || "",
+        employed: myProfile?.employed || false,
+        avilableForHire: myProfile?.avilableForHire || true,
+        availableForCollaboration: myProfile?.availableForCollaboration || true,
+        jobTitle: myProfile?.jobTitle || "",
+        country: myProfile?.country || "",
+        city: myProfile?.city || "",
+        state: myProfile?.state || "",
+        linkedin: myProfile?.linkedin || "",
+        github: myProfile?.github || "",
+        otherVCS: myProfile?.otherVCS || "",
+        twitter: myProfile?.twitter || "",
+        website: myProfile?.website || "",
+        interests: myProfile?.interests?.join(",") || "",
+      };
     },
   });
 
@@ -100,6 +103,7 @@ const EditProfile = () => {
     try {
       await updateMyProfile(user.publicMetadata.userId, {
         ...values,
+        interests: values.interests.split(",").map((x) => x.trim()),
         coverImage,
       });
       toast({
@@ -121,7 +125,7 @@ const EditProfile = () => {
           Edit Profile
         </button>
       </DialogTrigger>
-      <DialogContent className="flex flex-col items-center justify-start md:max-w-3xl w-full max-h-[80vh] shadow-xl shadow-primary rounded-xl mx-auto bg-white overflow-y-scroll no-scrollbar">
+      <DialogContent className="flex flex-col items-center justify-start md:max-w-5xl w-full max-h-[80vh] shadow-xl shadow-primary rounded-xl mx-auto bg-background dark:bg-gray-700 overflow-y-scroll no-scrollbar">
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
@@ -185,7 +189,7 @@ const EditProfile = () => {
                   <FormItem className="!w-full flex-1">
                     <FormLabel>Interests (separate with commas):</FormLabel>
                     <FormControl>
-                      <Input
+                      <Textarea
                         id="interests"
                         {...field}
                         placeholder="Frontend, Backend, Devops, etc."
@@ -306,7 +310,7 @@ const EditProfile = () => {
                       <Input
                         id="country"
                         {...field}
-                        placeholder="Nigeria"
+                        placeholder="Zimbabwe"
                         type="text"
                         className="input !w-full"
                       />
@@ -329,7 +333,7 @@ const EditProfile = () => {
                       <Input
                         id="city"
                         {...field}
-                        placeholder="Lagos"
+                        placeholder="Gokwe"
                         type="text"
                         className="input !w-full"
                       />
@@ -352,7 +356,7 @@ const EditProfile = () => {
                       <Input
                         id="state"
                         {...field}
-                        placeholder="Lagos"
+                        placeholder="Midlands"
                         type="text"
                         className="input !w-full"
                       />
