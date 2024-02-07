@@ -99,7 +99,7 @@ const About = ({ profile }) => {
               </span>
             ))}
         </div>
-        <AddSkills />
+        {profile && <AddSkills profile={profile} />}
       </div>
     </div>
   );

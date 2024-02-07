@@ -1,28 +1,20 @@
 "use client";
 
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "../myUI/modal";
 import { Input } from "../ui/input";
 import _ from "lodash";
 import { MdClose } from "react-icons/md";
 import { addSkill, getAllSkills } from "@/lib/actions/skills.actions";
-import { getProfile, updateMyProfile } from "@/lib/actions/profile.actions";
+import { updateMyProfile } from "@/lib/actions/profile.actions";
 import { useUser } from "@clerk/nextjs";
 
-const AddSkills = () => {
+const AddSkills = ({ profile }) => {
   const [skills, setSkills] = useState([]);
   const [skill, setSkill] = useState("");
   const [selectedSkill, setSelectedSkill] = useState(null);
-  const [mySkills, setMySkills] = useState([]);
+  const [mySkills, setMySkills] = useState(profile?.skills || []);
   const { user } = useUser();
-  useEffect(() => {
-    const fetchSkills = async () => {
-      const myProfile = await getProfile(user?.publicMetadata?.userId);
-      setMySkills(myProfile.skills);
-    };
-    fetchSkills();
-  }, []);
-
   useEffect(() => {
     const debouncedFetchSkills = _.debounce(async () => {
       if (!skill) {
