@@ -39,7 +39,7 @@ const profilesSchema = new mongoose.Schema(
         },
       },
     },
-    portfolio: {
+    website: {
       type: String,
     },
     otherVCS: {
@@ -67,14 +67,17 @@ const profilesSchema = new mongoose.Schema(
     country: {
       type: String,
     },
+    state: {
+      type: String,
+    },
     city: {
       type: String,
     },
     skills: {
-      type: [mongoose.Schema.Types.ObjectId],
+      type: [String],
     },
     interests: {
-      type: [mongoose.Schema.Types.ObjectId],
+      type: [String],
     },
     projects: {
       type: [mongoose.Schema.Types.ObjectId],

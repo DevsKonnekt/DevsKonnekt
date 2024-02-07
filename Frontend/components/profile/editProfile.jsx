@@ -2,7 +2,7 @@
 
 import { Poppins } from "next/font/google";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { get, useForm } from "react-hook-form";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
@@ -23,7 +23,8 @@ import Image from "next/image";
 import { useState } from "react";
 import { Avatar, AvatarImage } from "../ui/avatar";
 import { BiCamera } from "react-icons/bi";
-import { updateMyProfile } from "@/lib/actions/profile.actions";
+import { getProfile, updateMyProfile } from "@/lib/actions/profile.actions";
+import { useUser } from "@clerk/nextjs";
 
 const poppins = Poppins({
   weight: ["400", "600"],
@@ -44,17 +45,35 @@ const formSchema = z.object({
   city: z.string().min(2, {
     message: "City name must be at least 2 characters long",
   }),
+  interests: z.string().optional(),
   state: z.string().optional(),
   linkedin: z.string().optional(),
   github: z.string().optional(),
   twitter: z.string().optional(),
-  facebook: z.string().optional(),
-  instagram: z.string().optional(),
   otherVCS: z.string().optional(),
   website: z.string().optional(),
 });
 
-const EditProfile = ({ user, profile }) => {
+const EditProfile = () => {
+  const { isLoaded, isSignedIn, user } = useUser();
+
+  if (!isLoaded) {
+    return <p>Loading...</p>;
+  }
+  if (!isSignedIn) {
+    return <p>Please sign in.</p>;
+  }
+
+  const profile = async () => {
+    try {
+      const myProfile = await getProfile(user.publicMetadata.userId);
+      return myProfile;
+    } catch (error) {
+      throw new Error(
+        typeof error === "string" ? error : JSON.stringify(error)
+      );
+    }
+  };
   const [coverImage, setCoverImage] = useState(profile?.coverImage);
   const { toast } = useToast();
   const form = useForm({
@@ -73,6 +92,7 @@ const EditProfile = ({ user, profile }) => {
       otherVCS: profile?.otherVCS || "",
       twitter: profile?.twitter || "",
       website: profile?.website || "",
+      interests: profile?.interests || "",
     },
   });
 
@@ -83,6 +103,7 @@ const EditProfile = ({ user, profile }) => {
         coverImage,
       });
       toast({
+        variant: "success",
         description: "Profile updated successfully",
       });
     } catch (error) {
@@ -133,12 +154,12 @@ const EditProfile = ({ user, profile }) => {
                 </Avatar>
               </div>
             </div>
-            <div className="flex flex-col  gap-4 w-full">
+            <div className="flex flex-col md:flex-row gap-4 w-full mt-8">
               <FormField
                 control={form.control}
                 name="bio"
                 render={({ field }) => (
-                  <FormItem className="!w-full">
+                  <FormItem className="!w-full flex-1">
                     <FormLabel>Bio:</FormLabel>
                     <FormControl>
                       <Textarea
@@ -152,6 +173,29 @@ const EditProfile = ({ user, profile }) => {
                     <FormDescription className="sr-only">
                       This is the bio you used to sign up for your Devskonnekt
                       account.
+                    </FormDescription>
+                    <FormMessage className="text-xs text-red-500" />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="interests"
+                render={({ field }) => (
+                  <FormItem className="!w-full flex-1">
+                    <FormLabel>Interests (separate with commas):</FormLabel>
+                    <FormControl>
+                      <Input
+                        id="interests"
+                        {...field}
+                        placeholder="Frontend, Backend, Devops, etc."
+                        type="text"
+                        className="input !w-full"
+                      />
+                    </FormControl>
+                    <FormDescription className="hidden">
+                      These are the interest that will be used to recommend jobs
+                      and posts to you.
                     </FormDescription>
                     <FormMessage className="text-xs text-red-500" />
                   </FormItem>
