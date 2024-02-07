@@ -66,7 +66,9 @@ export const getAllProfiles = async (req, res, next) => {
 export const getProfile = async (req, res, next) => {
   const { userId } = req.params;
   try {
-    const profile = await Profile.findOne({ user: userId }).populate("user");
+    const profile = await Profile.findOne({ user: userId })
+      .populate({ path: "user" })
+      .populate({ path: "skills" });
     if (!profile) {
       const error = new Error("Profile not found");
       error.statusCode = 404;
@@ -90,18 +92,30 @@ export const getProfile = async (req, res, next) => {
 export const updateProfile = async (req, res, next) => {
   const { userId } = req.params;
   try {
-    const profile = await Profile.findOneAndUpdate(
-      { user: userId },
-      { ...req.body },
-      {
-        new: true,
-      }
+    const existingProfile = await Profile.findOne({ user: userId }).select(
+      "skills"
     );
-    if (!profile) {
+    if (!existingProfile) {
       const error = new Error("Profile not found");
       error.statusCode = 404;
       throw error;
     }
+
+    const updatedSkills = Array.from(
+      new Set([...existingProfile.skills, ...req.body.skills])
+    );
+
+    const profile = await Profile.findOneAndUpdate(
+      { user: userId },
+      {
+        $set: {
+          ...req.body,
+          skills: updatedSkills,
+        },
+      },
+      { new: true }
+    );
+
     return res.status(200).json(profile);
   } catch (error) {
     next(error);

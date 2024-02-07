@@ -7,19 +7,8 @@ import {
   BiLogoTwitter,
 } from "react-icons/bi";
 import { FaMapMarkerAlt } from "react-icons/fa";
-import { Input } from "../ui/input";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
 import { cn } from "@/lib/utils";
+import AddSkills from "./addSkills";
 
 const About = ({ profile }) => {
   return (
@@ -96,46 +85,19 @@ const About = ({ profile }) => {
       </div>
       {/* Skills */}
       <div className="flex flex-col justify-between items-start w-full">
-        <h2 className="text-xl mt-4  font-semibold">Skills</h2>
-        <div className="flex flex-wrap gap-2">
+        <h2 className="text-xl mt-4 text-primary font-semibold mb-4">Skills</h2>
+        <div className="flex flex-wrap gap-2 mb-4 ">
           {profile?.skills?.length > 0 &&
-            profile.skills.map((skill, index) => (
+            profile.skills.map((skill) => (
               <span
-                key={index}
-                className="px-2 py-1 bg-primary/10 rounded-md text-primary/80 dark:text-gray-400 font-medium"
+                key={skill._id}
+                className="px-2 py-1 bg-primary/10 rounded-md text-primary/80 font-medium"
               >
                 {skill.name}
               </span>
             ))}
         </div>
-        <AlertDialog>
-          <AlertDialogTrigger asChild>
-            <button className="primary-btn mt-2 !w-full !font-semibold">
-              Add New Skill
-            </button>
-          </AlertDialogTrigger>
-          <AlertDialogContent className="bg-background dark:bg-gray-700 text-primary dark:text-background">
-            <AlertDialogHeader>
-              <AlertDialogTitle>Add A Skill</AlertDialogTitle>
-              <AlertDialogDescription>
-                <Input
-                  type="text"
-                  name="skill"
-                  placeholder="Skill"
-                  className="w-full bg-primary/20 dark:bg-background/10"
-                />
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel className="bg-transperant text-primary border-primary dark:text-background !w-full !font-semibold">
-                Cancel
-              </AlertDialogCancel>
-              <AlertDialogAction className="secondary-btn !w-full !font-semibold bg-secondary text-background">
-                Add
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
+        {profile && <AddSkills profile={profile} />}
       </div>
     </div>
   );
