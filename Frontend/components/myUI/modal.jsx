@@ -23,6 +23,7 @@ export default function Modal({
   onAction,
   className,
   size,
+  loading,
 }) {
   return (
     <Dialog>
@@ -73,7 +74,8 @@ export default function Modal({
           )}
           {actionButtonText && (
             <Button
-              className="secondary-btn text-background"
+              className="secondary-btn text-background disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={loading ? true : false}
               onClick={onAction}
             >
               {actionButtonText}
