@@ -81,18 +81,12 @@ export const getPosts = async (req, res, next) => {
         path: "comments",
         populate: {
           path: "author",
-          populate: {
-            path: "profile",
-            select: "firstName lastName username profilePicture _id",
-          },
+          select: "firstName lastName username profilePicture _id",
         },
       })
       .populate({
         path: "author",
-        populate: {
-          path: "profile",
-          select: "firstName lastName username profilePicture _id",
-        },
+        select: "firstName lastName username profilePicture _id",
       })
       .populate({
         path: "votes",
@@ -102,10 +96,7 @@ export const getPosts = async (req, res, next) => {
         },
       });
     if (posts.length > 0) {
-      res.status(200).json({
-        message: "Successful",
-        posts,
-      });
+      res.status(200).json(posts);
     } else {
       const error = new Error("No posts found");
       error.statusCode = 404;
@@ -132,18 +123,12 @@ export const getPost = async (req, res, next) => {
         path: "comments",
         populate: {
           path: "author",
-          populate: {
-            path: "profile",
-            select: "firstName lastName username profilePicture _id",
-          },
+          select: "firstName lastName username profilePicture _id",
         },
       })
       .populate({
         path: "author",
-        populate: {
-          path: "profile",
-          select: "firstName lastName username profilePicture _id",
-        },
+        select: "firstName lastName username profilePicture _id",
       })
       .populate({
         path: "votes",
@@ -157,10 +142,7 @@ export const getPost = async (req, res, next) => {
         message: "Post does not exist",
       });
     } else {
-      res.status(200).json({
-        message: "Successful",
-        data: post,
-      });
+      res.status(200).json(post);
     }
   } catch (error) {
     console.error(error);
@@ -178,24 +160,18 @@ export const getPost = async (req, res, next) => {
  */
 export const getPostsByAuthor = async (req, res, next) => {
   try {
-    const id = req.params.author;
+    const id = req.params.id;
     const posts = await Posts.find({ author: id })
       .populate({
         path: "comments",
         populate: {
           path: "author",
-          populate: {
-            path: "profile",
-            select: "firstName lastName username profilePicture _id",
-          },
+          select: "firstName lastName username profilePicture _id",
         },
       })
       .populate({
         path: "author",
-        populate: {
-          path: "profile",
-          select: "firstName lastName username profilePicture _id",
-        },
+        select: "firstName lastName username profilePicture _id",
       })
       .populate({
         path: "votes",
@@ -205,10 +181,7 @@ export const getPostsByAuthor = async (req, res, next) => {
         },
       });
     if (posts.length > 0) {
-      res.status(200).json({
-        message: "Successful",
-        data: posts,
-      });
+      res.status(200).json(posts);
     } else {
       res.status(404).json({
         message: "No posts found",
@@ -251,10 +224,7 @@ export const updatePost = async (req, res, next) => {
     }
     post.set(req.body);
     await post.save();
-    return res.status(200).json({
-      message: "Post updated successfully",
-      post,
-    });
+    return res.status(200).json(post);
   } catch (error) {
     console.log(error);
     next(error);
@@ -377,18 +347,12 @@ export const getMyBookmarkedPosts = async (req, res, next) => {
         path: "comments",
         populate: {
           path: "author",
-          populate: {
-            path: "profile",
-            select: "firstName lastName username profilePicture _id",
-          },
+          select: "firstName lastName username profilePicture _id",
         },
       })
       .populate({
         path: "author",
-        populate: {
-          path: "profile",
-          select: "firstName lastName username profilePicture _id",
-        },
+        select: "firstName lastName username profilePicture _id",
       })
       .populate({
         path: "votes",

@@ -19,6 +19,7 @@ import postsRoutes from "./routes/posts.js";
 import commentsRouter from "./routes/comments.js";
 import bookmarksRouter from "./routes/bookmarks.js";
 import skillsRouter from "./routes/skills.js";
+import votesRouter from "./routes/vote.js";
 
 dotenv.config();
 
@@ -39,6 +40,7 @@ app.use("/api/v1/", defaultErrorHandler, venuesRouter);
 app.use("/api/v1/", defaultErrorHandler, profileRouter);
 app.use("/api/v1/", defaultErrorHandler, skillsRouter);
 app.use("/api/v1/users/", defaultErrorHandler, userRouter);
+app.use("/api/v1/votes/", defaultErrorHandler, votesRouter);
 app.use("/api/v1/productservices/", defaultErrorHandler, productServiceRouter);
 app.use("/api/v1/projects/", defaultErrorHandler, projectRouter);
 app.use("/api/v1/posts/", defaultErrorHandler, postsRoutes);
