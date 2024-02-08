@@ -1,5 +1,5 @@
 import Header from "./header";
-import PostsList from "./post";
+import PostsList from "./postsList";
 import About from "./about";
 import EditProfile from "./editProfile";
 import { getPostsByUser } from "@/lib/actions/posts.actions";
@@ -12,7 +12,7 @@ const Details = async ({ user, profile }) => {
       <div className="absolute top-40 sm:top-[19rem] right-4 lg:right-auto lg:left-32 w-max">
         <EditProfile />
       </div>
-      <div className="w-full hidden lg:flex justify-between items-start mt-2 px-4">
+      <div className="w-full hidden lg:flex gap-12 justify-between items-start mt-2 px-4">
         {/* Left pane containing availability for hire and collaboration, Bio, socials, skills, etc */}
         <About profile={profile} />
         {/* Right pane containing posts */}

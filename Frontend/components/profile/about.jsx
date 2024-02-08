@@ -88,7 +88,7 @@ const About = ({ profile }) => {
       </div>
       {/* Skills */}
       <div className="flex flex-col justify-between items-start w-full">
-        <h2 className="text-xl mt-4 text-primary font-semibold mb-4">Skills</h2>
+        <h2 className="text-xl mt-4  font-semibold mb-4">Skills</h2>
         <div className="flex flex-wrap gap-2 mb-4 ">
           {profile?.skills?.length > 0 &&
             profile.skills.map((skill) => (

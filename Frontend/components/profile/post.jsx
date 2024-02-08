@@ -1,72 +1,73 @@
 import Image from "next/image";
-import { BiComment, BiDownArrowAlt, BiUpArrowAlt } from "react-icons/bi";
-import { FaRegBookmark, FaRegShareSquare } from "react-icons/fa";
 import PostAvatar from "./postAvatar";
+import {
+  ArrowBigDownIcon,
+  ArrowBigUp,
+  Bookmark,
+  LucideMessageCircle,
+  Share2,
+} from "lucide-react";
 
-const PostsList = ({ posts }) => {
+const Post = ({ post }) => {
   return (
-    <div className="w-full flex flex-col gap-4 mt-4 lg:mt-16 md:px-4">
-      <h1 className="hidden lg:block text-2xl text-primary font-bold">Posts</h1>
-      {posts.map((post) => (
-        <article
-          className="w-full rounded-lg shadow-md bg-background p-4 mb-4"
-          key={post.id}
-        >
-          <div className="flex items-center space-x-2">
-            <PostAvatar avatar={post?.author?.avatar} />
-            <h2 className="text-lg md:text-xl text-primary font-bold">
-              {post.title}
-            </h2>
-          </div>
-          <div className="flex items-center space-x-2 my-2">
-            <p className="text-primary/60">
-              {new Date(post.createdAt).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
-            </p>
-          </div>
-          <p className="text-primary/80 line-clamp-5">{post.body}</p>
-          <div className="md:h-[300px] w-full rounded-lg">
-            <Image
-              src={post.media}
-              alt="post"
-              height={1080}
-              width={1920}
-              className="object-cover w-full h-full rounded-lg"
-            />
-          </div>
-          <div className="flex items-center justify-between gap-4 w-full mt-4">
-            <div className="flex justify-start gap-1 md:gap-4 items-center w-full">
-              <p className="text-primary/60 flex gap-[0.1rem] items-center">
-                <BiComment className="text-primary/60 text-3xl" />
-                {post.comments}
-              </p>
-              <p className="text-primary/60 flex gap-[0.1rem] items-center">
-                <BiUpArrowAlt className="text-secondary text-3xl" />{" "}
-                {post.votes.upvotes}
-              </p>
-              <p className="text-primary/60 flex gap-[0.1rem] items-center">
-                <BiDownArrowAlt className="text-primary/80  text-3xl" />{" "}
-                {post.votes.downvotes}
-              </p>
-            </div>
-            <div className="flex justify-start gap-4 items-center w-full">
-              <button className="flex gap-2 items-center text-primary/60">
-                <FaRegBookmark className="text-primary/60 text-3xl" />
-                <span className="hidden md:inline">Save</span>
-              </button>
-              <button className="flex gap-2 items-center text-primary/60">
-                <FaRegShareSquare className="text-primary/60 text-3xl" />
-                <span className="hidden md:inline">Share</span>
-              </button>
-            </div>
-          </div>
-        </article>
-      ))}
-    </div>
+    <article className="w-full max-h-[400px]rounded-lg shadow-md p-4 mb-4">
+      <div className="flex items-center space-x-2">
+        <PostAvatar avatar={post?.author?.profilePicture} />
+        <p>
+          {post?.author?.firstName} {post?.author?.lastName}{" "}
+          <span className="text-muted dark:text-background/65">
+            @{post?.author?.username}
+          </span>
+        </p>
+      </div>
+      <div className="flex items-center space-x-2 my-2">
+        <p className="text-sm font-thin">
+          {new Date(post?.createdAt)?.toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}
+        </p>
+      </div>
+      <h2 className="text-lg md:text-xl font-bold mb-2">{post?.title}</h2>
+      <p className="text-primary/80 dark:text-background/80 line-clamp-5 mb-1">
+        {post?.body}
+      </p>
+      <div className="h-[200px]md:h-[250px] w-full rounded-lg">
+        <Image
+          src={post?.media}
+          alt="post"
+          height={500}
+          width={500}
+          className="object-cover w-full h-full rounded-lg"
+        />
+      </div>
+      <div className="flex items-center justify-between gap-4 w-full mt-4">
+        <div className="flex justify-start gap-1 md:gap-4 items-center w-full">
+          <p className="text-primary/60 dark:text-background/60 flex gap-[0.1rem] items-center">
+            <LucideMessageCircle className="text-3xl cursor-pointer" />
+            {post?.comments?.length || ""}
+          </p>
+          <p className="text-primary/60 dark:text-background/60 flex gap-[0.1rem] items-center">
+            <ArrowBigUp className="text-secondary text-3xl cursor-pointer" />{" "}
+            {post?.votes?.upvotes || ""}
+          </p>
+          <p className="text-primary/60 dark:text-background/60 flex gap-[0.1rem] items-center">
+            <ArrowBigDownIcon className=" text-3xl cursor-pointer" />{" "}
+            {post?.votes?.downvotes || ""}
+          </p>
+        </div>
+        <div className="flex justify-start gap-4 items-center">
+          <button className="flex gap-2 items-center text-primary/60 dark:text-background/60">
+            <Bookmark className="text-primary/60 dark:text-background/60 text-3xl cursor-pointer" />
+          </button>
+          <button className="flex gap-2 items-center text-primary/60 dark:text-background/60">
+            <Share2 className="text-primary/60 dark:text-background/60 text-3xl cursor-pointer" />
+          </button>
+        </div>
+      </div>
+    </article>
   );
 };
 
-export default PostsList;
+export default Post;

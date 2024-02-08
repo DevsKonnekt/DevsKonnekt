@@ -70,7 +70,7 @@ const AddSkills = () => {
             {mySkills.map((sk) => (
               <div
                 key={sk._id || sk}
-                className="flex items-center gap-2 px-3 py-1 rounded-full bg-primary/20"
+                className="flex items-center gap-2 px-3 py-1 rounded-full bg-primary/20 dark:bg-gray-400"
               >
                 <p className="text-primary font-semibold">{sk.name}</p>
                 <button
@@ -94,7 +94,7 @@ const AddSkills = () => {
             onChange={(e) => {
               setSkill(e.target.value);
             }}
-            className="w-full bg-primary/10 focus:outline-0 focus:ring-0 focus:ring-transparent text-primary font-semibold"
+            className="w-full bg-primary/10  focus:outline-0 focus:ring-0 focus:ring-transparent text-primary dark:text-background font-semibold"
           />
         </div>
         <div className="flex flex-col gap-2">
@@ -109,7 +109,7 @@ const AddSkills = () => {
               <button
                 key={s._id}
                 onClick={async () => await handleAddSkill(skills[index])}
-                className="w-max rounded block text-start px-4 py-2 focus:outline-0 focus:ring-0 focus:ring-transparent hover:bg-primary/20 transition-all"
+                className="w-max rounded block text-start px-4 py-2 focus:outline-0 focus:ring-0 focus:ring-transparent hover:bg-primary/20 dark:hover:bg-gray-400 transition-all"
               >
                 {s.name}
               </button>
