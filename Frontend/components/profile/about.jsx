@@ -9,6 +9,9 @@ import {
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { cn } from "@/lib/utils";
 import AddSkills from "./addSkills";
+import { MdClose } from "react-icons/md";
+import Skill from "./skill";
+import { deleteSkillFromProfile } from "@/lib/actions/profile.actions";
 
 const About = ({ profile }) => {
   return (
@@ -89,12 +92,12 @@ const About = ({ profile }) => {
         <div className="flex flex-wrap gap-2 mb-4 ">
           {profile?.skills?.length > 0 &&
             profile.skills.map((skill) => (
-              <span
+              <Skill
                 key={skill._id}
-                className="px-2 py-1 bg-primary/10 rounded-md text-primary/80 font-medium"
-              >
-                {skill.name}
-              </span>
+                profile={profile}
+                skill={skill}
+                deleteSkill={deleteSkillFromProfile}
+              />
             ))}
         </div>
         {profile && <AddSkills profile={profile} />}

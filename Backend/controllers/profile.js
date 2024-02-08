@@ -100,7 +100,6 @@ export const updateProfile = async (req, res, next) => {
       error.statusCode = 404;
       throw error;
     }
-
     const updatedSkills = Array.from(
       new Set([...existingProfile.skills, ...req.body.skills])
     );
@@ -110,6 +109,46 @@ export const updateProfile = async (req, res, next) => {
       {
         $set: {
           ...req.body,
+          skills: updatedSkills,
+        },
+      },
+      { new: true }
+    );
+
+    return res.status(200).json(profile);
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * @function deleteSkillFromProfile
+ * @description Delete skill from profile
+ * @param {Object} req - The request object
+ * @param {Object} res - The response object
+ * @param {Function} next - The next middleware
+ * @returns {Object} - The updated profile
+ * @throws {Object} - An error object
+ */
+export const deleteSkillFromProfile = async (req, res, next) => {
+  const { userId, skillId } = req.params;
+  try {
+    const existingProfile = await Profile.findOne({ user: userId }).select(
+      "skills"
+    );
+    if (!existingProfile) {
+      const error = new Error("Profile not found");
+      error.statusCode = 404;
+      throw error;
+    }
+    const updatedSkills = existingProfile.skills.filter(
+      (skill) => skill.toString() !== skillId
+    );
+
+    const profile = await Profile.findOneAndUpdate(
+      { user: userId },
+      {
+        $set: {
           skills: updatedSkills,
         },
       },

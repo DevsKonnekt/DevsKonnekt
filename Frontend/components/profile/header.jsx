@@ -5,7 +5,7 @@ import About from "./about";
 import Post from "./post";
 import Aside from "./aside";
 
-const Header = async ({ user, coverImage }) => {
+const Header = async ({ user, profile, coverImage }) => {
   return (
     <>
       <div className="w-full relative">
@@ -81,17 +81,10 @@ const Header = async ({ user, coverImage }) => {
           </TabsTrigger>
         </TabsList>
         <TabsContent value="about" className="px-4 py-2">
-          <About
-            linkedIn="https://www.linkedin.com/in//"
-            facebook="https://www.facebook.com/"
-            twitter="https://www.twitter.com/"
-            instagram="https://www.instagram.com/"
-            github="https://www.github.com/"
-            portfolio="#"
-          />
+          <About profile={profile} />
         </TabsContent>
         <TabsContent value="portfolio" className="px-4 py-2">
-          <Aside />
+          <Aside profile={profile} />
         </TabsContent>
         <TabsContent value="posts" className="px-4 py-2">
           {/* <Post posts={dummyPosts} /> */}

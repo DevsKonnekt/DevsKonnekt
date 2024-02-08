@@ -9,11 +9,11 @@ import { addSkill, getAllSkills } from "@/lib/actions/skills.actions";
 import { updateMyProfile } from "@/lib/actions/profile.actions";
 import { useUser } from "@clerk/nextjs";
 
-const AddSkills = ({ profile }) => {
+const AddSkills = () => {
   const [skills, setSkills] = useState([]);
   const [skill, setSkill] = useState("");
   const [selectedSkill, setSelectedSkill] = useState(null);
-  const [mySkills, setMySkills] = useState(profile?.skills || []);
+  const [mySkills, setMySkills] = useState([]);
   const { user } = useUser();
   useEffect(() => {
     const debouncedFetchSkills = _.debounce(async () => {
@@ -54,7 +54,7 @@ const AddSkills = ({ profile }) => {
 
   return (
     <Modal
-      trigerText="Add Skills"
+      trigerText="Add More Skills"
       title="Add Skills"
       description="Type your skill name and press enter to add it. You can add multiple skills at once."
       actionButtonText="Save Skills"
