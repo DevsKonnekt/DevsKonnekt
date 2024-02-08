@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Modal from "../myUI/modal";
 import PostForm from "./postForm";
 
@@ -12,7 +13,12 @@ const CreatePost = ({ userId }) => {
       size={"2xl"}
       loading={loading}
     >
-      <PostForm userId={userId} type={"Create"} setLoading={setLoading} />
+      <PostForm
+        userId={userId}
+        type={"Create"}
+        setLoading={setLoading}
+        loading={loading}
+      />
     </Modal>
   );
 };

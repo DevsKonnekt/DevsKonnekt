@@ -57,6 +57,7 @@ const AddSkills = () => {
           skills: mySkills,
         });
         toast("Skills added successfully");
+        setMySkills([]);
       } catch (error) {
         toast({
           variant: "destructive",

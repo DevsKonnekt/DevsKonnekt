@@ -41,7 +41,7 @@ const formSchema = z.object({
   tags: z.string().optional(),
 });
 
-const PostForm = ({ userId, type, setIsLoading }) => {
+const PostForm = ({ userId, type, setLoading, loading }) => {
   const [files, setFiles] = useState([]);
   const { startUpload } = useUploadThing("imageUploader");
   const form = useForm({
@@ -55,7 +55,7 @@ const PostForm = ({ userId, type, setIsLoading }) => {
   const { toast } = useToast();
 
   const onSubmit = async (data) => {
-    setIsLoading(true);
+    setLoading(true);
     let uploadedMediaUrl = data.media;
     if (files.length) {
       const uploadedMedia = await startUpload(files);
@@ -76,7 +76,7 @@ const PostForm = ({ userId, type, setIsLoading }) => {
         });
         if (newPost) {
           form.reset();
-          setIsLoading(false);
+          setLoading(false);
           toast("Post created successfully");
         }
       } catch (error) {
@@ -87,7 +87,7 @@ const PostForm = ({ userId, type, setIsLoading }) => {
         });
       }
     }
-    setIsLoading(false);
+    setLoading(false);
   };
   return (
     <Form {...form}>
@@ -178,7 +178,8 @@ const PostForm = ({ userId, type, setIsLoading }) => {
           />
           <Button
             type="submit"
-            className="w-full sm:min-w-[256px] sm:max-w-[300px] primary-btn self-start"
+            disabled={loading}
+            className="w-full sm:min-w-[256px] sm:max-w-[300px] primary-btn self-start disabled:cursor-progress disabled:opacity-50 transition-all duration-500 ease-linear"
           >
             Post
           </Button>
