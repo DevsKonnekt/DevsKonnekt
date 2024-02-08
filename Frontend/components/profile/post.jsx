@@ -33,7 +33,7 @@ const Post = ({ post }) => {
       <p className="text-primary/80 dark:text-background/80 line-clamp-5 mb-1">
         {post?.body}
       </p>
-      <div className="h-[200px]md:h-[250px] w-full rounded-lg">
+      <div className="h-[200px] md:h-[250px] w-full rounded-lg">
         <Image
           src={post?.media}
           alt="post"
