@@ -10,6 +10,7 @@ import {
   getProfile,
   updateProfile,
   getAllProfiles,
+  deleteSkillFromProfile,
 } from "../controllers/profile.js";
 
 const profileRouter = Router();
@@ -17,5 +18,9 @@ const profileRouter = Router();
 profileRouter.get("/profiles", getAllProfiles);
 profileRouter.get("/profiles/:userId", getProfile);
 profileRouter.put("/profiles/:userId", updateProfile);
+profileRouter.patch(
+  "/profiles/:userId/skills/:skillId",
+  deleteSkillFromProfile
+);
 
 export default profileRouter;

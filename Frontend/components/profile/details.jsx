@@ -14,7 +14,7 @@ const Details = async ({ user, profile }) => {
 
   return (
     <div className="w-full flex flex-col items-start relative">
-      <Header user={user} coverImage={profile?.coverImage} />
+      <Header user={user} profile={profile} coverImage={profile?.coverImage} />
       <div className="absolute top-40 sm:top-[19rem] right-4 lg:right-auto lg:left-32 w-max">
         <EditProfile />
       </div>
