@@ -1,5 +1,8 @@
 "use server";
 
+import axios from "axios";
+import { revalidatePath } from "next/cache";
+
 export const getPostsByUser = async (userId) => {
   try {
     const response = await axios.get(
@@ -31,12 +34,13 @@ export const getAllPosts = async () => {
   }
 };
 
-export const createPost = async (post) => {
+export const createPost = async ({ post, path }) => {
   try {
     const response = await axios.post(
       `${process.env.BACKEND_URL}/posts/`,
       post
     );
+    revalidatePath(path);
     return JSON.parse(JSON.stringify(response.data));
   } catch (error) {
     throw new Error(typeof error === "string" ? error : JSON.stringify(error));

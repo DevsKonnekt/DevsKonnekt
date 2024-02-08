@@ -4,6 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import About from "./about";
 import Post from "./post";
 import Aside from "./aside";
+import CreatePost from "../posts/createPost";
 
 const Header = async ({ user, profile, coverImage }) => {
   return (
@@ -38,9 +39,7 @@ const Header = async ({ user, profile, coverImage }) => {
               <span className="text-primary/60">(@{user.username})</span>
             </div>
             <div className="flex items-center space-x-2">
-              <button className="px-4 py-2 rounded-md bg-secondary text-background font-medium hover:opacity-75 hover:scale-105 focus:ring-1 focus:ring-offset-primary/75 focus:ring-offset-2">
-                Konnekt
-              </button>
+              <CreatePost userId={user.publicMetadata.userId} />
               <button className="px-4 py-2 rounded-md bg-background text-primary/80 font-medium hover:opacity-75 hover:scale-105 focus:ring-1 focus:ring-offset-secondary/75 focus:ring-offset-2">
                 Chat
               </button>

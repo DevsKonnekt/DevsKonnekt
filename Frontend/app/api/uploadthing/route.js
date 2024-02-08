@@ -5,7 +5,7 @@ export const { GET, POST } = createRouteHandler({
   router: fileRouter,
   config: {
     uploadthingId: process.env.UPLOADTHING_APP_ID,
-    uploadthingSecret: process.env.UPLOADTHING_KEY,
+    uploadthingSecret: process.env.UPLOADTHING_SECRET,
     isDev: process.env.NODE_ENV === "development",
   },
 });

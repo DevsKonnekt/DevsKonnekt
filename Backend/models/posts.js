@@ -23,7 +23,7 @@ const postsSchema = new mongoose.Schema(
       required: true,
     },
     media: {
-      type: [String], // array of urls to AWS S3 bucket
+      type: String,
     },
     tags: {
       type: [String],
@@ -35,7 +35,7 @@ const postsSchema = new mongoose.Schema(
     bookmarks: {
       type: [mongoose.Schema.Types.ObjectId],
       ref: "User",
-    },      
+    },
     comments: {
       type: [mongoose.Schema.Types.ObjectId],
       ref: "Comment",
