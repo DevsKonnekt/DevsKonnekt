@@ -2,11 +2,13 @@ import Image from "next/image";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import About from "./about";
-import Post from "./post";
 import Aside from "./aside";
 import CreatePost from "../posts/createPost";
+import PostsList from "./postsList";
+import { getPostsByUser } from "@/lib/actions/posts.actions";
 
 const Header = async ({ user, profile, coverImage }) => {
+  const posts = await getPostsByUser(profile?.user?._id);
   return (
     <>
       <div className="w-full relative">
@@ -33,32 +35,30 @@ const Header = async ({ user, profile, coverImage }) => {
           </Avatar>
           <div className="hidden lg:flex justify-between items-center w-full">
             <div className="flex items-center space-x-2">
-              <h1 className="text-2xl text-primary font-bold">
+              <h1 className="text-2xl  font-bold">
                 {user.firstName} {user?.lastName && user.lastName}
               </h1>
-              <span className="text-primary/60">(@{user.username})</span>
+              <span className="opacity-50">(@{user.username})</span>
             </div>
             <div className="flex items-center space-x-2">
               <CreatePost userId={user.publicMetadata.userId} />
-              <button className="px-4 py-2 rounded-md bg-background text-primary/80 font-medium hover:opacity-75 hover:scale-105 focus:ring-1 focus:ring-offset-secondary/75 focus:ring-offset-2">
+              <button className="px-4 py-2 rounded-md bg-background text-primary/80  font-medium hover:opacity-75 hover:scale-105 focus:ring-1 focus:ring-offset-secondary/75 focus:ring-offset-2">
                 Chat
               </button>
             </div>
           </div>
         </div>
       </div>
-      <div className="flex flex-col justify-between items-center mt-12 px-4 lg:hidden">
+      <div className="flex flex-col justify-between items-center mt-16 px-4 lg:hidden">
         <div className="flex items-center space-x-2">
-          <h1 className="text-2xl text-primary font-bold">
+          <h1 className="text-xl  font-bold">
             {user.firstName} {user?.lastName && user.lastName}
           </h1>
-          <span className="text-primary/60">(@{user.username})</span>
+          <span className="opacity-50">(@{user.username})</span>
         </div>
         <div className="flex items-center justify-between mt-2 space-x-2 w-full">
-          <button className="px-4 py-2 rounded-md bg-secondary text-background font-medium hover:opacity-75 hover:scale-105 focus:ring-1 focus:ring-offset-primary/75 focus:ring-offset-2">
-            Konnekt
-          </button>
-          <button className="px-4 py-2 rounded-md bg-primary text-background/80 font-medium hover:opacity-75 hover:scale-105 focus:ring-1 focus:ring-offset-secondary/75 focus:ring-offset-2">
+          <CreatePost userId={user.publicMetadata.userId} />
+          <button className="px-4 py-2 rounded-md bg-primary text-background font-medium hover:opacity-75 hover:scale-105 focus:ring-1 focus:ring-offset-secondary/75 focus:ring-offset-2">
             Chat
           </button>
         </div>
@@ -66,9 +66,9 @@ const Header = async ({ user, profile, coverImage }) => {
 
       <Tabs
         defaultValue="about"
-        className="w-full mt-4 bg-background lg:hidden"
+        className="w-full mt-8 bg-background dark:bg-gray-700 lg:hidden"
       >
-        <TabsList className="grid w-full grid-cols-3">
+        <TabsList className="grid w-full grid-cols-3 bg-background dark:bg-gray-700 border-b-2 border-b-primary place-content-center">
           <TabsTrigger value="about" className="font-bold text-xl">
             About
           </TabsTrigger>
@@ -86,7 +86,11 @@ const Header = async ({ user, profile, coverImage }) => {
           <Aside profile={profile} />
         </TabsContent>
         <TabsContent value="posts" className="px-4 py-2">
-          {/* <Post posts={dummyPosts} /> */}
+          {posts?.length > 0 ? (
+            <PostsList posts={posts} />
+          ) : (
+            <p>No posts yet</p>
+          )}
         </TabsContent>
       </Tabs>
     </>

@@ -6,16 +6,14 @@ import {
   updateVoteById,
   deleteVoteById,
   getVotesByTargetId,
-} from "../controllers/voteController";
+} from "../controllers/vote.js";
 
-const router = express.Router();
+const votesRouter = express.Router();
 
-router.post("/", createVote);
-router.get("/:voteId", getVoteById);
-router.put("/:voteId", updateVoteById);
-router.delete("/:voteId", deleteVoteById);
-router.get("/target/:targetId", getVotesByTargetId);
+votesRouter.post("/", createVote);
+votesRouter.get("/:voteId", getVoteById);
+votesRouter.put("/:voteId", updateVoteById);
+votesRouter.delete("/:voteId", deleteVoteById);
+votesRouter.get("/target/:targetId", getVotesByTargetId);
 
-
-export default router;
-
+export default votesRouter;

@@ -23,6 +23,7 @@ export default function Modal({
   onAction,
   className,
   size,
+  loading,
 }) {
   return (
     <Dialog>
@@ -36,7 +37,7 @@ export default function Modal({
       </DialogTrigger>
       <DialogContent
         className={cn(
-          "w-full h-[80vh] p-6 flex items-start justify-start flex-col",
+          "w-full h-[80vh] p-6 flex items-start justify-start flex-col bg-background dark:bg-gray-700",
           size === "sm"
             ? "max-w-[400px]"
             : size === "md"
@@ -62,14 +63,19 @@ export default function Modal({
         <DialogFooter className="self-end justify-self-end w-full">
           {showCloseButton && (
             <DialogClose asChild>
-              <Button type="button" variant="outline">
+              <Button
+                type="button"
+                variant="outline"
+                className="bg-transparent"
+              >
                 Close
               </Button>
             </DialogClose>
           )}
           {actionButtonText && (
             <Button
-              className="secondary-btn text-background"
+              className="secondary-btn text-background disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={loading ? true : false}
               onClick={onAction}
             >
               {actionButtonText}

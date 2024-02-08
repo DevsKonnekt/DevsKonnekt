@@ -8,12 +8,15 @@ import { MdClose } from "react-icons/md";
 import { addSkill, getAllSkills } from "@/lib/actions/skills.actions";
 import { updateMyProfile } from "@/lib/actions/profile.actions";
 import { useUser } from "@clerk/nextjs";
+import { useToast } from "../ui/use-toast";
 
 const AddSkills = () => {
   const [skills, setSkills] = useState([]);
   const [skill, setSkill] = useState("");
   const [selectedSkill, setSelectedSkill] = useState(null);
   const [mySkills, setMySkills] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const { toast } = useToast();
   const { user } = useUser();
   useEffect(() => {
     const debouncedFetchSkills = _.debounce(async () => {
@@ -28,6 +31,7 @@ const AddSkills = () => {
   }, [skill]);
 
   const handleAddSkill = async (selected) => {
+    setLoading(true);
     let newSkill;
     setSelectedSkill(selected);
     const skillExists = skills.find((sk) => sk._id === selectedSkill._id);
@@ -42,13 +46,27 @@ const AddSkills = () => {
       setSelectedSkill(null);
       setSkills([]);
     }
+    setLoading(false);
   };
 
   const handleSaveSkills = async () => {
     if (mySkills.length > 0) {
-      await updateMyProfile(user?.publicMetadata?.userId, {
-        skills: mySkills,
-      });
+      setLoading(true);
+      try {
+        await updateMyProfile(user?.publicMetadata?.userId, {
+          skills: mySkills,
+        });
+        toast("Skills added successfully");
+        setMySkills([]);
+      } catch (error) {
+        toast({
+          variant: "destructive",
+          title: "Oops! Something went wrong",
+          description: "Failed to add skills. Please try again.",
+        });
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
@@ -59,6 +77,7 @@ const AddSkills = () => {
       description="Type your skill name and press enter to add it. You can add multiple skills at once."
       actionButtonText="Save Skills"
       onAction={handleSaveSkills}
+      loading={loading}
       size={"3xl"}
     >
       <div className="flex flex-col gap-4 w-full">
@@ -70,7 +89,7 @@ const AddSkills = () => {
             {mySkills.map((sk) => (
               <div
                 key={sk._id || sk}
-                className="flex items-center gap-2 px-3 py-1 rounded-full bg-primary/20"
+                className="flex items-center gap-2 px-3 py-1 rounded-full bg-primary/20 dark:bg-gray-400"
               >
                 <p className="text-primary font-semibold">{sk.name}</p>
                 <button
@@ -94,7 +113,7 @@ const AddSkills = () => {
             onChange={(e) => {
               setSkill(e.target.value);
             }}
-            className="w-full bg-primary/10 focus:outline-0 focus:ring-0 focus:ring-transparent text-primary font-semibold"
+            className="w-full bg-primary/10  focus:outline-0 focus:ring-0 focus:ring-transparent text-primary dark:text-background font-semibold"
           />
         </div>
         <div className="flex flex-col gap-2">
@@ -108,8 +127,9 @@ const AddSkills = () => {
             skills.map((s, index) => (
               <button
                 key={s._id}
+                disabled={loading}
                 onClick={async () => await handleAddSkill(skills[index])}
-                className="w-max rounded block text-start px-4 py-2 focus:outline-0 focus:ring-0 focus:ring-transparent hover:bg-primary/20 transition-all"
+                className="w-max rounded block text-start px-4 py-2 focus:outline-0 focus:ring-0 focus:ring-transparent hover:bg-primary/20 dark:hover:bg-gray-400 disabled:cursor-progress disabled:opacity-50 transition-all duration-500 ease-linear"
               >
                 {s.name}
               </button>

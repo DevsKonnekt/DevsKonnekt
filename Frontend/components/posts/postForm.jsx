@@ -18,6 +18,7 @@ import { Textarea } from "../ui/textarea";
 import { useUploadThing } from "@/lib/uploadthing/uploadthing";
 import { createPost } from "@/lib/actions/posts.actions";
 import { cn } from "@/lib/utils";
+import { useToast } from "../ui/use-toast";
 
 const formSchema = z.object({
   title: z
@@ -40,7 +41,7 @@ const formSchema = z.object({
   tags: z.string().optional(),
 });
 
-const PostForm = ({ userId, type }) => {
+const PostForm = ({ userId, type, setLoading, loading }) => {
   const [files, setFiles] = useState([]);
   const { startUpload } = useUploadThing("imageUploader");
   const form = useForm({
@@ -51,8 +52,10 @@ const PostForm = ({ userId, type }) => {
       tags: "",
     },
   });
+  const { toast } = useToast();
 
   const onSubmit = async (data) => {
+    setLoading(true);
     let uploadedMediaUrl = data.media;
     if (files.length) {
       const uploadedMedia = await startUpload(files);
@@ -73,11 +76,18 @@ const PostForm = ({ userId, type }) => {
         });
         if (newPost) {
           form.reset();
+          setLoading(false);
+          toast("Post created successfully");
         }
       } catch (error) {
-        console.log(error);
+        toast({
+          variant: "destructive",
+          title: "Oops! Something went wrong",
+          description: "Failed to create post. Please try again.",
+        });
       }
     }
+    setLoading(false);
   };
   return (
     <Form {...form}>
@@ -168,7 +178,8 @@ const PostForm = ({ userId, type }) => {
           />
           <Button
             type="submit"
-            className="w-full sm:min-w-[256px] sm:max-w-[300px] primary-btn self-start"
+            disabled={loading}
+            className="w-full sm:min-w-[256px] sm:max-w-[300px] primary-btn self-start disabled:cursor-progress disabled:opacity-50 transition-all duration-500 ease-linear"
           >
             Post
           </Button>

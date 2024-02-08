@@ -3,9 +3,9 @@
  * @requires mongoose
  * @exports Vote
  */
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
-const votesSchema = new mongoose.Schema(
+const votesSchema = new Schema(
   {
     post: {
       type: mongoose.Schema.Types.ObjectId,

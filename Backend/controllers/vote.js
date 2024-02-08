@@ -1,16 +1,14 @@
-import Vote from "../models/votes";
-
+import Vote from "../models/votes.js";
 
 // create a new vote
 export const createVote = async (req, res) => {
   try {
-    const {voteId, targetId, VoteType } = req.body;
+    const { voteId, targetId, VoteType } = req.body;
     const newVote = await Vote.create({ voteId, targetId, VoteType });
     res.status(201).json(newVote);
   } catch (error) {
     console.error(error);
-    res.status(500).json({error: "Internal Server Error"});
-          
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
@@ -19,12 +17,12 @@ export const getVoteById = async (req, res) => {
   try {
     const vote = await Vote.findById(req.params.voteId);
     if (!vote) {
-      return res.status(404).json({error: "Vote not found"});           
+      return res.status(404).json({ error: "Vote not found" });
     }
     res.json(vote);
   } catch (error) {
     console.error(error);
-    res.status(500).json({error: "Internal Server Error"});
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
@@ -46,7 +44,7 @@ export const updateVoteById = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
-  
+
 // Delete a vote by its ID
 export const deleteVoteById = async (req, res) => {
   try {
@@ -60,7 +58,7 @@ export const deleteVoteById = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
-  
+
 // Retrieve all votes associated with a specific target
 export const getVotesByTargetId = async (req, res) => {
   try {
@@ -74,4 +72,3 @@ export const getVotesByTargetId = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
-        
