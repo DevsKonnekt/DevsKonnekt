@@ -3,7 +3,7 @@ import { BiComment, BiDownArrowAlt, BiUpArrowAlt } from "react-icons/bi";
 import { FaRegBookmark, FaRegShareSquare } from "react-icons/fa";
 import PostAvatar from "./postAvatar";
 
-const Post = ({ posts }) => {
+const PostsList = ({ posts }) => {
   return (
     <div className="w-full flex flex-col gap-4 mt-4 lg:mt-16 md:px-4">
       <h1 className="hidden lg:block text-2xl text-primary font-bold">Posts</h1>
@@ -14,7 +14,9 @@ const Post = ({ posts }) => {
         >
           <div className="flex items-center space-x-2">
             <PostAvatar avatar={post?.author?.avatar} />
-            <h2 className="text-lg md:text-xl text-primary font-bold">{post.title}</h2>
+            <h2 className="text-lg md:text-xl text-primary font-bold">
+              {post.title}
+            </h2>
           </div>
           <div className="flex items-center space-x-2 my-2">
             <p className="text-primary/60">
@@ -28,7 +30,7 @@ const Post = ({ posts }) => {
           <p className="text-primary/80 line-clamp-5">{post.body}</p>
           <div className="md:h-[300px] w-full rounded-lg">
             <Image
-              src={post.image}
+              src={post.media}
               alt="post"
               height={1080}
               width={1920}
@@ -67,4 +69,4 @@ const Post = ({ posts }) => {
   );
 };
 
-export default Post;
+export default PostsList;
