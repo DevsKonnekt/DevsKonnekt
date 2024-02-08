@@ -6,6 +6,9 @@ import { Toaster } from "@/components/ui/toaster";
 import ReduxProvider from "@/redux/Provider";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "@/components/themeprovider";
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
+import { extractRouterConfig } from "uploadthing/server";
+import { fileRouter } from "./api/uploadthing/core";
 
 export const metadata = {
   title: "DevsKonnekt",
@@ -32,6 +35,7 @@ export default function RootLayout({ children }) {
           >
             <div className="max-w-[1440px] w-full mx-auto flex flex-col min-h-screen justify-between">
               <ReduxProvider>
+                <NextSSRPlugin routerConfig={extractRouterConfig(fileRouter)} />
                 <NavBar />
                 {children}
                 <Footer />
