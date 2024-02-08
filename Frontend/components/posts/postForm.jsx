@@ -17,6 +17,7 @@ import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { useUploadThing } from "@/lib/uploadthing/uploadthing";
 import { createPost } from "@/lib/actions/posts.actions";
+import { cn } from "@/lib/utils";
 
 const formSchema = z.object({
   title: z
@@ -27,9 +28,14 @@ const formSchema = z.object({
     .max(255, {
       message: "Title must be at most 255 characters long",
     }),
-  body: z.string().min(20, {
-    message: "Body must be at least 20 characters long",
-  }),
+  body: z
+    .string()
+    .min(20, {
+      message: "Body must be at least 20 characters long",
+    })
+    .max(2000, {
+      message: "Body must be at most 2000 characters long",
+    }),
   media: z.string().optional(),
   tags: z.string().optional(),
 });
@@ -105,7 +111,20 @@ const PostForm = ({ userId, type }) => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input placeholder="Title" className="input" {...field} />
+                  <>
+                    <Input placeholder="Title" className="input" {...field} />
+                    <span
+                      className={cn(
+                        "text-sm",
+                        "text-muted-foreground text-right w-full -mt-2 block",
+                        field.value.length > 255 ? "text-red-500" : ""
+                      )}
+                    >
+                      {field.value.length > 0
+                        ? `${field.value.length}/255`
+                        : ""}
+                    </span>
+                  </>
                 </FormControl>
                 <FormDescription>
                   {form.formState.errors.title &&
@@ -120,12 +139,25 @@ const PostForm = ({ userId, type }) => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Textarea
-                    rows={10}
-                    placeholder="Body"
-                    className="input min-h-[200px]"
-                    {...field}
-                  />
+                  <>
+                    <Textarea
+                      rows={10}
+                      placeholder="Body"
+                      className="input min-h-[200px]"
+                      {...field}
+                    />
+                    <span
+                      className={cn(
+                        "text-sm",
+                        "text-muted-foreground text-right w-full -mt-2 block",
+                        field.value.length > 2000 ? "text-red-500" : ""
+                      )}
+                    >
+                      {field.value.length > 0
+                        ? `${field.value.length}/2000`
+                        : ""}
+                    </span>
+                  </>
                 </FormControl>
                 <FormDescription>
                   {form.formState.errors.body &&
