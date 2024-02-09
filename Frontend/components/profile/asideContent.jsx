@@ -1,20 +1,24 @@
 "use client";
 import { useState } from "react";
-import Project from "./project";
+import Project from "./projects/project";
 import { BiLogoGit } from "react-icons/bi";
+import CreateProject from "./projects/createProject";
 
-const AsideContent = ({ projects }) => {
+const AsideContent = ({ projects, owner }) => {
   const [showMore, setShowMore] = useState(false);
 
   return (
     <div className="flex flex-col justify-between items-start w-full">
-      <h2 className="text-2xl mt-4 text-primary font-semibold mb-4 flex items-center gap-2"><BiLogoGit className="text-secondary" /> Projects</h2>
+      <div className="flex gap-4 items-center justify-between w-full">
+        <h2 className="text-2xl mt-4 text-primary font-semibold mb-4 flex items-center gap-2">
+          <BiLogoGit className="text-secondary" /> Projects
+        </h2>
+        <CreateProject userId={owner} />
+      </div>
       <div className="grid grid-cols-1 gap-4 w-full">
-        {/* Display first 3 projects, then a button to view more if there are more than 3 */}
         {projects.slice(0, 3).map((project) => (
-          <Project key={project.id} project={project} />
+          <Project key={project._id} project={project} />
         ))}
-        {/* Display all projects if showMore is true */}
         {showMore &&
           projects
             .slice(3)

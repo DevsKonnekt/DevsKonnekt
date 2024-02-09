@@ -9,6 +9,7 @@ import {
   FormDescription,
   FormField,
   FormItem,
+  FormLabel,
 } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
@@ -18,7 +19,15 @@ import { useUploadThing } from "@/lib/uploadthing/uploadthing";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/components/ui/use-toast";
 import { createProject } from "@/lib/actions/projects.actions";
-import { Select } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import FileUploader from "@/components/posts/fileUploader";
 
 const formSchema = z.object({
@@ -106,14 +115,14 @@ const ProjectForm = ({ userId, type, setLoading, loading }) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="w-full mx-auto px-4 sm:px-0"
+        className="w-full mx-auto px-4 pt-32 sm:pt-8 md:pt-0 sm:px-0"
       >
         <div className="space-y-4 flex items-center justify-center flex-col w-full">
           <FormField
             control={form.control}
             name="imageUrls"
             render={({ field }) => (
-              <FormItem className="w-full flex flex-col gap-4 sm:flex-row items-start justify-between">
+              <FormItem className="w-full">
                 <FormControl>
                   <FileUploader
                     onFieldChange={field.onChange}
@@ -133,7 +142,8 @@ const ProjectForm = ({ userId, type, setLoading, loading }) => {
               control={form.control}
               name="name"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="w-full">
+                  <FormLabel>Project Name:</FormLabel>
                   <FormControl>
                     <>
                       <Input
@@ -165,7 +175,8 @@ const ProjectForm = ({ userId, type, setLoading, loading }) => {
               control={form.control}
               name="description"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="w-full">
+                  <FormLabel>Description:</FormLabel>
                   <FormControl>
                     <>
                       <Textarea
@@ -200,7 +211,8 @@ const ProjectForm = ({ userId, type, setLoading, loading }) => {
               control={form.control}
               name="githubUrl"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="w-full">
+                  <FormLabel>Github URL:</FormLabel>
                   <FormControl>
                     <Input
                       placeholder="Enter your project's github url"
@@ -219,7 +231,8 @@ const ProjectForm = ({ userId, type, setLoading, loading }) => {
               control={form.control}
               name="liveUrl"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="w-full">
+                  <FormLabel>Live URL:</FormLabel>
                   <FormControl>
                     <Input
                       placeholder="e.g. https://example.com/"
@@ -240,7 +253,8 @@ const ProjectForm = ({ userId, type, setLoading, loading }) => {
               control={form.control}
               name="technologies"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="w-full">
+                  <FormLabel>Technologies:</FormLabel>
                   <FormControl>
                     <Input
                       placeholder="e.g. React, Node.js, Express, MongoDB, etc. (comma separated)"
@@ -259,16 +273,28 @@ const ProjectForm = ({ userId, type, setLoading, loading }) => {
               control={form.control}
               name="status"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="w-full">
+                  <FormLabel>Status:</FormLabel>
                   <FormControl>
                     <Select
                       className="input"
                       {...field}
-                      defaultValue="Completed"
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
                     >
-                      <SelectItem value="In Progress">In Progress</SelectItem>
-                      <SelectItem value="Completed">Completed</SelectItem>
-                      <SelectItem value="On Hold">On Hold</SelectItem>
+                      <SelectTrigger className="w-[180px]">
+                        <SelectValue placeholder="Select a project status" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          <SelectLabel>Project Status</SelectLabel>
+                          <SelectItem value="In Progress">
+                            In Progress
+                          </SelectItem>
+                          <SelectItem value="Completed">Completed</SelectItem>
+                          <SelectItem value="On Hold">On Hold</SelectItem>
+                        </SelectGroup>
+                      </SelectContent>
                     </Select>
                   </FormControl>
                   <FormDescription>
@@ -285,7 +311,7 @@ const ProjectForm = ({ userId, type, setLoading, loading }) => {
             disabled={loading}
             className="w-full sm:min-w-[256px] sm:max-w-[300px] primary-btn self-start disabled:cursor-progress disabled:opacity-50 transition-all duration-500 ease-linear"
           >
-            Post
+            Create
           </Button>
         </div>
       </form>

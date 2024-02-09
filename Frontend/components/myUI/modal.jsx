@@ -37,7 +37,7 @@ export default function Modal({
       </DialogTrigger>
       <DialogContent
         className={cn(
-          "w-full h-[95vh] md:h-[80vh] p-6 flex items-start justify-start flex-col bg-background dark:bg-gray-700 overflow-y-scroll no-scrollbar",
+          "w-full h-full md:h-[80vh] p-6 flex items-start justify-start flex-col bg-background dark:bg-gray-700 overflow-y-scroll no-scrollbar",
           size === "sm"
             ? "max-w-[400px]"
             : size === "md"

@@ -6,6 +6,7 @@ import { generateClientDropzoneAccept } from "uploadthing/client";
 
 import { Button } from "@/components/ui/button";
 import { convertFileToUrl } from "@/lib/utils";
+import Image from "next/image";
 
 export default function FileUploader({ mediaUrl, onFieldChange, setFiles }) {
   const onDrop = useCallback((acceptedFiles) => {
@@ -27,7 +28,7 @@ export default function FileUploader({ mediaUrl, onFieldChange, setFiles }) {
 
       {mediaUrl ? (
         <div className="flex h-full w-full flex-1 justify-center ">
-          <img
+          <Image
             src={mediaUrl}
             alt="image"
             width={250}
@@ -37,10 +38,10 @@ export default function FileUploader({ mediaUrl, onFieldChange, setFiles }) {
         </div>
       ) : (
         <div className="items-center justify-center flex flex-col py-5 text-grey-500">
-          <img
+          <Image
             src="/images/icons/upload.png"
-            width={77}
-            height={77}
+            width={45}
+            height={45}
             alt="file upload"
           />
           <h3 className="mb-2 md:mt-2">Drag photo here</h3>

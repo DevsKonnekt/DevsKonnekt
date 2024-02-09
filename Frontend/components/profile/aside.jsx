@@ -8,7 +8,9 @@ const Aside = ({ profile }) => {
       {profile?.achievements && (
         <Achievements achievements={profile.achievements} />
       )}
-      {profile?.projects && <AsideContent projects={profile.projects} />}
+      {profile?.projects && (
+        <AsideContent projects={profile.projects} owner={profile?.user?._id} />
+      )}
     </aside>
   );
 };
