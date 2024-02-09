@@ -5,6 +5,8 @@ import {
   ArrowBigUp,
   Bookmark,
   LucideMessageCircle,
+  MoveDownIcon,
+  MoveUpIcon,
   Share2,
 } from "lucide-react";
 
@@ -43,21 +45,21 @@ const Post = ({ post }) => {
         />
       </div>
       <div className="flex items-center justify-between gap-4 w-full mt-4">
-        <div className="flex justify-start gap-1 md:gap-4 items-center w-full">
+        <div className="flex justify-start gap-3 md:gap-4 items-center w-full">
           <p className="text-primary/60 dark:text-background/60 flex gap-[0.1rem] items-center">
             <LucideMessageCircle className="text-3xl cursor-pointer" />
             {post?.comments?.length || ""}
           </p>
           <p className="text-primary/60 dark:text-background/60 flex gap-[0.1rem] items-center">
-            <ArrowBigUp className="text-secondary text-3xl cursor-pointer" />{" "}
+            <MoveUpIcon className="text-secondary text-3xl cursor-pointer" />{" "}
             {post?.votes?.upvotes || ""}
           </p>
           <p className="text-primary/60 dark:text-background/60 flex gap-[0.1rem] items-center">
-            <ArrowBigDownIcon className=" text-3xl cursor-pointer" />{" "}
+            <MoveDownIcon className=" text-3xl cursor-pointer" />{" "}
             {post?.votes?.downvotes || ""}
           </p>
         </div>
-        <div className="flex justify-start gap-4 items-center">
+        <div className="flex justify-start gap-8 items-center">
           <button className="flex gap-2 items-center text-primary/60 dark:text-background/60">
             <Bookmark className="text-primary/60 dark:text-background/60 text-3xl cursor-pointer" />
           </button>

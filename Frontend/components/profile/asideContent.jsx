@@ -11,7 +11,7 @@ const AsideContent = ({ projects, owner }) => {
     <div className="flex flex-col justify-between items-start w-full">
       <div className="flex gap-4 items-center justify-between w-full">
         <h2 className="text-2xl mt-4 text-primary font-semibold mb-4 flex items-center gap-2">
-          <BiLogoGit className="text-secondary" /> Projects
+          <BiLogoGit /> Projects
         </h2>
         <CreateProject userId={owner} />
       </div>

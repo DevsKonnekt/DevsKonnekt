@@ -22,6 +22,7 @@ export default function Modal({
   actionButtonText,
   onAction,
   className,
+  triggerClassName,
   size,
   loading,
 }) {
@@ -30,7 +31,11 @@ export default function Modal({
       <DialogTrigger asChild>
         <Button
           variant="secondary"
-          className="primary-btn text-background w-full"
+          className={cn(
+            triggerClassName
+              ? triggerClassName
+              : "primary-btn text-background w-full"
+          )}
         >
           {trigerText}
         </Button>

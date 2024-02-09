@@ -17,7 +17,7 @@ const Details = async ({ user, profile }) => {
         <About profile={profile} />
         {/* Right pane containing posts */}
         <div className="hidden lg:flex flex-col gap-4 w-full">
-          {posts?.length > 0 && <PostsList posts={posts} />}
+          {posts?.length > 0 && <PostsList posts={posts} user={user} />}
         </div>
       </div>
     </div>
