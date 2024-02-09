@@ -1,10 +1,12 @@
 /**
  * @module controllers/projects
  * @requires models/projects
+ * @requires models/profiles
  * @exports projectsController
  * @description This module contains the controller for projects.
  */
 import Project from "../models/projects.js";
+import Profile from "../models/profiles.js";
 
 /**
  * @name GET /projects
@@ -103,6 +105,9 @@ export const createProject = async (req, res, next) => {
       error.statusCode = 400;
       throw error;
     }
+    const profile = await Profile.findOne({ user: req.body.owner });
+    profile.projects.push(project._id);
+    await profile.save();
     return res.status(201).json(project);
   } catch (error) {
     return next(error);

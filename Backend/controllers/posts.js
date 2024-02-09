@@ -1,6 +1,7 @@
 /* eslint-disable indent */
 import mongoose from "mongoose";
 import Posts from "../models/posts.js";
+import Profile from "../models/profiles.js";
 import { ValidationError } from "../middlewares/customError.js";
 
 /**
@@ -21,6 +22,14 @@ export const createPosts = async (req, res, next) => {
 
   try {
     const post = await Posts.create(postData);
+    if (!post) {
+      const error = new Error("Post not created");
+      error.statusCode = 500;
+      throw error;
+    }
+    const profile = await Profile.findOne({ user: postData.author });
+    profile.posts.push(post._id);
+    await profile.save();
     return res.status(201).json({
       message: "Post created successfully",
       post,

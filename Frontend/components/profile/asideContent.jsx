@@ -22,7 +22,7 @@ const AsideContent = ({ projects, owner }) => {
         {showMore &&
           projects
             .slice(3)
-            .map((project) => <Project key={project.id} project={project} />)}
+            .map((project) => <Project key={project._id} project={project} />)}
         {projects.length > 3 && (
           <button
             onClick={() => setShowMore((prev) => !prev)}

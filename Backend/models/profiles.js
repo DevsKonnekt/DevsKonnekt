@@ -23,7 +23,7 @@ const profilesSchema = new mongoose.Schema(
       type: String,
       validate: {
         validator: (value) => {
-          return /^http(s)?:\/\/(www.)?linkedin.com\/in\/[a-zA-Z0-9_]+\/?$/.test(
+          return /^http(s)?:\/\/(www.)?linkedin.com\/in\/[a-zA-Z0-9_-]+\/?$/.test(
             value
           );
         },

@@ -51,7 +51,7 @@ const formSchema = z.object({
   liveUrl: z.string().url().optional(),
   technologies: z.string().optional(),
   status: z.enum(["In Progress", "Completed", "On Hold"]),
-  imageUrls: z.array(z.string().url()).optional(),
+  imageUrl: z.string().url().optional(),
 });
 
 const ProjectForm = ({ userId, type, setLoading, loading }) => {
@@ -66,18 +66,22 @@ const ProjectForm = ({ userId, type, setLoading, loading }) => {
       liveUrl: "",
       technologies: "",
       status: "Completed",
-      imageUrls: [],
+      imageUrl: "",
     },
   });
   const { toast } = useToast();
 
   const onSubmit = async (data) => {
     setLoading(true);
-    let uploadedImageUrls = data.imageUrls;
+    let uploadedImageUrl = data.imageUrl;
+    console.log(files);
     if (files.length) {
       const uploadedImages = await startUpload(files);
-      if (!uploadedMedia) return;
-      uploadedImageUrls = uploadedImages.map((media) => media.url);
+      if (!uploadedImages) {
+        setLoading(false);
+        return;
+      }
+      uploadedImageUrl = uploadedImages[0].url;
     }
     if (type === "Create") {
       try {
@@ -86,7 +90,7 @@ const ProjectForm = ({ userId, type, setLoading, loading }) => {
             owner: userId,
             name: data.name,
             description: data.description,
-            imageUrls: uploadedImageUrls,
+            imageUrl: uploadedImageUrl,
             githubUrl: data.githubUrl,
             liveUrl: data.liveUrl,
             technologies: data.technologies
@@ -120,7 +124,7 @@ const ProjectForm = ({ userId, type, setLoading, loading }) => {
         <div className="space-y-4 flex items-center justify-center flex-col w-full">
           <FormField
             control={form.control}
-            name="imageUrls"
+            name="imageUrl"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
@@ -131,8 +135,8 @@ const ProjectForm = ({ userId, type, setLoading, loading }) => {
                   />
                 </FormControl>
                 <FormDescription>
-                  {form.formState.errors.imageUrls &&
-                    form.formState.errors.imageUrls?.message}
+                  {form.formState.errors.imageUrl &&
+                    form.formState.errors.imageUrl?.message}
                 </FormDescription>
               </FormItem>
             )}

@@ -68,7 +68,8 @@ export const getProfile = async (req, res, next) => {
   try {
     const profile = await Profile.findOne({ user: userId })
       .populate({ path: "user" })
-      .populate({ path: "skills" });
+      .populate({ path: "skills" })
+      .populate({ path: "projects" });
     if (!profile) {
       const error = new Error("Profile not found");
       error.statusCode = 404;
