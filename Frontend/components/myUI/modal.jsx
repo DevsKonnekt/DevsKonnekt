@@ -64,7 +64,7 @@ export default function Modal({
           )}
         >
           {children}
-          <DialogFooter className="self-end justify-self-end w-full">
+          <DialogFooter className="self-end justify-self-end w-full gap-4">
             {showCloseButton && (
               <DialogClose asChild>
                 <Button
