@@ -93,7 +93,7 @@ const PostForm = ({ userId, type, setLoading, loading }) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-8 flex items-start justify-start flex-col md:flex-row-reverse space-x-8 w-full max-w-7xl mx-auto px-4 sm:px-0"
+        className="space-y-4 flex items-start justify-start flex-col md:flex-row-reverse md:space-x-8 w-full mx-auto px-4 sm:px-0"
       >
         <FormField
           control={form.control}
@@ -153,7 +153,7 @@ const PostForm = ({ userId, type, setLoading, loading }) => {
                     <Textarea
                       rows={10}
                       placeholder="Body"
-                      className="input min-h-[200px]"
+                      className="input md:min-h-[200px]"
                       {...field}
                     />
                     <span

@@ -37,7 +37,7 @@ export default function Modal({
       </DialogTrigger>
       <DialogContent
         className={cn(
-          "w-full h-[80vh] p-6 flex items-start justify-start flex-col bg-background dark:bg-gray-700",
+          "w-full h-[95vh] md:h-[80vh] p-6 flex items-start justify-start flex-col bg-background dark:bg-gray-700 overflow-y-scroll no-scrollbar",
           size === "sm"
             ? "max-w-[400px]"
             : size === "md"
@@ -57,31 +57,36 @@ export default function Modal({
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
-        <div className={cn("flex flex-col gap-4 w-full h-full", className)}>
+        <div
+          className={cn(
+            "flex flex-col items-center justify-center gap-4 w-full h-full",
+            className
+          )}
+        >
           {children}
-        </div>
-        <DialogFooter className="self-end justify-self-end w-full">
-          {showCloseButton && (
-            <DialogClose asChild>
+          <DialogFooter className="self-end justify-self-end w-full">
+            {showCloseButton && (
+              <DialogClose asChild>
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="bg-transparent"
+                >
+                  Close
+                </Button>
+              </DialogClose>
+            )}
+            {actionButtonText && (
               <Button
-                type="button"
-                variant="outline"
-                className="bg-transparent"
+                className="secondary-btn text-background disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled={loading ? true : false}
+                onClick={onAction}
               >
-                Close
+                {actionButtonText}
               </Button>
-            </DialogClose>
-          )}
-          {actionButtonText && (
-            <Button
-              className="secondary-btn text-background disabled:opacity-50 disabled:cursor-not-allowed"
-              disabled={loading ? true : false}
-              onClick={onAction}
-            >
-              {actionButtonText}
-            </Button>
-          )}
-        </DialogFooter>
+            )}
+          </DialogFooter>
+        </div>
       </DialogContent>
     </Dialog>
   );

@@ -21,7 +21,7 @@ export default function FileUploader({ mediaUrl, onFieldChange, setFiles }) {
   return (
     <div
       {...getRootProps()}
-      className="flex h-72 cursor-pointer flex-col overflow-hidden rounded-xl bg-gray-300 items-center justify-center"
+      className="flex h-[200px] md:h-72 cursor-pointer flex-col overflow-hidden rounded-xl bg-gray-300 items-center justify-center"
     >
       <input {...getInputProps()} className="cursor-pointer" />
 
@@ -43,8 +43,8 @@ export default function FileUploader({ mediaUrl, onFieldChange, setFiles }) {
             height={77}
             alt="file upload"
           />
-          <h3 className="mb-2 mt-2">Drag photo here</h3>
-          <p className="p-medium-12 mb-4">SVG, PNG, JPG</p>
+          <h3 className="mb-2 md:mt-2">Drag photo here</h3>
+          <p className="p-medium-12 mb-2 md:mb-4">SVG, PNG, JPG</p>
           <Button type="button" className="rounded-full secondary-btn">
             Select from computer
           </Button>
