@@ -80,7 +80,7 @@ const AddSkills = () => {
       loading={loading}
       size={"3xl"}
     >
-      <div className="flex flex-col gap-4 w-full">
+      <div className="flex flex-col gap-4 w-full h-full">
         <div className="flex flex-col gap-2">
           <label htmlFor="skills" className="sr-only">
             My Skills
@@ -113,10 +113,10 @@ const AddSkills = () => {
             onChange={(e) => {
               setSkill(e.target.value);
             }}
-            className="w-full bg-primary/10  focus:outline-0 focus:ring-0 focus:ring-transparent text-primary dark:text-background font-semibold"
+            className="w-full bg-primary/10 mt-4 focus:outline-0 focus:ring-0 focus:ring-transparent text-primary dark:text-background font-semibold"
           />
         </div>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 overflow-y-scroll no-scrollbar">
           <button
             onClick={handleAddSkill}
             className="w-max rounded block text-start px-4 py-2 focus:outline-0 focus:ring-0 focus:ring-transparent hover:bg-primary/20 transition-all"
