@@ -3,7 +3,6 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import About from "./about";
 import Aside from "./aside";
-import CreatePost from "../posts/createPost";
 import PostsList from "./postsList";
 import { getPostsByUser } from "@/lib/actions/posts.actions";
 
@@ -41,7 +40,6 @@ const Header = async ({ user, profile, coverImage }) => {
               <span className="opacity-50">(@{user.username})</span>
             </div>
             <div className="flex items-center space-x-2">
-              <CreatePost userId={user.publicMetadata.userId} />
               <button className="px-4 py-2 rounded-md bg-background text-primary/80  font-medium hover:opacity-75 hover:scale-105 focus:ring-1 focus:ring-offset-secondary/75 focus:ring-offset-2">
                 Chat
               </button>
@@ -57,7 +55,6 @@ const Header = async ({ user, profile, coverImage }) => {
           <span className="opacity-50">(@{user.username})</span>
         </div>
         <div className="flex items-center justify-between mt-2 space-x-2 w-full">
-          <CreatePost userId={user.publicMetadata.userId} />
           <button className="px-4 py-2 rounded-md bg-primary text-background font-medium hover:opacity-75 hover:scale-105 focus:ring-1 focus:ring-offset-secondary/75 focus:ring-offset-2">
             Chat
           </button>
@@ -85,9 +82,9 @@ const Header = async ({ user, profile, coverImage }) => {
         <TabsContent value="portfolio" className="px-4 py-2">
           <Aside profile={profile} />
         </TabsContent>
-        <TabsContent value="posts" className="px-4 py-2">
+        <TabsContent value="posts" className="px-4 py-2 relative">
           {posts?.length > 0 ? (
-            <PostsList posts={posts} />
+            <PostsList posts={posts} user={user} />
           ) : (
             <p>No posts yet</p>
           )}

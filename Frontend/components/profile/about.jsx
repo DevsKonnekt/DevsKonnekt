@@ -9,7 +9,6 @@ import {
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { cn } from "@/lib/utils";
 import AddSkills from "./addSkills";
-import { MdClose } from "react-icons/md";
 import Skill from "./skill";
 import { deleteSkillFromProfile } from "@/lib/actions/profile.actions";
 
