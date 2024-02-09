@@ -24,15 +24,15 @@ projectRouter.post("/", createProject);
 projectRouter.get("/", getProjects);
 
 // Route to get projects by user ID
-projectRouter.get("/owner/:userId/", getProjectsByUserId);
+projectRouter.get("/owner/:owner/", getProjectsByUserId);
 
 // Route to get a single project by ID
 projectRouter.get("/:id/", getProject);
 
 // Route to update a project by ID
-projectRouter.patch("/:id/", updateProject);
+projectRouter.patch("/:id/:owner/", updateProject);
 
 // Route to delete a project by ID
-projectRouter.delete("/:id/", deleteProject);
+projectRouter.delete("/:id/:owner/", deleteProject);
 
 export default projectRouter;

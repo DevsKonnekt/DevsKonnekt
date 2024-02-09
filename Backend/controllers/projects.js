@@ -4,7 +4,6 @@
  * @exports projectsController
  * @description This module contains the controller for projects.
  */
-import mongoose from "mongoose";
 import Project from "../models/projects.js";
 
 /**
@@ -45,8 +44,6 @@ export const getProjects = async (req, res, next) => {
  * @description This function gets a single project from the database.
  */
 export const getProject = async (req, res, next) => {
-  console.log("getProject");
-  console.log(req.params.id);
   try {
     const project = await Project.findById(req.params.id);
     if (!project) {
@@ -73,8 +70,9 @@ export const getProject = async (req, res, next) => {
  * @description This function gets projects by user ID from the database.
  */
 export const getProjectsByUserId = async (req, res, next) => {
+  const { owner } = req.params;
   try {
-    const projects = await Project.find({ owner: req.params.userId });
+    const projects = await Project.find({ owner });
     if (!projects) {
       const error = new Error("No projects found for this user");
       error.statusCode = 404;
@@ -123,23 +121,20 @@ export const createProject = async (req, res, next) => {
  * @description This function updates a project in the database.
  */
 export const updateProject = async (req, res, next) => {
+  const { id, owner } = req.params;
   if (!req.body) {
     const error = new Error("Please provide a body for the request");
     error.statusCode = 400;
     throw error;
   }
   try {
-    const project = await Project.findById(req.params.id);
+    const project = await Project.findById(id);
     if (!project) {
       const error = new Error("Project not found.");
       error.statusCode = 404;
       throw error;
     }
-    // the following two lines are temporary, they should be removed once authorization is implemented
-    req.user = {};
-    req.user._id = new mongoose.Types.ObjectId("defa4567defa4567defa4567");
-    // Check if user is the owner of the project. Only the owner can update the project.
-    if (project.owner.toString() !== req.user._id.toString()) {
+    if (project.owner.toString() !== owner.toString()) {
       const error = new Error("You are not authorized to update this project.");
       error.statusCode = 403;
       throw error;
@@ -169,23 +164,20 @@ export const updateProject = async (req, res, next) => {
  * @description This function deletes a project from the database.
  */
 export const deleteProject = async (req, res, next) => {
+  const { id, owner } = req.params;
   try {
-    const project = await Project.findById(req.params.id);
+    const project = await Project.findById(id);
     if (!project) {
       const error = new Error("Project not found.");
       error.statusCode = 404;
       throw error;
     }
-    // the following two lines are temporary, they should be removed once authorization is implemented
-    req.user = {};
-    req.user._id = new mongoose.Types.ObjectId("defa4567defa4567defa4567");
-    // Check if user is the owner of the project. Only the owner can delete the project.
-    if (project.owner.toString() !== req.user._id.toString()) {
+    if (project.owner.toString() !== owner.toString()) {
       const error = new Error("You are not authorized to delete this project.");
       error.statusCode = 403;
       throw error;
     }
-    await Project.deleteOne({ _id: req.params.id });
+    await Project.deleteOne({ _id: id });
     return res.status(204).json({});
   } catch (error) {
     return next(error);
