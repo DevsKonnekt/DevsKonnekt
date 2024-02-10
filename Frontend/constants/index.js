@@ -162,6 +162,10 @@ export const navLinks = [
     href: "/",
   },
   {
+    name: "Community",
+    href: "/developers",
+  },
+  {
     name: "Services",
     href: "/services",
   },
