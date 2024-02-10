@@ -163,7 +163,33 @@ export const navLinks = [
   },
   {
     name: "Community",
-    href: "/developers",
+    href: [
+      {
+        name: "Chat",
+        href: "/chat",
+        description: "Chat with other developers in real-time",
+      },
+      {
+        name: "Developers",
+        href: "/developers",
+        description: "Explore and connect with other developers",
+      },
+      {
+        name: "Events",
+        href: "/events",
+        description: "Discover and join local developer events",
+      },
+      {
+        name: "Mentorship",
+        href: "/mentorship",
+        description: "Connect with experienced mentors",
+      },
+      {
+        name: "Coding Challenges",
+        href: "/coding-challenges",
+        description: "Level up your coding skills",
+      },
+    ],
   },
   {
     name: "Services",
