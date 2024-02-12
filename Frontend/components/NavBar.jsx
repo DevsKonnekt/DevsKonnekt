@@ -159,11 +159,15 @@ const NavBar = () => {
                           <MenubarContent className="dark:bg-gray-700">
                             <ul>
                               {link.href.map((subLink) => (
-                                <MenubarItem key={subLink.name}>
-                                  <Link href={subLink.href}>
-                                    {subLink.name}
-                                  </Link>
-                                </MenubarItem>
+                                <li key={subLink.name}>
+                                  <SheetClose asChild>
+                                    <MenubarItem>
+                                      <Link href={subLink.href}>
+                                        {subLink.name}
+                                      </Link>
+                                    </MenubarItem>
+                                  </SheetClose>
+                                </li>
                               ))}
                             </ul>
                           </MenubarContent>
