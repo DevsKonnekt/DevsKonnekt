@@ -44,7 +44,7 @@ const NavBar = () => {
   const user = useUser();
   return (
     <header className="fixed w-full left-0 px-4 sm:px-6 md:px-16 mx-auto h-20 shadow-xl z-50 dark:bg-gray-700">
-      <nav className="flex justify-between items-center h-full px-2 2xl:px-16">
+      <nav className="flex justify-between w-full items-center h-full px-2 2xl:px-16">
         <Link href="/">
           <Image
             src="/logo.svg"
@@ -110,7 +110,7 @@ const NavBar = () => {
             </SignedIn>
           </NavigationMenuList>
         </NavigationMenu>
-        <div className="flex items-center gap-4 -mr-16 md:mr-auto">
+        <div className="flex items-center gap-4 w-max -mr-16 md:mr-0">
           <ModeToggle />
           <SignedIn>
             <UserButton afterSignOutUrl="/" />
