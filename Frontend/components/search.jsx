@@ -2,21 +2,8 @@
 
 import { SearchIcon } from "lucide-react";
 import { Input } from "./ui/input";
-import { useEffect } from "react";
 
-const Search = ({ search, setSearch, setData, getData }) => {
-  useEffect(() => {
-    const timer = setTimeout(async () => {
-      if (search) {
-        const data = await getData(search);
-        setData(data);
-      } else {
-        const data = await getData();
-        setData(data);
-      }
-    }, 800);
-    return () => clearTimeout(timer);
-  }, [search]);
+const Search = ({ setSearch, search }) => {
   return (
     <div className="my-8 w-full flex gap-4 items-center justify-end relative">
       <SearchInput search={search} setSearch={setSearch} />

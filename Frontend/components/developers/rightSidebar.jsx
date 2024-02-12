@@ -10,7 +10,7 @@ import { MdLeaderboard } from "react-icons/md";
 
 const RightSidebar = () => {
   return (
-    <div className="hidden md:flex h-full flex-col gap-8 items-start justify-start pt-10">
+    <div className="hidden lg:flex h-full flex-col gap-8 items-start justify-start pt-10">
       <Link
         href={"/"}
         className="flex gap-2 items-center text-xl font-semibold text-primary/70 hover:text-primary"

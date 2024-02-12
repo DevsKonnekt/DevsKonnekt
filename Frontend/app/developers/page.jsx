@@ -5,34 +5,38 @@ import RightSidebar from "@/components/developers/rightSidebar";
 import ProfilesList from "@/components/profile/profilesList";
 import Search from "@/components/search";
 import { getAllProfiles } from "@/lib/actions/profile.actions";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const DeveloperProfiles = () => {
-  const [developers, setDevelopers] = useState([]);
+  const [developers, setDevelopers] = useState(null);
   const [search, setSearch] = useState("");
 
-  const getDevelopers = useCallback(async () => {
-    const allDevelopers = await getAllProfiles();
-    setDevelopers(allDevelopers);
-  }, []);
-
   useEffect(() => {
-    getDevelopers();
-  }, []);
+    async function getDevelopers() {
+      const allDevelopers = await getAllProfiles();
+      setDevelopers(allDevelopers);
+    }
+    const timer = setTimeout(async () => {
+      if (search) {
+        const newData = await getAllProfiles(search);
+
+        setDevelopers(newData);
+      }
+    }, 800);
+    if (!search) {
+      getDevelopers();
+    }
+    return () => clearTimeout(timer);
+  }, [search]);
 
   return (
-    <main className="pt-24 px-4 w-full min-h-screen grid md:grid-cols-6 md:gap-4 ">
+    <main className="pt-24 px-4 w-full min-h-screen grid lg:grid-cols-6 md:gap-4 ">
       <RightSidebar />
-      <div className="col-span-4 w-full min-h-screen md:border-x-2 md:border-primary/15 md:px-4">
+      <div className="lg:col-span-4 w-full min-h-screen lg:border-x-2 lg:border-primary/15 md:px-4">
         <div className="w-full max-w-xl">
-          <Search
-            search={search}
-            setSearch={setSearch}
-            getData={getDevelopers}
-            setData={setDevelopers}
-          />
+          <Search search={search} setSearch={setSearch} />
         </div>
-        <ProfilesList profiles={developers} />
+        {developers && <ProfilesList profiles={developers} />}
       </div>
       <LeftSidebar />
     </main>

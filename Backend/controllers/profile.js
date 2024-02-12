@@ -22,8 +22,15 @@ import User from "../models/users.js";
  * @returns {Object} - The response object
  */
 export const getAllProfiles = async (req, res, next) => {
+  const { name = "" } = req.query;
+
+  const condition = name.length
+    ? [{ firstName: { $regex: name, $options: "i" } }]
+    : [{}];
   try {
-    const users = await User.find().populate("profile");
+    const users = await User.find({
+      $or: condition,
+    }).populate("profile");
     return res.status(200).json(users);
   } catch (error) {
     next(error);
