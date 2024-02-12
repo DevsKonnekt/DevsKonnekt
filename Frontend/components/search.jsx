@@ -1,23 +1,25 @@
 "use client";
 
 import { SearchIcon } from "lucide-react";
-import { Button } from "./ui/button";
 import { Input } from "./ui/input";
+import { useEffect } from "react";
 
 const Search = ({ search, setSearch, setData, getData }) => {
+  useEffect(() => {
+    const timer = setTimeout(async () => {
+      if (search) {
+        const data = await getData(search);
+        setData(data);
+      } else {
+        const data = await getData();
+        setData(data);
+      }
+    }, 800);
+    return () => clearTimeout(timer);
+  }, [search]);
   return (
     <div className="my-8 w-full flex gap-4 items-center justify-end relative">
       <SearchInput search={search} setSearch={setSearch} />
-      <Button
-        variant="secondary"
-        onClick={async () => {
-          const newData = await getData();
-          setData(newData);
-        }}
-        className="h-[35px] text-background w-max absolute top-0 right-0 rounded-l-none"
-      >
-        Search
-      </Button>
     </div>
   );
 };
