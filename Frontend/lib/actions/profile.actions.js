@@ -39,9 +39,11 @@ export const deleteSkillFromProfile = async (userId, skillId) => {
   }
 };
 
-export const getAllProfiles = async () => {
+export const getAllProfiles = async (query) => {
   try {
-    const response = await axios.get(`${process.env.BACKEND_URL}/profiles/`);
+    const response = await axios.get(
+      `${process.env.BACKEND_URL}/profiles/?name=${query || ""}`
+    );
     return JSON.parse(JSON.stringify(response.data));
   } catch (error) {
     throw new Error(typeof error === "string" ? error : JSON.stringify(error));

@@ -4,20 +4,33 @@ import About from "./about";
 import EditProfile from "./editProfile";
 import { getPostsByUser } from "@/lib/actions/posts.actions";
 
-const Details = async ({ user, profile }) => {
+const Details = async ({ isCurrentUser, user, profile }) => {
   const posts = await getPostsByUser(profile?.user?._id);
   return (
     <div className="w-full flex flex-col items-start relative">
-      <Header user={user} profile={profile} coverImage={profile?.coverImage} />
-      <div className="absolute top-40 sm:top-[19rem] right-4 lg:right-auto lg:left-32 w-max">
-        <EditProfile />
-      </div>
+      <Header
+        isCurrentUser={isCurrentUser}
+        user={user}
+        profile={profile}
+        coverImage={profile?.coverImage}
+      />
+      {isCurrentUser && (
+        <div className="absolute top-40 sm:top-[19rem] right-4 lg:right-auto lg:left-32 w-max">
+          <EditProfile />
+        </div>
+      )}
       <div className="w-full hidden lg:flex gap-12 justify-between items-start mt-2 px-4">
         {/* Left pane containing availability for hire and collaboration, Bio, socials, skills, etc */}
-        <About profile={profile} />
+        <About isCurrentUser={isCurrentUser} profile={profile} />
         {/* Right pane containing posts */}
         <div className="hidden lg:flex flex-col gap-4 w-full">
-          {posts?.length > 0 && <PostsList posts={posts} user={user} />}
+          {posts?.length > 0 && (
+            <PostsList
+              isCurrentUser={isCurrentUser}
+              posts={posts}
+              user={user}
+            />
+          )}
         </div>
       </div>
     </div>

@@ -6,7 +6,7 @@ import Aside from "./aside";
 import PostsList from "./postsList";
 import { getPostsByUser } from "@/lib/actions/posts.actions";
 
-const Header = async ({ user, profile, coverImage }) => {
+const Header = async ({ isCurrentUser, user, profile, coverImage }) => {
   const posts = await getPostsByUser(profile?.user?._id);
   return (
     <>
@@ -39,11 +39,13 @@ const Header = async ({ user, profile, coverImage }) => {
               </h1>
               <span className="opacity-50">(@{user.username})</span>
             </div>
-            <div className="flex items-center space-x-2">
-              <button className="px-4 py-2 rounded-md bg-background text-primary/80  font-medium hover:opacity-75 hover:scale-105 focus:ring-1 focus:ring-offset-secondary/75 focus:ring-offset-2">
-                Chat
-              </button>
-            </div>
+            {!isCurrentUser && (
+              <div className="flex items-center space-x-2">
+                <button className="px-4 py-2 rounded-md bg-background text-primary/80  font-medium hover:opacity-75 hover:scale-105 focus:ring-1 focus:ring-offset-secondary/75 focus:ring-offset-2">
+                  Chat
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -54,11 +56,13 @@ const Header = async ({ user, profile, coverImage }) => {
           </h1>
           <span className="opacity-50">(@{user.username})</span>
         </div>
-        <div className="flex items-center justify-between mt-2 space-x-2 w-full">
-          <button className="px-4 py-2 rounded-md bg-primary text-background font-medium hover:opacity-75 hover:scale-105 focus:ring-1 focus:ring-offset-secondary/75 focus:ring-offset-2">
-            Chat
-          </button>
-        </div>
+        {!isCurrentUser && (
+          <div className="flex items-center justify-between mt-2 space-x-2 w-full">
+            <button className="px-4 py-2 rounded-md bg-primary text-background font-medium hover:opacity-75 hover:scale-105 focus:ring-1 focus:ring-offset-secondary/75 focus:ring-offset-2">
+              Chat
+            </button>
+          </div>
+        )}
       </div>
 
       <Tabs
@@ -77,14 +81,18 @@ const Header = async ({ user, profile, coverImage }) => {
           </TabsTrigger>
         </TabsList>
         <TabsContent value="about" className="px-4 py-2">
-          <About profile={profile} />
+          <About isCurrentUser={isCurrentUser} profile={profile} />
         </TabsContent>
         <TabsContent value="portfolio" className="px-4 py-2">
-          <Aside profile={profile} />
+          <Aside isCurrentUser={isCurrentUser} profile={profile} />
         </TabsContent>
         <TabsContent value="posts" className="px-4 py-2 relative">
           {posts?.length > 0 ? (
-            <PostsList posts={posts} user={user} />
+            <PostsList
+              isCurrentUser={isCurrentUser}
+              posts={posts}
+              user={user}
+            />
           ) : (
             <p>No posts yet</p>
           )}

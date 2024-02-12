@@ -111,7 +111,9 @@ export const createUser = async (req, res, next) => {
     if (!user) {
       return res.status(400).json({ message: "User not created" });
     }
-    await Profile.create({ user: user._id });
+    const profile = await Profile.create({ user: user._id });
+    user.profile = profile._id;
+    await user.save();
     res.status(201).json(user);
   } catch (error) {
     next(error);

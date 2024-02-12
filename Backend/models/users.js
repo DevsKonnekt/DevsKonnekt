@@ -41,6 +41,10 @@ const UserSchema = new Schema({
     default: "user",
     index: true,
   },
+  profile: {
+    type: Schema.Types.ObjectId,
+    ref: "Profile",
+  },
 });
 
 const User = mongoose.model("User", UserSchema);

@@ -11,6 +11,7 @@
  */
 
 import Profile from "../models/profiles.js";
+import User from "../models/users.js";
 
 /**
  * @function getAllProfiles
@@ -21,36 +22,16 @@ import Profile from "../models/profiles.js";
  * @returns {Object} - The response object
  */
 export const getAllProfiles = async (req, res, next) => {
-  const {
-    limit = 10,
-    page = 1,
-    sortField = "createdAt",
-    sortOrder = -1,
-  } = req.query;
-  const filter = {};
+  const { name = "" } = req.query;
 
-  ["level", "firstName", "username"].forEach((key) => {
-    if (req.query[key]) {
-      filter[key] = req.query[key];
-    }
-  });
-  const conditions = Object.keys(filter).length
-    ? [{ level: { $regex: filter.title, $options: "i" } }]
+  const condition = name.length
+    ? [{ firstName: { $regex: name, $options: "i" } }]
     : [{}];
   try {
-    const profiles = await Profile.find(
-      {
-        $or: conditions,
-      },
-      {
-        sort: {
-          [sortField]: sortOrder,
-        },
-        skip: (Number(page) - 1) * Number(limit),
-        limit: Number(limit),
-      }
-    ).populate("user");
-    return res.status(200).json(profiles);
+    const users = await User.find({
+      $or: condition,
+    }).populate("profile");
+    return res.status(200).json(users);
   } catch (error) {
     next(error);
   }

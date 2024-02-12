@@ -6,6 +6,9 @@ export default authMiddleware({
     "/(api|trpc)(.*)",
     "/services",
     "/services/(.*)",
+    "/developers",
+    "/about",
+    "/contact",
   ],
 });
 

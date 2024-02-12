@@ -12,7 +12,7 @@ import AddSkills from "./addSkills";
 import Skill from "./skill";
 import { deleteSkillFromProfile } from "@/lib/actions/profile.actions";
 
-const About = ({ profile }) => {
+const About = ({ isCurrentUser, profile }) => {
   return (
     <div className="w-full lg:w-[45%] flex flex-col gap-4 mt-4 lg:mt-16 px-4">
       {/* Title and availability for hire and collaboration */}
@@ -99,7 +99,7 @@ const About = ({ profile }) => {
               />
             ))}
         </div>
-        {profile && <AddSkills profile={profile} />}
+        {isCurrentUser && profile && <AddSkills profile={profile} />}
       </div>
     </div>
   );

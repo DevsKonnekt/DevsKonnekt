@@ -18,7 +18,7 @@ const Project = ({ project }) => {
         width={300}
         className="object-cover w-full rounded-lg"
       />
-      <CardContent className="space-y-2 absolute top-0 left-0 hidden bg-primary/45 flex-col items-center justify-center group-hover:flex h-full">
+      <CardContent className="space-y-2 absolute top-0 left-0 hidden bg-primary/55 flex-col items-center justify-center group-hover:flex h-full w-full">
         <CardTitle className="text-xl text-background font-semibold text-start mt-4 flex items-center justify-between gap-4 w-full">
           {project?.name}
           <Link
