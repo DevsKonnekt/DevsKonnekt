@@ -4,7 +4,7 @@ import Project from "./projects/project";
 import { BiLogoGit } from "react-icons/bi";
 import CreateProject from "./projects/createProject";
 
-const AsideContent = ({ projects, owner }) => {
+const AsideContent = ({ isCurrentUser, projects, owner }) => {
   const [showMore, setShowMore] = useState(false);
 
   return (
@@ -13,7 +13,7 @@ const AsideContent = ({ projects, owner }) => {
         <h2 className="text-2xl mt-4 text-primary font-semibold mb-4 flex items-center gap-2">
           <BiLogoGit /> Projects
         </h2>
-        <CreateProject userId={owner} />
+        {isCurrentUser && <CreateProject userId={owner} />}
       </div>
       <div className="grid grid-cols-1 gap-4 w-full">
         {projects.slice(0, 3).map((project) => (

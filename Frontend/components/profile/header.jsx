@@ -81,14 +81,18 @@ const Header = async ({ isCurrentUser, user, profile, coverImage }) => {
           </TabsTrigger>
         </TabsList>
         <TabsContent value="about" className="px-4 py-2">
-          <About profile={profile} />
+          <About isCurrentUser={isCurrentUser} profile={profile} />
         </TabsContent>
         <TabsContent value="portfolio" className="px-4 py-2">
-          <Aside profile={profile} />
+          <Aside isCurrentUser={isCurrentUser} profile={profile} />
         </TabsContent>
         <TabsContent value="posts" className="px-4 py-2 relative">
           {posts?.length > 0 ? (
-            <PostsList posts={posts} user={user} />
+            <PostsList
+              isCurrentUser={isCurrentUser}
+              posts={posts}
+              user={user}
+            />
           ) : (
             <p>No posts yet</p>
           )}
