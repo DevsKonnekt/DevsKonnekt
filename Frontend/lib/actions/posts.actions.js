@@ -25,9 +25,21 @@ export const getPostById = async (postId) => {
   }
 };
 
-export const getAllPosts = async () => {
+export const getAllPosts = async (
+  searchParam,
+  sortOrder,
+  limit,
+  page,
+  sortField
+) => {
   try {
-    const response = await axios.get(`${process.env.BACKEND_URL}/posts/`);
+    const response = await axios.get(
+      `${process.env.BACKEND_URL}/posts/?searchParam=${
+        searchParam || ""
+      }&sortOrder=${sortOrder || -1}&limit=${limit || 10}&page=${
+        page || 1
+      }&sortField=${sortField || "createdAt"}`
+    );
     return JSON.parse(JSON.stringify(response.data));
   } catch (error) {
     throw new Error(typeof error === "string" ? error : JSON.stringify(error));
