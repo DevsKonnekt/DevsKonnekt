@@ -7,14 +7,16 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Input } from "../ui/input";
 import { MdClose } from "react-icons/md";
 
-const Search = ({ path, search }) => {
+const Search = ({ path, search, page, field, order }) => {
   const [text, setText] = useState(search);
   const initialRenderRef = useRef(true);
   const router = useRouter();
 
   const debouncedSearch = useCallback(
     _.debounce((newPath, newText) => {
-      router.push(`/${newPath}?search=${newText}`);
+      router.push(
+        `/${newPath}?search=${newText}&page=${page}&sortField=${field}&sortOrder=${order}`
+      );
     }, 500),
     [path]
   );
@@ -27,7 +29,9 @@ const Search = ({ path, search }) => {
     if (text) {
       debouncedSearch(path, text);
     } else {
-      router.push(`/${path}`);
+      router.push(
+        `/${path}?search=${text}&page=${page}&sortField=${field}&sortOrder=${order}`
+      );
     }
 
     return () => {
@@ -35,7 +39,7 @@ const Search = ({ path, search }) => {
     };
   }, [text, path, debouncedSearch]);
   return (
-    <div className="relative rounded-md shadow-sm">
+    <div className="relative rounded-md shadow-sm ml-auto">
       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
         <SearchIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
       </div>
@@ -56,7 +60,7 @@ const Search = ({ path, search }) => {
         type="text"
         name="search"
         id="search"
-        className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md"
+        className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 sm:text-sm border-gray-300  bg-transparent rounded-md"
         placeholder="Search"
         value={text}
         onChange={(e) => setText(e.target.value)}

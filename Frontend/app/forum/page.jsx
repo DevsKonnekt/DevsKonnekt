@@ -1,4 +1,5 @@
 import ForumPostsList from "@/components/forum/forumPostsList";
+import PostsSort from "@/components/forum/postsSort";
 import Search from "@/components/shared/search";
 import { getAllPosts } from "@/lib/actions/posts.actions";
 import { currentUser } from "@clerk/nextjs";
@@ -24,7 +25,19 @@ const Forum = async ({ searchParams }) => {
         <h1 className="hidden sm:block text-2xl text-primary font-bold">
           Posts
         </h1>
-        <Search path={"forum"} search={searchParam} />
+        <Search
+          path={"forum"}
+          search={searchParam}
+          field={sortField}
+          order={sortOrder}
+          page={page}
+        />
+        <PostsSort
+          search={searchParam}
+          field={sortField}
+          order={sortOrder}
+          page={page}
+        />
       </div>
       <ForumPostsList posts={posts} user={user} />
     </div>
