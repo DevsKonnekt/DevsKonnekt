@@ -165,6 +165,11 @@ export const navLinks = [
     name: "Community",
     href: [
       {
+        name: "Forum",
+        href: "/forum",
+        description: "Share and discuss coding-related topics",
+      },
+      {
         name: "Chat",
         href: "/chat",
         description: "Chat with other developers in real-time",

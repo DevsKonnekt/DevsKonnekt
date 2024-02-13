@@ -25,7 +25,11 @@ export const getAllProfiles = async (req, res, next) => {
   const { name = "" } = req.query;
 
   const condition = name.length
-    ? [{ firstName: { $regex: name, $options: "i" } }]
+    ? [
+        { firstName: { $regex: name, $options: "i" } },
+        { lastName: { $regex: name, $options: "i" } },
+        { username: { $regex: name, $options: "i" } },
+      ]
     : [{}];
   try {
     const users = await User.find({
