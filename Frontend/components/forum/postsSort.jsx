@@ -20,16 +20,15 @@ const PostsSort = ({ field, order, search, page }) => {
   const router = useRouter();
   const handleSortFieldChange = (newSortField) => {
     setSortField(newSortField);
-
     router.push(
-      `/forum?search=${search}&sortField=${sortField}&sortOrder=${sortOrder}&page=${page}`
+      `/forum?search=${search}&sortField=${sortField}&sortOrder=${sortOrder}`
     );
   };
 
   const handleSortOrderChange = (newSortOrder) => {
     setSortOrder(newSortOrder);
     router.push(
-      `/forum?search=${search}&sortField=${sortField}&sortOrder=${sortOrder}&page=${page}`
+      `/forum?search=${search}&sortField=${sortField}&sortOrder=${sortOrder}`
     );
   };
 
