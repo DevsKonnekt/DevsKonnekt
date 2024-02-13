@@ -56,36 +56,23 @@ export const getPosts = async (req, res, next) => {
   const {
     limit = 10,
     page = 1,
+    searchParam = "",
     sortField = "createdAt",
     sortOrder = -1,
   } = req.query;
-  const filter = {};
-
-  ["title", "body", "tags"].forEach((key) => {
-    if (req.query[key]) {
-      filter[key] = req.query[key];
-    }
-  });
-  const conditions = Object.keys(filter).length
+  const conditions = searchParam.length
     ? [
-        { title: { $regex: filter.title, $options: "i" } },
-        { body: { $regex: filter.body, $options: "i" } },
-        { tags: { $regex: filter.tags, $options: "i" } },
+        { title: { $regex: searchParam, $options: "i" } },
+        // { tags: { $regex: searchParam, $options: "i" } },
       ]
     : [{}];
   try {
-    const posts = await Posts.find(
-      {
-        $or: conditions,
-      },
-      {
-        sort: {
-          [sortField]: sortOrder,
-        },
-        skip: (Number(page) - 1) * Number(limit),
-        limit: Number(limit),
-      }
-    )
+    let posts = await Posts.find({
+      $or: conditions,
+    })
+      .sort({ [sortField]: sortOrder })
+      .limit(parseInt(limit, 10))
+      .skip((parseInt(page, 10) - 1) * parseInt(limit, 10))
       .populate({
         path: "comments",
         populate: {
@@ -105,7 +92,7 @@ export const getPosts = async (req, res, next) => {
         },
       });
     if (posts.length > 0) {
-      res.status(200).json(posts);
+      return res.status(200).json(posts);
     } else {
       const error = new Error("No posts found");
       error.statusCode = 404;
