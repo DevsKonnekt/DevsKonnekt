@@ -91,13 +91,7 @@ export const getPosts = async (req, res, next) => {
           select: "firstName lastName username profilePicture _id",
         },
       });
-    if (posts.length > 0) {
-      return res.status(200).json(posts);
-    } else {
-      const error = new Error("No posts found");
-      error.statusCode = 404;
-      throw error;
-    }
+    return res.status(200).json(posts);
   } catch (error) {
     next(error);
   }
