@@ -3,12 +3,13 @@
 import _ from "lodash";
 import { SearchIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Input } from "../ui/input";
 import { MdClose } from "react-icons/md";
 
-const Search = ({ path }) => {
-  const [text, setText] = useState("");
+const Search = ({ path, search }) => {
+  const [text, setText] = useState(search);
+  const initialRenderRef = useRef(true);
   const router = useRouter();
 
   const debouncedSearch = useCallback(
@@ -19,6 +20,10 @@ const Search = ({ path }) => {
   );
 
   useEffect(() => {
+    if (initialRenderRef.current) {
+      initialRenderRef.current = false;
+      return;
+    }
     if (text) {
       debouncedSearch(path, text);
     } else {

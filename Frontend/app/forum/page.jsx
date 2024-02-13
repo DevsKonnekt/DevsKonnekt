@@ -21,10 +21,10 @@ const Forum = async ({ searchParams }) => {
   return (
     <div className="w-full flex flex-col gap-4 pt-32 px-4 md:px-8 xl:px-12">
       <div className="flex justify-between items-center">
-        <h1 className="hidden lg:block text-2xl text-primary font-bold">
+        <h1 className="hidden sm:block text-2xl text-primary font-bold">
           Posts
         </h1>
-        <Search path={"forum"} />
+        <Search path={"forum"} search={searchParam} />
       </div>
       <ForumPostsList posts={posts} user={user} />
     </div>
