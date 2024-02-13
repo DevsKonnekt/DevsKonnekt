@@ -15,7 +15,7 @@ const Search = ({ path, search, page, field, order }) => {
   const debouncedSearch = useCallback(
     _.debounce((newPath, newText) => {
       router.push(
-        `/${newPath}?search=${newText}&page=${page}&sortField=${field}&sortOrder=${order}`
+        `/${newPath}?search=${newText}&sortField=${field}&sortOrder=${order}`
       );
     }, 500),
     [path]
@@ -30,7 +30,7 @@ const Search = ({ path, search, page, field, order }) => {
       debouncedSearch(path, text);
     } else {
       router.push(
-        `/${path}?search=${text}&page=${page}&sortField=${field}&sortOrder=${order}`
+        `/${path}?search=${text}&sortField=${field}&sortOrder=${order}`
       );
     }
 

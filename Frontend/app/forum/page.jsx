@@ -7,16 +7,12 @@ import { currentUser } from "@clerk/nextjs";
 const Forum = async ({ searchParams }) => {
   const searchParam = searchParams?.search || "";
   const sortOrder = searchParams?.sortOrder || -1;
-  const limit = searchParams?.limit || 20;
-  const page = searchParams?.page || 1;
   const sortField = searchParams?.sortField || "createdAt";
 
   const user = await currentUser();
   const posts = await getAllPosts({
     searchParam,
     sortOrder,
-    limit,
-    page,
     sortField,
   });
   return (
@@ -28,16 +24,15 @@ const Forum = async ({ searchParams }) => {
           search={searchParam}
           field={sortField}
           order={sortOrder}
-          page={page}
         />
-        <PostsSort
-          search={searchParam}
-          field={sortField}
-          order={sortOrder}
-          page={page}
-        />
+        <PostsSort search={searchParam} field={sortField} order={sortOrder} />
       </div>
-      <ForumPostsList posts={posts} user={user} />
+      <ForumPostsList
+        initialPosts={posts}
+        search={searchParam}
+        sortField={sortField}
+        sortOrder={sortOrder}
+      />
     </div>
   );
 };

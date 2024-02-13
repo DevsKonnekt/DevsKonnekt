@@ -1,20 +1,72 @@
-import { auth } from "@clerk/nextjs";
+"use client";
+
+import { useUser } from "@clerk/nextjs";
 import CreatePost from "../posts/createPost";
 import Post from "../profile/post";
+import { useInView } from "react-intersection-observer";
+import { SpinnerCircular } from "spinners-react";
+import { use, useEffect, useState } from "react";
+import { getAllPosts } from "@/lib/actions/posts.actions";
+import { revalidatePath } from "next/cache";
 
-const ForumPostsList = ({ posts, user }) => {
-  const { userId } = auth();
+const ForumPostsList = ({ initialPosts, search, sortField, sortOrder }) => {
+  const { isSignedIn, user } = useUser();
+  const { ref, inView } = useInView();
+  const [page, setPage] = useState(1);
+  const [posts, setPosts] = useState(initialPosts);
+  const [loading, setLoading] = useState(true);
+
+  async function loadMorePosts() {
+    const next = page + 1;
+    const newPosts = await getAllPosts({
+      page: next,
+      searchParam: search,
+      sortField,
+      sortOrder,
+    });
+    if (newPosts.length > 0) {
+      setPage(next);
+      setPosts((prev) => [...(prev?.length > 0 ? prev : []), ...newPosts]);
+      revalidatePath("/forum");
+    } else {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    if (inView) {
+      loadMorePosts();
+    }
+  }, [inView]);
+
+  useEffect(() => {
+    setPosts(initialPosts);
+    setPage(1);
+    setLoading(true);
+  }, [search, sortField, sortOrder]);
+
   return (
     <div className="w-full flex flex-col gap-4 lg:mt-16 md:px-4">
-      {userId && (
+      {isSignedIn && (
         <div className="w-max fixed right-4 bottom-4">
           <CreatePost userId={user.publicMetadata.userId} />
         </div>
       )}
-      <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
+      <ul
+        key={Math.random()}
+        className="grid md:grid-cols-2 xl:grid-cols-3 gap-4"
+      >
         {posts.map((post) => (
-          <Post post={post} key={post._id} />
+          <li key={post._id}>
+            <Post post={post} />
+          </li>
         ))}
+      </ul>
+      <div
+        ref={ref}
+        className="w-full flex items-center justify-center mx-auto mt-4"
+      >
+        {inView && loading && <SpinnerCircular color="#1F63ED" />}
       </div>
     </div>
   );
