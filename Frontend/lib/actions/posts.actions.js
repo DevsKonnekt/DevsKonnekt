@@ -25,13 +25,13 @@ export const getPostById = async (postId) => {
   }
 };
 
-export const getAllPosts = async (
+export const getAllPosts = async ({
   searchParam,
   sortOrder,
   limit,
   page,
-  sortField
-) => {
+  sortField,
+}) => {
   try {
     const response = await axios.get(
       `${process.env.BACKEND_URL}/posts/?searchParam=${
