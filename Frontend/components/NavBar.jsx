@@ -44,8 +44,8 @@ const NavBar = () => {
   const user = useUser();
   return (
     <header className="fixed w-full left-0 px-4 sm:px-6 md:px-16 mx-auto h-20 shadow-xl z-50 dark:bg-gray-700">
-      <nav className="flex justify-between w-full items-center h-full px-2 2xl:px-16">
-        <Link href="/">
+      <nav className="flex justify-end w-full items-center h-full px-2 2xl:px-16">
+        <Link href="/" className="justify-self-start flex mr-auto">
           <Image
             src="/logo.svg"
             alt="DevsKonnekt Logo"
@@ -54,7 +54,7 @@ const NavBar = () => {
             className="rounded-full"
           />
         </Link>
-        <NavigationMenu className="hidden md:flex">
+        <NavigationMenu className="hidden lg:flex">
           <NavigationMenuList>
             {navLinks.map((link) => (
               <NavigationMenuItem key={link.name}>
@@ -63,13 +63,13 @@ const NavBar = () => {
                     <NavigationMenuTrigger
                       className={cn(
                         navigationMenuTriggerStyle(),
-                        "text-md tracking-widest font-semibold hover:font-bold opacity-70 hover:opacity-100"
+                        "text-md tracking-widest font-semibold hover:font-bold opacity-70 hover:opacity-100 bg-transparent"
                       )}
                     >
                       {link.name}
                     </NavigationMenuTrigger>
                     <NavigationMenuContent>
-                      <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                      <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] dark:bg-gray-800">
                         {link.href.map((subLink) => (
                           <ListItem
                             key={subLink.name}
@@ -87,7 +87,7 @@ const NavBar = () => {
                     href={link.href}
                     className={cn(
                       navigationMenuTriggerStyle(),
-                      "text-md tracking-widest font-semibold hover:font-bold opacity-70 hover:opacity-100"
+                      "text-md tracking-widest font-semibold hover:font-bold opacity-70 hover:opacity-100 bg-transparent"
                     )}
                   >
                     {link.name}
@@ -101,7 +101,7 @@ const NavBar = () => {
                   href={`/profile/${user?.user?.id}`}
                   className={cn(
                     navigationMenuTriggerStyle(),
-                    "mr-8 text-md tracking-widest font-semibold hover:font-bold opacity-70 hover:opacity-100"
+                    "mr-8 text-md tracking-widest font-semibold hover:font-bold opacity-70 hover:opacity-100 bg-transparent"
                   )}
                 >
                   My Profile
@@ -110,7 +110,7 @@ const NavBar = () => {
             </SignedIn>
           </NavigationMenuList>
         </NavigationMenu>
-        <div className="flex items-center gap-4 w-max -mr-16 md:mr-0">
+        <div className="flex items-center gap-4 mr-4 w-max">
           <ModeToggle />
           <SignedIn>
             <UserButton afterSignOutUrl="/" />
@@ -126,7 +126,7 @@ const NavBar = () => {
             </SignInButton>
           </SignedOut>
         </div>
-        <NavigationMenu className="md:hidden">
+        <NavigationMenu className="lg:hidden">
           <Sheet>
             <SheetTrigger asChild>
               <MenuIcon />
