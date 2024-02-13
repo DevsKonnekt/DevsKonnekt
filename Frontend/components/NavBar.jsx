@@ -63,13 +63,13 @@ const NavBar = () => {
                     <NavigationMenuTrigger
                       className={cn(
                         navigationMenuTriggerStyle(),
-                        "text-md tracking-widest font-semibold hover:font-bold opacity-70 hover:opacity-100"
+                        "text-md tracking-widest font-semibold hover:font-bold opacity-70 hover:opacity-100 bg-transparent"
                       )}
                     >
                       {link.name}
                     </NavigationMenuTrigger>
                     <NavigationMenuContent>
-                      <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                      <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] dark:bg-gray-800">
                         {link.href.map((subLink) => (
                           <ListItem
                             key={subLink.name}
@@ -87,7 +87,7 @@ const NavBar = () => {
                     href={link.href}
                     className={cn(
                       navigationMenuTriggerStyle(),
-                      "text-md tracking-widest font-semibold hover:font-bold opacity-70 hover:opacity-100"
+                      "text-md tracking-widest font-semibold hover:font-bold opacity-70 hover:opacity-100 bg-transparent"
                     )}
                   >
                     {link.name}
@@ -101,7 +101,7 @@ const NavBar = () => {
                   href={`/profile/${user?.user?.id}`}
                   className={cn(
                     navigationMenuTriggerStyle(),
-                    "mr-8 text-md tracking-widest font-semibold hover:font-bold opacity-70 hover:opacity-100"
+                    "mr-8 text-md tracking-widest font-semibold hover:font-bold opacity-70 hover:opacity-100 bg-transparent"
                   )}
                 >
                   My Profile
