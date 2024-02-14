@@ -82,10 +82,10 @@ export const deletePost = async (postId) => {
   }
 };
 
-export const bookmarkPost = async (postId) => {
+export const bookmarkPost = async ({ postId, userId }) => {
   try {
     const response = await axios.patch(
-      `${process.env.BACKEND_URL}/posts/${postId}/bookmark`
+      `${process.env.BACKEND_URL}/posts/bookmark/${postId}/${userId}`
     );
     return JSON.parse(JSON.stringify(response.data));
   } catch (error) {
@@ -93,21 +93,32 @@ export const bookmarkPost = async (postId) => {
   }
 };
 
-export const unbookmarkPost = async (postId) => {
+export const unbookmarkPost = async ({ postId, userId }) => {
   try {
     const response = await axios.patch(
-      `${process.env.BACKEND_URL}/posts/${postId}/unbookmark`
+      `${process.env.BACKEND_URL}/posts/unbookmark/${postId}/${userId}`
     );
-    return JSON.parse(JSON.stringify(response.data));
+    return response.data;
   } catch (error) {
     throw new Error(typeof error === "string" ? error : JSON.stringify(error));
   }
 };
 
-export const getBookmarkedPosts = async (userId) => {
+export const getMyBookmarkedPosts = async ({
+  userId,
+  sortField,
+  sortOrder,
+  searchParam,
+  page,
+  limit,
+}) => {
   try {
     const response = await axios.get(
-      `${process.env.BACKEND_URL}/posts/${userId}/bookmarks`
+      `${process.env.BACKEND_URL}/posts/${userId}/bookmarks?searchParam=${
+        searchParam || ""
+      }&sortOrder=${sortOrder || -1}&limit=${limit || 10}&page=${
+        page || 1
+      }&sortField=${sortField || "createdAt"}`
     );
     return JSON.parse(JSON.stringify(response.data));
   } catch (error) {

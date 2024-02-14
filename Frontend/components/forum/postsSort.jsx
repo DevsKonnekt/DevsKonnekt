@@ -13,7 +13,7 @@ import { useState } from "react";
 import { SortDescIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-const PostsSort = ({ field, order, search, page }) => {
+const PostsSort = ({ field, order, search, path }) => {
   const [sortField, setSortField] = useState(field);
   const [sortOrder, setSortOrder] = useState(order);
 
@@ -21,14 +21,14 @@ const PostsSort = ({ field, order, search, page }) => {
   const handleSortFieldChange = (newSortField) => {
     setSortField(newSortField);
     router.push(
-      `/forum?search=${search}&sortField=${sortField}&sortOrder=${sortOrder}`
+      `/${path}?search=${search}&sortField=${sortField}&sortOrder=${sortOrder}`
     );
   };
 
   const handleSortOrderChange = (newSortOrder) => {
     setSortOrder(newSortOrder);
     router.push(
-      `/forum?search=${search}&sortField=${sortField}&sortOrder=${sortOrder}`
+      `/${path}?search=${search}&sortField=${sortField}&sortOrder=${sortOrder}`
     );
   };
 

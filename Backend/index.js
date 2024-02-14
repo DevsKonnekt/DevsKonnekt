@@ -39,13 +39,13 @@ app.use("/api/v1/", defaultErrorHandler, reviewsRouter);
 app.use("/api/v1/", defaultErrorHandler, venuesRouter);
 app.use("/api/v1/", defaultErrorHandler, profileRouter);
 app.use("/api/v1/", defaultErrorHandler, skillsRouter);
+app.use("/api/v1/", defaultErrorHandler, bookmarksRouter);
+app.use("/api/v1/", defaultErrorHandler, postsRoutes);
 app.use("/api/v1/users/", defaultErrorHandler, userRouter);
 app.use("/api/v1/votes/", defaultErrorHandler, votesRouter);
 app.use("/api/v1/productservices/", defaultErrorHandler, productServiceRouter);
 app.use("/api/v1/projects/", defaultErrorHandler, projectRouter);
-app.use("/api/v1/posts/", defaultErrorHandler, postsRoutes);
 app.use("/api/v1/comments/", defaultErrorHandler, commentsRouter);
-app.use("/api/v1/bookmarks/", defaultErrorHandler, bookmarksRouter);
 
 // eslint-disable-next-line no-undef
 const port = process.env.PORT || 5000;

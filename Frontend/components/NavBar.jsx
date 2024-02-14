@@ -49,9 +49,9 @@ const NavBar = () => {
           <Image
             src="/logo.svg"
             alt="DevsKonnekt Logo"
-            width="60"
-            height="60"
-            className="rounded-full"
+            width="150"
+            height="100"
+            className="w-24 sm:w-[150px]"
           />
         </Link>
         <NavigationMenu className="hidden lg:flex">
@@ -136,9 +136,9 @@ const NavBar = () => {
                 <Image
                   src="/logo.svg"
                   alt="DevsKonnekt Logo"
-                  width="80"
-                  height="80"
-                  className="rounded-full block mx-auto"
+                  width="200"
+                  height="200"
+                  className="block mx-auto"
                 />
               </SheetHeader>
               <Separator className="h-[2px] bg-primary dark:bg-background opacity-45" />
