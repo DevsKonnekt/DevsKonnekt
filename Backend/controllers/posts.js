@@ -329,10 +329,27 @@ export const unbookmarkPost = async (req, res, next) => {
  */
 export const getMyBookmarkedPosts = async (req, res, next) => {
   const { user } = req.params;
+  const {
+    limit = 10,
+    page = 1,
+    searchParam = "",
+    sortField = "createdAt",
+    sortOrder = -1,
+  } = req.query;
+  const conditions = searchParam.length
+    ? [
+        { title: { $regex: searchParam, $options: "i" } },
+        // { tags: { $regex: searchParam, $options: "i" } },
+      ]
+    : [{}];
   try {
     const posts = await Posts.find({
+      $or: conditions,
       bookmarks: { $in: [user] },
     })
+      .sort({ [sortField]: sortOrder })
+      .limit(parseInt(limit, 10))
+      .skip((parseInt(page, 10) - 1) * parseInt(limit, 10))
       .populate({
         path: "comments",
         populate: {
