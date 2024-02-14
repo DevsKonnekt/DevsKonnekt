@@ -13,11 +13,15 @@ import {
 
 const postsRoutes = Router();
 
-postsRoutes.route("/").post(createPosts).get(getPosts);
-postsRoutes.route("/:id").patch(updatePost).get(getPost).delete(deletePost);
-postsRoutes.patch("/:id/bookmark", bookmarkPost);
-postsRoutes.patch("/:id/unbookmark", unbookmarkPost);
-postsRoutes.get("/author/:id", getPostsByAuthor);
-postsRoutes.get("/:user/bookmarks", getMyBookmarkedPosts);
+postsRoutes.route("/posts").post(createPosts).get(getPosts);
+postsRoutes
+  .route("/posts/:id")
+  .patch(updatePost)
+  .get(getPost)
+  .delete(deletePost);
+postsRoutes.patch("/posts/bookmark/:id/:userId", bookmarkPost);
+postsRoutes.patch("/posts/unbookmark/:id/:userId", unbookmarkPost);
+postsRoutes.get("/posts/author/:id", getPostsByAuthor);
+postsRoutes.get("/posts/:user/bookmarks", getMyBookmarkedPosts);
 
 export default postsRoutes;

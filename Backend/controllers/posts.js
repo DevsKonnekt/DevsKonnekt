@@ -263,20 +263,20 @@ export const deletePost = async (req, res, next) => {
  * @returns {Promise<void>} - A promise that resolves when the post is bookmarked successfully.
  */
 export const bookmarkPost = async (req, res, next) => {
-  const id = new mongoose.Types.ObjectId(req.params.id);
+  const { id, userId } = req.params;
   try {
     const post = await Posts.findById(id);
     if (!post) {
-      const error = new Error(`Post not found with id: ${req.params.id}`);
+      const error = new Error("Post not found");
       error.statusCode = 404;
       throw error;
     }
-    if (post.bookmarks.includes(req.user._id)) {
+    if (post.bookmarks.includes(userId)) {
       const error = new Error("You have already bookmarked this post");
       error.statusCode = 400;
       throw error;
     }
-    await Posts.updateOne({ _id: id }, { $push: { bookmarks: req.user._id } });
+    await Posts.updateOne({ _id: id }, { $push: { bookmarks: userId } });
     return res.status(200).json({ message: "Post bookmarked successfully" });
   } catch (error) {
     console.log(error);
@@ -295,20 +295,20 @@ export const bookmarkPost = async (req, res, next) => {
  * @returns {Promise<void>} - A promise that resolves when the post is unbookmarked successfully.
  */
 export const unbookmarkPost = async (req, res, next) => {
-  const id = new mongoose.Types.ObjectId(req.params.id);
+  const { id, userId } = req.params;
   try {
     const post = await Posts.findById(id);
     if (!post) {
-      const error = new Error(`Post not found with id: ${req.params.id}`);
+      const error = new Error("Post not found");
       error.statusCode = 404;
       throw error;
     }
-    if (!post.bookmarks.includes(req.user._id)) {
+    if (!post.bookmarks.includes(userId)) {
       const error = new Error("You have not bookmarked this post");
       error.statusCode = 400;
       throw error;
     }
-    await Posts.updateOne({ _id: id }, { $pull: { bookmarks: req.user._id } });
+    await Posts.updateOne({ _id: id }, { $pull: { bookmarks: userId } });
     return res.status(200).json({ message: "Post unbookmarked successfully" });
   } catch (error) {
     console.log(error);
