@@ -5,11 +5,17 @@ import CreatePost from "../posts/createPost";
 import Post from "../profile/post";
 import { useInView } from "react-intersection-observer";
 import { SpinnerCircular } from "spinners-react";
-import { use, useEffect, useState } from "react";
-import { getAllPosts } from "@/lib/actions/posts.actions";
+import { useEffect, useState } from "react";
+import { getAllPosts, getPostsByUser } from "@/lib/actions/posts.actions";
 import { revalidatePath } from "next/cache";
 
-const ForumPostsList = ({ initialPosts, search, sortField, sortOrder }) => {
+const ForumPostsList = ({
+  initialPosts,
+  search,
+  sortField,
+  sortOrder,
+  type,
+}) => {
   const { isSignedIn, user } = useUser();
   const { ref, inView } = useInView();
   const [page, setPage] = useState(1);
@@ -18,12 +24,28 @@ const ForumPostsList = ({ initialPosts, search, sortField, sortOrder }) => {
 
   async function loadMorePosts() {
     const next = page + 1;
-    const newPosts = await getAllPosts({
-      page: next,
-      searchParam: search,
-      sortField,
-      sortOrder,
-    });
+    let newPosts;
+    type === "allPosts"
+      ? (newPosts = await getAllPosts({
+          page: next,
+          searchParam: search,
+          sortField,
+          sortOrder,
+        }))
+      : type === "userPosts"
+      ? (newPosts = await getPostsByUser({
+          page: next,
+          searchParam: search,
+          sortField,
+          sortOrder,
+        }))
+      : (newPosts = await getMyBookmarkedPosts({
+          page: next,
+          searchParam: search,
+          sortField,
+          sortOrder,
+        }));
+
     if (newPosts.length > 0) {
       setPage(next);
       setPosts((prev) => [...(prev?.length > 0 ? prev : []), ...newPosts]);

@@ -104,10 +104,21 @@ export const unbookmarkPost = async ({ postId, userId }) => {
   }
 };
 
-export const getMyBookmarkedPosts = async (userId) => {
+export const getMyBookmarkedPosts = async ({
+  userId,
+  sortField,
+  sortOrder,
+  searchParam,
+  page,
+  limit,
+}) => {
   try {
     const response = await axios.get(
-      `${process.env.BACKEND_URL}/posts/${userId}/bookmarks`
+      `${process.env.BACKEND_URL}/posts/${userId}/bookmarks?searchParam=${
+        searchParam || ""
+      }&sortOrder=${sortOrder || -1}&limit=${limit || 10}&page=${
+        page || 1
+      }&sortField=${sortField || "createdAt"}`
     );
     return JSON.parse(JSON.stringify(response.data));
   } catch (error) {
