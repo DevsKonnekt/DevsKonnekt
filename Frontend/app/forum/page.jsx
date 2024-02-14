@@ -16,7 +16,7 @@ const MyBookmarks = async ({ searchParams }) => {
     sortField,
   });
   return (
-    <div className="w-full flex flex-col gap-4 pt-32 px-4 md:px-8 xl:px-12">
+    <div className="w-full max-w-[100vw] flex flex-col gap-4 pt-32 px-4 md:px-8 xl:px-12">
       <div className="flex justify-between items-center">
         <h1 className="hidden sm:block text-2xl font-bold">Posts</h1>
         <Search
