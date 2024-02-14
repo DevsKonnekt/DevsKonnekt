@@ -3,6 +3,15 @@ import PostsList from "./postsList";
 import About from "./about";
 import EditProfile from "./editProfile";
 import { getPostsByUser } from "@/lib/actions/posts.actions";
+import {
+  Menubar,
+  MenubarContent,
+  MenubarItem,
+  MenubarMenu,
+  MenubarTrigger,
+} from "../ui/menubar";
+import { MoreVerticalIcon } from "lucide-react";
+import Link from "next/link";
 
 const Details = async ({ isCurrentUser, user, profile }) => {
   const posts = await getPostsByUser(profile?.user?._id);
@@ -15,9 +24,30 @@ const Details = async ({ isCurrentUser, user, profile }) => {
         coverImage={profile?.coverImage}
       />
       {isCurrentUser && (
-        <div className="absolute top-40 sm:top-[19rem] right-4 lg:right-auto lg:left-32 w-max">
-          <EditProfile />
-        </div>
+        <>
+          <Menubar className="bg-secondary border-none absolute top-4 right-4 shadow-2xl">
+            <MenubarMenu>
+              <MenubarTrigger className=" bg-secondary/60 cursor-pointer text-primary focus:bg-secondary/60">
+                <MoreVerticalIcon size={24} />
+              </MenubarTrigger>
+              <MenubarContent className="gap-4 dark:bg-gray-700">
+                <MenubarItem>
+                  <EditProfile />
+                </MenubarItem>
+                <MenubarItem>
+                  <Link href={"/forum/bookmarks"}>
+                    <p>Post Bookmarks</p>
+                  </Link>
+                </MenubarItem>
+                <MenubarItem>
+                  <Link href={"/forum/bookmarks/all"}>
+                    <p>All Bookmarks</p>
+                  </Link>
+                </MenubarItem>
+              </MenubarContent>
+            </MenubarMenu>
+          </Menubar>
+        </>
       )}
       <div className="w-full hidden lg:flex gap-12 justify-between items-start mt-2 px-4">
         {/* Left pane containing availability for hire and collaboration, Bio, socials, skills, etc */}
