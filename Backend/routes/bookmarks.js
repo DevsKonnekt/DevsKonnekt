@@ -12,7 +12,7 @@ import {
 
 const bookmarksRouter = Router();
 
-bookmarksRouter.get("/bookmarks", getAllBookmarks);
-bookmarksRouter.delete("/bookmarks", removeAllBookmarks);
+bookmarksRouter.get("/bookmarks/:owner/", getAllBookmarks);
+bookmarksRouter.delete("/bookmarks/:owner/", removeAllBookmarks);
 
 export default bookmarksRouter;

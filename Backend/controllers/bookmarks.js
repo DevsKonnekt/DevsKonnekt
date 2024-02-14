@@ -20,18 +20,13 @@ import Comments from "../models/comments.js";
  * @returns {Object} Array of bookmarked posts and comments
  */
 export const getAllBookmarks = async (req, res, next) => {
+  const { owner } = req.params;
   try {
-    const { _id } = req.user;
-    if (!_id) {
-      const error = new Error("You are not authorized to view this page");
-      error.statusCode = 401;
-      throw error;
-    }
     const posts = await Posts.find({
-      bookmarks: { $in: [_id] },
+      bookmarks: { $in: [owner] },
     });
     const comments = await Comments.find({
-      bookmarks: { $in: [_id] },
+      bookmarks: { $in: [owner] },
     });
     if (!posts && !comments) {
       const error = new Error("No bookmarks found");
@@ -57,20 +52,15 @@ export const getAllBookmarks = async (req, res, next) => {
  * @returns {Object} Message
  */
 export const removeAllBookmarks = async (req, res, next) => {
+  const { owner } = req.params;
   try {
-    const { _id } = req.user;
-    if (!_id) {
-      const error = new Error("You are not authorized to view this page");
-      error.statusCode = 401;
-      throw error;
-    }
     await Posts.updateMany(
-      { bookmarks: { $in: [_id] } },
-      { $pull: { bookmarks: _id } }
+      { bookmarks: { $in: [owner] } },
+      { $pull: { bookmarks: owner } }
     );
     await Comments.updateMany(
-      { bookmarks: { $in: [_id] } },
-      { $pull: { bookmarks: _id } }
+      { bookmarks: { $in: [owner] } },
+      { $pull: { bookmarks: owner } }
     );
     return res.status(200).json({ message: "All bookmarks removed" });
   } catch (error) {
