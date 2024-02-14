@@ -1,8 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import PostAvatar from "./postAvatar";
 import {
-  ArrowBigDownIcon,
-  ArrowBigUp,
   Bookmark,
   LucideMessageCircle,
   MoveDownIcon,
@@ -10,8 +10,58 @@ import {
   Share2,
 } from "lucide-react";
 import Link from "next/link";
+import { useUser } from "@clerk/nextjs";
+import { useToast } from "../ui/use-toast";
+import { bookmarkPost, unbookmarkPost } from "@/lib/actions/posts.actions";
+import { useEffect, useState } from "react";
+import { MdBookmarkAdded } from "react-icons/md";
 
 const Post = ({ post }) => {
+  const { user, isSignedIn } = useUser();
+  const [isPostBookmarked, setIsPostBookmarked] = useState(
+    post?.bookmarks?.includes(user?.publicMetadata?.userId) || false
+  );
+  const { toast } = useToast();
+
+  const handleBookMarkPost = async () => {
+    if (isSignedIn) {
+      if (post?.bookmarks?.includes(user.publicMetadata.userId)) {
+        return;
+      } else {
+        try {
+          await bookmarkPost({
+            postId: post?._id,
+            userId: user.publicMetadata.userId,
+          });
+          setIsPostBookmarked(true);
+        } catch (error) {
+          toast({
+            variant: "destructive",
+            title: "Oops! Something went wrong",
+            description: "Failed to bookmark. Please try again.",
+          });
+        }
+      }
+    }
+  };
+
+  const handleUnBookmarkPost = async () => {
+    if (isSignedIn) {
+      try {
+        await unbookmarkPost({
+          postId: post?._id,
+          userId: user.publicMetadata.userId,
+        });
+        setIsPostBookmarked(false);
+      } catch (error) {
+        toast({
+          variant: "destructive",
+          title: "Oops! Something went wrong",
+          description: "Failed to unbookmark. Please try again.",
+        });
+      }
+    }
+  };
   return (
     <article className="w-full max-h-[400px]rounded-lg shadow-md p-4 mb-4">
       <Link href={`/posts/${post?._id}`} className="w-full">
@@ -63,9 +113,21 @@ const Post = ({ post }) => {
           </p>
         </div>
         <div className="flex justify-start gap-8 items-center">
-          <button className="flex gap-2 items-center text-primary/60 dark:text-background/60">
-            <Bookmark className="text-primary/60 dark:text-background/60 text-3xl cursor-pointer" />
-          </button>
+          {isPostBookmarked ? (
+            <button
+              className="flex gap-2 items-center text-primary/60 dark:text-background/60"
+              onClick={handleUnBookmarkPost}
+            >
+              <MdBookmarkAdded className="text-secondary/80 text-3xl cursor-pointer" />
+            </button>
+          ) : (
+            <button
+              className="flex gap-2 items-center text-primary/60 dark:text-background/60"
+              onClick={handleBookMarkPost}
+            >
+              <Bookmark className="text-primary/60 dark:text-background/60 text-3xl cursor-pointer" />
+            </button>
+          )}
           <button className="flex gap-2 items-center text-primary/60 dark:text-background/60">
             <Share2 className="text-primary/60 dark:text-background/60 text-3xl cursor-pointer" />
           </button>
