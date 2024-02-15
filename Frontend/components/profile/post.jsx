@@ -157,15 +157,19 @@ const Post = ({ post }) => {
               (vote) => vote.user === user?.publicMetadata?.userId
             )?.length ? (
               <MoveUpIcon
-                className={cn("cursor-pointer text-secondary")}
+                className={cn(
+                  "cursor-pointer text-secondary text-xs font-bold"
+                )}
                 onClick={handleUpvotePost}
+                size={18}
               />
             ) : (
               <MoveUpIcon
                 className={cn(
-                  "cursor-pointer text-primary/60 dark:text-background/60"
+                  "cursor-pointer text-primary/60 dark:text-background/60 text-xs font-bold"
                 )}
                 onClick={handleUpvotePost}
+                size={18}
               />
             )}{" "}
             {upvotes?.length || ""}
@@ -175,15 +179,19 @@ const Post = ({ post }) => {
               (vote) => vote.user === user?.publicMetadata?.userId
             )?.length ? (
               <MoveDownIcon
-                className={cn("cursor-pointer text-red-400/60")}
+                className={cn(
+                  "cursor-pointer text-red-400/60 text-xs font-bold"
+                )}
                 onClick={handleDownvotePost}
+                size={18}
               />
             ) : (
               <MoveDownIcon
                 className={cn(
-                  "cursor-pointer text-primary/60 dark:text-background/60"
+                  "cursor-pointer text-primary/60 dark:text-background/60 text-xs font-bold"
                 )}
                 onClick={handleDownvotePost}
+                size={18}
               />
             )}{" "}
             {downvotes?.length || ""}
