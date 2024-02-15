@@ -88,10 +88,10 @@ const eventSchema = new mongoose.Schema(
       default: 0,
     },
   },
-  {timestamps: true }, { autoIndex: false }
+  { timestamps: true },
+  { autoIndex: false }
 );
 
 const Event = mongoose.model("Event", eventSchema);
 
 export default Event;
-m

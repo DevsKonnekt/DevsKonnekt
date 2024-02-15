@@ -34,7 +34,6 @@ app.use(morgan("combined"));
 app.use("/api/v1/", categoriesRouter);
 app.use("/api/v1/", eventsRoutes);
 app.use("/api/v1/", reviewsRouter);
-app.use("/api/v1/", venuesRouter);
 app.use("/api/v1/", profileRouter);
 app.use("/api/v1/", skillsRouter);
 app.use("/api/v1/", bookmarksRouter);
@@ -44,7 +43,6 @@ app.use("/api/v1/votes/", votesRouter);
 app.use("/api/v1/productservices/", productServiceRouter);
 app.use("/api/v1/projects/", projectRouter);
 app.use("/api/v1/comments/", commentsRouter);
-
 
 // eslint-disable-next-line no-undef
 const port = process.env.PORT || 5000;
