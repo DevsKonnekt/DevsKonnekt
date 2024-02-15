@@ -65,7 +65,7 @@ const ForumPostsList = ({
     setPosts(initialPosts);
     setPage(1);
     setLoading(true);
-  }, [search, sortField, sortOrder]);
+  }, [search, sortField, sortOrder, initialPosts]);
 
   return (
     <div className="w-full flex flex-col gap-4 lg:mt-16 md:px-4">

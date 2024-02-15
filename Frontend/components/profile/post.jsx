@@ -27,6 +27,8 @@ const Post = ({ post }) => {
   const [isPostBookmarked, setIsPostBookmarked] = useState(
     post?.bookmarks?.includes(user?.publicMetadata?.userId) || false
   );
+  const upvotes = post?.votes?.filter((vote) => vote.voteType === "upvote");
+  const downvotes = post?.votes?.filter((vote) => vote.voteType === "downvote");
   const { toast } = useToast();
 
   const handleBookMarkPost = async () => {
@@ -106,10 +108,7 @@ const Post = ({ post }) => {
   };
 
   return (
-    <article
-      className="w-full max-h-[400px]rounded-lg shadow-md p-4 mb-4"
-      key={Math.random()}
-    >
+    <article className="w-full max-h-[400px]rounded-lg shadow-md p-4 mb-4">
       <Link href={`/posts/${post?._id}`} className="w-full">
         <div className="flex items-center space-x-2">
           <PostAvatar avatar={post?.author?.profilePicture} />
@@ -150,34 +149,32 @@ const Post = ({ post }) => {
             {post?.comments?.length || ""}
           </p>
           <p className="text-primary/60 dark:text-background/60 flex gap-[0.1rem] items-center">
-            <MoveUpIcon
-              className={cn(
-                "text-3xl cursor-pointer",
-                post?.votes
-                  ?.filter((vote) => vote.voteType === "upvote")
-                  ?.includes(user?.publicMetadata?.userId)
-                  ? "text-secondary"
-                  : "text-primary/60"
-              )}
-              onClick={handleUpvotePost}
-            />{" "}
-            {post?.votes?.filter((vote) => vote.voteType === "upvote").length ||
-              ""}
+            {upvotes?.includes(user?.publicMetadata?.userId) ? (
+              <MoveUpIcon
+                className={cn("text-3xl cursor-pointer text-secondary")}
+                onClick={handleUpvotePost}
+              />
+            ) : (
+              <MoveUpIcon
+                className={cn("text-3xl cursor-pointer text-primary/60")}
+                onClick={handleUpvotePost}
+              />
+            )}{" "}
+            {upvotes?.length || ""}
           </p>
           <p className="text-primary/60 dark:text-background/60 flex gap-[0.1rem] items-center">
-            <MoveDownIcon
-              className={cn(
-                "text-3xl cursor-pointer",
-                post?.votes
-                  ?.filter((vote) => vote.voteType === "downvote")
-                  ?.includes(user?.publicMetadata?.userId)
-                  ? "text-secondary"
-                  : "text-primary/60"
-              )}
-              onClick={handleDownvotePost}
-            />{" "}
-            {post?.votes?.filter((vote) => vote.voteType === "downvote")
-              .length || ""}
+            {downvotes?.includes(user?.publicMetadata?.userId) ? (
+              <MoveDownIcon
+                className={cn("text-3xl cursor-pointer text-red-400/60")}
+                onClick={handleDownvotePost}
+              />
+            ) : (
+              <MoveDownIcon
+                className={cn("text-3xl cursor-pointer text-primary/60")}
+                onClick={handleDownvotePost}
+              />
+            )}{" "}
+            {downvotes?.length || ""}
           </p>
         </div>
         <div className="flex justify-start gap-8 items-center">
