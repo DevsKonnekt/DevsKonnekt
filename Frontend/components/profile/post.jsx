@@ -12,9 +12,15 @@ import {
 import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
 import { useToast } from "../ui/use-toast";
-import { bookmarkPost, unbookmarkPost } from "@/lib/actions/posts.actions";
-import { useEffect, useState } from "react";
+import {
+  bookmarkPost,
+  downvotePost,
+  unbookmarkPost,
+  upvotePost,
+} from "@/lib/actions/posts.actions";
+import { useState } from "react";
 import { MdBookmarkAdded } from "react-icons/md";
+import { cn } from "@/lib/utils";
 
 const Post = ({ post }) => {
   const { user, isSignedIn } = useUser();
@@ -62,8 +68,48 @@ const Post = ({ post }) => {
       }
     }
   };
+
+  const handleUpvotePost = async () => {
+    if (isSignedIn) {
+      try {
+        await upvotePost({
+          postId: post?._id,
+          userId: user.publicMetadata.userId,
+          voteType: "upvote",
+        });
+      } catch (error) {
+        toast({
+          variant: "destructive",
+          title: "Oops! Something went wrong",
+          description: `Failed to upvote. ${error.message}`,
+        });
+      }
+    }
+  };
+
+  const handleDownvotePost = async () => {
+    if (isSignedIn) {
+      try {
+        await downvotePost({
+          postId: post?._id,
+          userId: user.publicMetadata.userId,
+          voteType: "downvote",
+        });
+      } catch (error) {
+        toast({
+          variant: "destructive",
+          title: "Oops! Something went wrong",
+          description: `Failed to downvote: ${error.message}`,
+        });
+      }
+    }
+  };
+
   return (
-    <article className="w-full max-h-[400px]rounded-lg shadow-md p-4 mb-4">
+    <article
+      className="w-full max-h-[400px]rounded-lg shadow-md p-4 mb-4"
+      key={Math.random()}
+    >
       <Link href={`/posts/${post?._id}`} className="w-full">
         <div className="flex items-center space-x-2">
           <PostAvatar avatar={post?.author?.profilePicture} />
@@ -104,12 +150,34 @@ const Post = ({ post }) => {
             {post?.comments?.length || ""}
           </p>
           <p className="text-primary/60 dark:text-background/60 flex gap-[0.1rem] items-center">
-            <MoveUpIcon className="text-secondary text-3xl cursor-pointer" />{" "}
-            {post?.votes?.upvotes || ""}
+            <MoveUpIcon
+              className={cn(
+                "text-3xl cursor-pointer",
+                post?.votes
+                  ?.filter((vote) => vote.voteType === "upvote")
+                  ?.includes(user?.publicMetadata?.userId)
+                  ? "text-secondary"
+                  : "text-primary/60"
+              )}
+              onClick={handleUpvotePost}
+            />{" "}
+            {post?.votes?.filter((vote) => vote.voteType === "upvote").length ||
+              ""}
           </p>
           <p className="text-primary/60 dark:text-background/60 flex gap-[0.1rem] items-center">
-            <MoveDownIcon className=" text-3xl cursor-pointer" />{" "}
-            {post?.votes?.downvotes || ""}
+            <MoveDownIcon
+              className={cn(
+                "text-3xl cursor-pointer",
+                post?.votes
+                  ?.filter((vote) => vote.voteType === "downvote")
+                  ?.includes(user?.publicMetadata?.userId)
+                  ? "text-secondary"
+                  : "text-primary/60"
+              )}
+              onClick={handleDownvotePost}
+            />{" "}
+            {post?.votes?.filter((vote) => vote.voteType === "downvote")
+              .length || ""}
           </p>
         </div>
         <div className="flex justify-start gap-8 items-center">

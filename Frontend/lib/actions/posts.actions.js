@@ -131,6 +131,7 @@ export const upvotePost = async ({ postId, userId }) => {
     const response = await axios.patch(
       `${process.env.BACKEND_URL}/posts/upvote/${postId}/${userId}`
     );
+    revalidatePath(`/forum`);
     return response.data;
   } catch (error) {
     throw new Error(
@@ -144,6 +145,7 @@ export const downvotePost = async ({ postId, userId }) => {
     const response = await axios.patch(
       `${process.env.BACKEND_URL}/posts/downvote/${postId}/${userId}`
     );
+    revalidatePath(`/forum`);
     return response.data;
   } catch (error) {
     throw new Error(
