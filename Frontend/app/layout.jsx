@@ -34,6 +34,7 @@ export default function RootLayout({ children }) {
             enableSystem
             disableTransitionOnChange
           >
+            <Toaster />
             <div className="max-w-[1440px] w-full mx-auto flex flex-col min-h-screen justify-between">
               <ReduxProvider>
                 <NextSSRPlugin routerConfig={extractRouterConfig(fileRouter)} />
@@ -42,7 +43,6 @@ export default function RootLayout({ children }) {
                 <Footer />
               </ReduxProvider>
             </div>
-            <Toaster />
           </ThemeProvider>
         </body>
       </html>

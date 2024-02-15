@@ -125,3 +125,31 @@ export const getMyBookmarkedPosts = async ({
     throw new Error(typeof error === "string" ? error : JSON.stringify(error));
   }
 };
+
+export const upvotePost = async ({ postId, userId }) => {
+  try {
+    const response = await axios.patch(
+      `${process.env.BACKEND_URL}/posts/upvote/${postId}/${userId}`
+    );
+    revalidatePath(`/forum`);
+    return response.data;
+  } catch (error) {
+    throw new Error(
+      typeof error === "string" ? error : error?.response?.data?.message
+    );
+  }
+};
+
+export const downvotePost = async ({ postId, userId }) => {
+  try {
+    const response = await axios.patch(
+      `${process.env.BACKEND_URL}/posts/downvote/${postId}/${userId}`
+    );
+    revalidatePath(`/forum`);
+    return response.data;
+  } catch (error) {
+    throw new Error(
+      typeof error === "string" ? error : error?.response?.data?.message
+    );
+  }
+};

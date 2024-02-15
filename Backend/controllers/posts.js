@@ -2,6 +2,7 @@
 import mongoose from "mongoose";
 import Posts from "../models/posts.js";
 import Profile from "../models/profiles.js";
+import Vote from "../models/votes.js";
 import { ValidationError } from "../middlewares/customError.js";
 
 /**
@@ -86,10 +87,6 @@ export const getPosts = async (req, res, next) => {
       })
       .populate({
         path: "votes",
-        populate: {
-          path: "user",
-          select: "firstName lastName username profilePicture _id",
-        },
       });
     return res.status(200).json(posts);
   } catch (error) {
@@ -367,6 +364,119 @@ export const getMyBookmarkedPosts = async (req, res, next) => {
     res.status(200).json(posts);
   } catch (error) {
     console.error(error);
+    next(error);
+  }
+};
+
+/**
+ * @name upVotePost
+ * @method PATCH
+ * @access Private
+ * @description Upvote a post.
+ * @memberof module:controllers/posts
+ * @param {Object} req - Request object
+ * @param {Object} res - Response object
+ * @param {Function} next - Next middleware
+ * @returns {Promise<void>} - A promise that resolves when the post is upvoted successfully.
+ * @throws {Error} - Throws an error if the post is not found.
+ * @throws {Error} - Throws an error if the user has already voted on the post.
+ */
+export const upVotePost = async (req, res, next) => {
+  const { id, userId } = req.params;
+  try {
+    const post = await Posts.findById(id);
+    if (!post) {
+      const error = new Error("Post not found");
+      error.statusCode = 404;
+      throw error;
+    }
+    const vote = await Vote.findOne({
+      post: id,
+      user: userId,
+      voteType: "upvote",
+    });
+    if (vote) {
+      await Vote.deleteOne({ post: id, user: userId });
+      post.votes.pull(vote._id);
+      await post.save();
+      return res.status(200).json({ message: "Vote removed successfully" });
+    }
+    const downVote = await Vote.findOne({
+      post: id,
+      user: userId,
+      voteType: "downvote",
+    });
+    if (downVote) {
+      const error = new Error("You cannot upvote a post you have downvoted");
+      error.statusCode = 400;
+      throw error;
+    }
+
+    const newVote = await Vote.create({
+      post: id,
+      user: userId,
+      voteType: "upvote",
+    });
+    post.votes.push(newVote._id);
+    await post.save();
+    return res.status(200).json({ message: "Post upvoted successfully" });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * @name downVotePost
+ * @method PATCH
+ * @access Private
+ * @description Downvote a post.
+ * @memberof module:controllers/posts
+ * @param {Object} req - Request object
+ * @param {Object} res - Response object
+ * @param {Function} next - Next middleware
+ * @returns {Promise<void>} - A promise that resolves when the post is downvoted successfully.
+ * @throws {Error} - Throws an error if the post is not found.
+ * @throws {Error} - Throws an error if the user has already voted on the post.
+ */
+export const downVotePost = async (req, res, next) => {
+  const { id, userId } = req.params;
+  try {
+    const post = await Posts.findById(id);
+    if (!post) {
+      const error = new Error("Post not found");
+      error.statusCode = 404;
+      throw error;
+    }
+    const vote = await Vote.findOne({
+      post: id,
+      user: userId,
+      voteType: "downvote",
+    });
+    if (vote) {
+      await Vote.deleteOne({ post: id, user: userId });
+      post.votes.pull(vote._id);
+      await post.save();
+      return res.status(200).json({ message: "Vote removed successfully" });
+    }
+    const upVote = await Vote.findOne({
+      post: id,
+      user: userId,
+      voteType: "upvote",
+    });
+    if (upVote) {
+      const error = new Error("You cannot downvote a post you have upvoted");
+      error.statusCode = 400;
+      throw error;
+    }
+    const newVote = await Vote.create({
+      post: id,
+      user: userId,
+      voteType: "downvote",
+    });
+    post.votes.push(newVote._id);
+    await post.save();
+    return res.status(200).json({ message: "Post downvoted successfully" });
+  } catch (error) {
     next(error);
   }
 };

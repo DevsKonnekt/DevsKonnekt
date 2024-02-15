@@ -28,10 +28,13 @@ const postsSchema = new mongoose.Schema(
     tags: {
       type: [String],
     },
-    votes: {
-      type: [mongoose.Schema.Types.ObjectId],
-      ref: "Vote",
-    },
+    votes: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Vote",
+      },
+    ],
+
     bookmarks: {
       type: [mongoose.Schema.Types.ObjectId],
       ref: "User",

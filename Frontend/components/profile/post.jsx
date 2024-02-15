@@ -12,15 +12,24 @@ import {
 import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
 import { useToast } from "../ui/use-toast";
-import { bookmarkPost, unbookmarkPost } from "@/lib/actions/posts.actions";
-import { useEffect, useState } from "react";
+import {
+  bookmarkPost,
+  downvotePost,
+  unbookmarkPost,
+  upvotePost,
+} from "@/lib/actions/posts.actions";
+import { useState } from "react";
 import { MdBookmarkAdded } from "react-icons/md";
+import { cn } from "@/lib/utils";
+import { SpinnerCircular } from "spinners-react";
 
 const Post = ({ post }) => {
-  const { user, isSignedIn } = useUser();
+  const { user, isSignedIn, isLoaded } = useUser();
   const [isPostBookmarked, setIsPostBookmarked] = useState(
     post?.bookmarks?.includes(user?.publicMetadata?.userId) || false
   );
+  const upvotes = post?.votes?.filter((vote) => vote.voteType === "upvote");
+  const downvotes = post?.votes?.filter((vote) => vote.voteType === "downvote");
   const { toast } = useToast();
 
   const handleBookMarkPost = async () => {
@@ -62,6 +71,46 @@ const Post = ({ post }) => {
       }
     }
   };
+
+  const handleUpvotePost = async () => {
+    if (isSignedIn) {
+      try {
+        await upvotePost({
+          postId: post?._id,
+          userId: user.publicMetadata.userId,
+          voteType: "upvote",
+        });
+      } catch (error) {
+        toast({
+          variant: "destructive",
+          title: "Oops! Something went wrong",
+          description: `Failed to upvote. ${error.message}`,
+        });
+      }
+    }
+  };
+
+  const handleDownvotePost = async () => {
+    if (isSignedIn) {
+      try {
+        await downvotePost({
+          postId: post?._id,
+          userId: user.publicMetadata.userId,
+          voteType: "downvote",
+        });
+      } catch (error) {
+        toast({
+          variant: "destructive",
+          title: "Oops! Something went wrong",
+          description: `Failed to downvote: ${error.message}`,
+        });
+      }
+    }
+  };
+
+  if (!isLoaded) return <SpinnerCircular color="#1F63ED" />;
+
+  console.log(upvotes);
   return (
     <article className="w-full max-h-[400px]rounded-lg shadow-md p-4 mb-4">
       <Link href={`/posts/${post?._id}`} className="w-full">
@@ -104,12 +153,48 @@ const Post = ({ post }) => {
             {post?.comments?.length || ""}
           </p>
           <p className="text-primary/60 dark:text-background/60 flex gap-[0.1rem] items-center">
-            <MoveUpIcon className="text-secondary text-3xl cursor-pointer" />{" "}
-            {post?.votes?.upvotes || ""}
+            {upvotes?.filter(
+              (vote) => vote.user === user?.publicMetadata?.userId
+            )?.length ? (
+              <MoveUpIcon
+                className={cn(
+                  "cursor-pointer text-secondary text-xs font-bold"
+                )}
+                onClick={handleUpvotePost}
+                size={18}
+              />
+            ) : (
+              <MoveUpIcon
+                className={cn(
+                  "cursor-pointer text-primary/60 dark:text-background/60 text-xs font-bold"
+                )}
+                onClick={handleUpvotePost}
+                size={18}
+              />
+            )}{" "}
+            {upvotes?.length || ""}
           </p>
           <p className="text-primary/60 dark:text-background/60 flex gap-[0.1rem] items-center">
-            <MoveDownIcon className=" text-3xl cursor-pointer" />{" "}
-            {post?.votes?.downvotes || ""}
+            {downvotes?.filter(
+              (vote) => vote.user === user?.publicMetadata?.userId
+            )?.length ? (
+              <MoveDownIcon
+                className={cn(
+                  "cursor-pointer text-red-400/60 text-xs font-bold"
+                )}
+                onClick={handleDownvotePost}
+                size={18}
+              />
+            ) : (
+              <MoveDownIcon
+                className={cn(
+                  "cursor-pointer text-primary/60 dark:text-background/60 text-xs font-bold"
+                )}
+                onClick={handleDownvotePost}
+                size={18}
+              />
+            )}{" "}
+            {downvotes?.length || ""}
           </p>
         </div>
         <div className="flex justify-start gap-8 items-center">
