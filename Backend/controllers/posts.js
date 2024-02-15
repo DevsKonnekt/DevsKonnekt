@@ -394,13 +394,28 @@ export const upVotePost = async (req, res, next) => {
       error.statusCode = 404;
       throw error;
     }
-    const vote = await Vote.findOne({ post: id, user: userId });
+    const vote = await Vote.findOne({
+      post: id,
+      user: userId,
+      voteType: "upvote",
+    });
     if (vote) {
       await Vote.deleteOne({ post: id, user: userId });
       post.votes.pull(vote._id);
       await post.save();
       return res.status(200).json({ message: "Vote removed successfully" });
     }
+    const downVote = await Vote.findOne({
+      post: id,
+      user: userId,
+      voteType: "downvote",
+    });
+    if (downVote) {
+      const error = new Error("You cannot upvote a post you have downvoted");
+      error.statusCode = 400;
+      throw error;
+    }
+
     const newVote = await Vote.create({
       post: id,
       user: userId,
@@ -436,12 +451,26 @@ export const downVotePost = async (req, res, next) => {
       error.statusCode = 404;
       throw error;
     }
-    const vote = await Vote.findOne({ post: id, user: userId });
+    const vote = await Vote.findOne({
+      post: id,
+      user: userId,
+      voteType: "downvote",
+    });
     if (vote) {
       await Vote.deleteOne({ post: id, user: userId });
       post.votes.pull(vote._id);
       await post.save();
       return res.status(200).json({ message: "Vote removed successfully" });
+    }
+    const upVote = await Vote.findOne({
+      post: id,
+      user: userId,
+      voteType: "upvote",
+    });
+    if (upVote) {
+      const error = new Error("You cannot downvote a post you have upvoted");
+      error.statusCode = 400;
+      throw error;
     }
     const newVote = await Vote.create({
       post: id,
