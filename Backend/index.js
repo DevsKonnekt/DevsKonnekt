@@ -12,7 +12,6 @@ import productServiceRouter from "./routes/productservice.js";
 import categoriesRouter from "./routes/categories.js";
 import eventsRoutes from "./routes/events.js";
 import reviewsRouter from "./routes/reviews.js";
-import venuesRouter from "./routes/venues.js";
 import projectRouter from "./routes/projects.js";
 import postsRoutes from "./routes/posts.js";
 import commentsRouter from "./routes/comments.js";
@@ -45,6 +44,7 @@ app.use("/api/v1/votes/", votesRouter);
 app.use("/api/v1/productservices/", productServiceRouter);
 app.use("/api/v1/projects/", projectRouter);
 app.use("/api/v1/comments/", commentsRouter);
+
 
 // eslint-disable-next-line no-undef
 const port = process.env.PORT || 5000;

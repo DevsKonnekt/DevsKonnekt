@@ -36,18 +36,12 @@ const eventSchema = new mongoose.Schema(
       required: [true, "End date is required"],
       index: true,
     },
-    imageUrls: {
-      type: [String],
+    imageUrl: {
+      type: String,
     },
     tickets: {
       type: [mongoose.Schema.Types.ObjectId],
       ref: "Ticket",
-    },
-    venue: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Venue",
-      required: [true, "Venue is required"],
-      index: true,
     },
     organizer: {
       type: mongoose.Schema.Types.ObjectId,
@@ -65,6 +59,12 @@ const eventSchema = new mongoose.Schema(
       type: String,
       enum: ["isPublished", "isDraft", "isCancelled"],
       default: "isDraft",
+      index: true,
+    },
+    location: {
+      type: String,
+      enum: ["isPublished", "isCancelled"],
+      default: "",
       index: true,
     },
     isFeatured: {
@@ -94,3 +94,4 @@ const eventSchema = new mongoose.Schema(
 const Event = mongoose.model("Event", eventSchema);
 
 export default Event;
+m
