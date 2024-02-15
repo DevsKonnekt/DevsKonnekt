@@ -12,15 +12,17 @@ import {
   getAllProfiles,
   deleteSkillFromProfile,
 } from "../controllers/profile.js";
+import { defaultErrorHandler } from "../middlewares/index.js";
 
 const profileRouter = Router();
 
-profileRouter.get("/profiles", getAllProfiles);
-profileRouter.get("/profiles/:userId", getProfile);
-profileRouter.put("/profiles/:userId", updateProfile);
+profileRouter.get("/profiles", getAllProfiles, defaultErrorHandler);
+profileRouter.get("/profiles/:userId", getProfile, defaultErrorHandler);
+profileRouter.put("/profiles/:userId", updateProfile, defaultErrorHandler);
 profileRouter.patch(
   "/profiles/:userId/skills/:skillId",
-  deleteSkillFromProfile
+  deleteSkillFromProfile,
+  defaultErrorHandler
 );
 
 export default profileRouter;

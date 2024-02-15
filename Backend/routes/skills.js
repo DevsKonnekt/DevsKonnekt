@@ -14,13 +14,14 @@ import {
   updateSkill,
   deleteSkill,
 } from "../controllers/skills.js";
+import { defaultErrorHandler } from "../middlewares/index.js";
 
 const skillsRouter = Router();
 
-skillsRouter.get("/skills", getSkills);
-skillsRouter.get("/skills/:id", getSkill);
-skillsRouter.post("/skills", createSkill);
-skillsRouter.patch("/skills/:id", updateSkill);
-skillsRouter.delete("/skills/:id", deleteSkill);
+skillsRouter.get("/skills", getSkills, defaultErrorHandler);
+skillsRouter.get("/skills/:id", getSkill, defaultErrorHandler);
+skillsRouter.post("/skills", createSkill, defaultErrorHandler);
+skillsRouter.patch("/skills/:id", updateSkill, defaultErrorHandler);
+skillsRouter.delete("/skills/:id", deleteSkill, defaultErrorHandler);
 
 export default skillsRouter;

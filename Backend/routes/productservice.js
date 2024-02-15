@@ -12,6 +12,7 @@ import {
   updateProductService,
   deleteProductService,
 } from "../controllers/productservices.js";
+import { defaultErrorHandler } from "../middlewares/index.js";
 
 const productServiceRouter = Router();
 
@@ -22,21 +23,21 @@ const productServiceRouter = Router();
  * @memberof module:routes/productService
  */
 
-productServiceRouter.post("/", createProductService);
+productServiceRouter.post("/", createProductService, defaultErrorHandler);
 
 /**
  * @name Get /productservices
  * @description get  all product and services
  * @memberof module:routes/productService
  */
-productServiceRouter.get("/", getAllProductServices);
+productServiceRouter.get("/", getAllProductServices, defaultErrorHandler);
 
 /**
  * @name GET /productService/:Id
  * @description /Get a single productService
  * @memberof module:routes/productService
  */
-productServiceRouter.get("/:id", getProductService);
+productServiceRouter.get("/:id", getProductService, defaultErrorHandler);
 
 /**
  * @name PUT /productService/:id
@@ -44,7 +45,7 @@ productServiceRouter.get("/:id", getProductService);
  * @memberof module:routes/productService
  */
 
-productServiceRouter.put("/:id", updateProductService);
+productServiceRouter.put("/:id", updateProductService, defaultErrorHandler);
 
 /**
  * @name DELETE /productService/:id
@@ -52,5 +53,5 @@ productServiceRouter.put("/:id", updateProductService);
  * @memberof module:routes/productService
  */
 
-productServiceRouter.delete("/:id", deleteProductService);
+productServiceRouter.delete("/:id", deleteProductService, defaultErrorHandler);
 export default productServiceRouter;

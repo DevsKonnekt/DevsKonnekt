@@ -15,13 +15,14 @@ import {
   updateEvent,
   deleteEvent,
 } from "../controllers/events.js";
+import { defaultErrorHandler } from "../middlewares/index.js";
 
 const eventsRoutes = Router();
 
-eventsRoutes.get("/events", getEvents);
-eventsRoutes.post("/events", createEvent);
-eventsRoutes.patch("/events/:id", updateEvent);
-eventsRoutes.delete("/events/:id", deleteEvent);
-eventsRoutes.get("/events/:id", getEvent);
+eventsRoutes.get("/events", getEvents, defaultErrorHandler);
+eventsRoutes.post("/events", createEvent, defaultErrorHandler);
+eventsRoutes.patch("/events/:id", updateEvent, defaultErrorHandler);
+eventsRoutes.delete("/events/:id", deleteEvent, defaultErrorHandler);
+eventsRoutes.get("/events/:id", getEvent, defaultErrorHandler);
 
 export default eventsRoutes;

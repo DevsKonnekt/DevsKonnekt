@@ -12,20 +12,40 @@ import {
   upVotePost,
   downVotePost,
 } from "../controllers/posts.js";
+import { defaultErrorHandler } from "../middlewares/index.js";
 
 const postsRoutes = Router();
 
-postsRoutes.route("/posts").post(createPosts).get(getPosts);
+postsRoutes
+  .route("/posts")
+  .post(createPosts, defaultErrorHandler)
+  .get(getPosts, defaultErrorHandler);
 postsRoutes
   .route("/posts/:id")
-  .patch(updatePost)
-  .get(getPost)
-  .delete(deletePost);
-postsRoutes.patch("/posts/bookmark/:id/:userId", bookmarkPost);
-postsRoutes.patch("/posts/unbookmark/:id/:userId", unbookmarkPost);
+  .patch(updatePost, defaultErrorHandler)
+  .get(getPost, defaultErrorHandler)
+  .delete(deletePost, defaultErrorHandler);
+postsRoutes.patch(
+  "/posts/bookmark/:id/:userId",
+  bookmarkPost,
+  defaultErrorHandler
+);
+postsRoutes.patch(
+  "/posts/unbookmark/:id/:userId",
+  unbookmarkPost,
+  defaultErrorHandler
+);
 postsRoutes.patch("/posts/upvote/:id/:userId", upVotePost);
-postsRoutes.patch("/posts/downvote/:id/:userId", downVotePost);
-postsRoutes.get("/posts/author/:id", getPostsByAuthor);
-postsRoutes.get("/posts/:user/bookmarks", getMyBookmarkedPosts);
+postsRoutes.patch(
+  "/posts/downvote/:id/:userId",
+  downVotePost,
+  defaultErrorHandler
+);
+postsRoutes.get("/posts/author/:id", getPostsByAuthor, defaultErrorHandler);
+postsRoutes.get(
+  "/posts/:user/bookmarks",
+  getMyBookmarkedPosts,
+  defaultErrorHandler
+);
 
 export default postsRoutes;

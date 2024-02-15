@@ -7,13 +7,14 @@ import {
   deleteVoteById,
   getVotesByTargetId,
 } from "../controllers/vote.js";
+import { defaultErrorHandler } from "../middlewares/index.js";
 
 const votesRouter = express.Router();
 
-votesRouter.post("/", createVote);
-votesRouter.get("/:voteId", getVoteById);
-votesRouter.put("/:voteId", updateVoteById);
-votesRouter.delete("/:voteId", deleteVoteById);
-votesRouter.get("/target/:targetId", getVotesByTargetId);
+votesRouter.post("/", createVote, defaultErrorHandler);
+votesRouter.get("/:voteId", getVoteById, defaultErrorHandler);
+votesRouter.put("/:voteId", updateVoteById, defaultErrorHandler);
+votesRouter.delete("/:voteId", deleteVoteById, defaultErrorHandler);
+votesRouter.get("/target/:targetId", getVotesByTargetId, defaultErrorHandler);
 
 export default votesRouter;
