@@ -35,7 +35,7 @@ postsRoutes.patch(
   unbookmarkPost,
   defaultErrorHandler
 );
-postsRoutes.patch("/posts/upvote/:id/:userId", upVotePost);
+postsRoutes.patch("/posts/upvote/:id/:userId", upVotePost, defaultErrorHandler);
 postsRoutes.patch(
   "/posts/downvote/:id/:userId",
   downVotePost,
