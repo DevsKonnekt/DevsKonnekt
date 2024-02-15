@@ -21,9 +21,10 @@ import {
 import { useState } from "react";
 import { MdBookmarkAdded } from "react-icons/md";
 import { cn } from "@/lib/utils";
+import { SpinnerCircular } from "spinners-react";
 
 const Post = ({ post }) => {
-  const { user, isSignedIn } = useUser();
+  const { user, isSignedIn, isLoaded } = useUser();
   const [isPostBookmarked, setIsPostBookmarked] = useState(
     post?.bookmarks?.includes(user?.publicMetadata?.userId) || false
   );
@@ -107,6 +108,9 @@ const Post = ({ post }) => {
     }
   };
 
+  if (!isLoaded) return <SpinnerCircular color="#1F63ED" />;
+
+  console.log(upvotes);
   return (
     <article className="w-full max-h-[400px]rounded-lg shadow-md p-4 mb-4">
       <Link href={`/posts/${post?._id}`} className="w-full">
@@ -149,28 +153,36 @@ const Post = ({ post }) => {
             {post?.comments?.length || ""}
           </p>
           <p className="text-primary/60 dark:text-background/60 flex gap-[0.1rem] items-center">
-            {upvotes?.includes(user?.publicMetadata?.userId) ? (
+            {upvotes?.filter(
+              (vote) => vote.user === user?.publicMetadata?.userId
+            )?.length ? (
               <MoveUpIcon
-                className={cn("text-3xl cursor-pointer text-secondary")}
+                className={cn("cursor-pointer text-secondary")}
                 onClick={handleUpvotePost}
               />
             ) : (
               <MoveUpIcon
-                className={cn("text-3xl cursor-pointer text-primary/60")}
+                className={cn(
+                  "cursor-pointer text-primary/60 dark:text-background/60"
+                )}
                 onClick={handleUpvotePost}
               />
             )}{" "}
             {upvotes?.length || ""}
           </p>
           <p className="text-primary/60 dark:text-background/60 flex gap-[0.1rem] items-center">
-            {downvotes?.includes(user?.publicMetadata?.userId) ? (
+            {downvotes?.filter(
+              (vote) => vote.user === user?.publicMetadata?.userId
+            )?.length ? (
               <MoveDownIcon
-                className={cn("text-3xl cursor-pointer text-red-400/60")}
+                className={cn("cursor-pointer text-red-400/60")}
                 onClick={handleDownvotePost}
               />
             ) : (
               <MoveDownIcon
-                className={cn("text-3xl cursor-pointer text-primary/60")}
+                className={cn(
+                  "cursor-pointer text-primary/60 dark:text-background/60"
+                )}
                 onClick={handleDownvotePost}
               />
             )}{" "}

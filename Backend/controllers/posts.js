@@ -87,10 +87,6 @@ export const getPosts = async (req, res, next) => {
       })
       .populate({
         path: "votes",
-        populate: {
-          path: "user",
-          select: "firstName lastName username profilePicture _id",
-        },
       });
     return res.status(200).json(posts);
   } catch (error) {
