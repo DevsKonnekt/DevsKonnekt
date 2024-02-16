@@ -32,14 +32,14 @@ commentsRouter
   .route("/bookmark/:id/:userId")
   .patch(bookmarkComment, defaultErrorHandler);
 commentsRouter
-  .route("unbookmark/:id/:userId")
+  .route("/unbookmark/:id/:userId")
   .patch(unbookmarkComment, defaultErrorHandler);
 commentsRouter
   .route("/bookmarks")
   .get(getMyBookmarkedComments, defaultErrorHandler);
-commentsRouter.patch("upvote/:id/:userId", upVoteComment, defaultErrorHandler);
+commentsRouter.patch("/upvote/:id/:userId", upVoteComment, defaultErrorHandler);
 commentsRouter.patch(
-  "downvote/:id/:userId",
+  "/downvote/:id/:userId",
   downvoteComment,
   defaultErrorHandler
 );
