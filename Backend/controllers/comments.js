@@ -30,26 +30,34 @@ import Vote from "../models/votes.js";
 export const createComment = async (req, res, next) => {
   try {
     const commentData = req.body;
-    if (
-      !commentData ||
-      !commentData.post ||
-      !commentData.body ||
-      !commentData.author
-    ) {
+    if (!commentData || !commentData.body || !commentData.author) {
       const error = new ValidationError("Missing required properties");
       error.statusCode = 400;
       throw error;
     }
-    const post = await Post.findById(commentData.post);
-    if (!post) {
-      const error = new Error("Post not found");
-      error.statusCode = 404;
-      throw error;
+    if (commentData.post) {
+      const post = await Post.findById(commentData.post);
+      if (!post) {
+        const error = new Error("Post not found");
+        error.statusCode = 404;
+        throw error;
+      }
+      const comment = await Comment.create(commentData);
+      post.comments.push(comment._id);
+      await post.save();
+      res.status(201).json(comment);
+    } else if (commentData.comment) {
+      const parentComment = await Comment.findById(commentData.comment);
+      if (!parentComment) {
+        const error = new Error("Comment not found");
+        error.statusCode = 404;
+        throw error;
+      }
+      const comment = await Comment.create(commentData);
+      parentComment.comments.push(comment._id);
+      await parentComment.save();
+      res.status(201).json(comment);
     }
-    const comment = await Comment.create(commentData);
-    post.comments.push(comment._id);
-    await post.save();
-    res.status(201).json(comment);
   } catch (error) {
     next(error);
   }

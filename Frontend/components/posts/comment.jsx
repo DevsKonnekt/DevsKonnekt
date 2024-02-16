@@ -16,6 +16,12 @@ import { SpinnerCircular } from "spinners-react";
 import CommentForm from "./commentForm";
 import PostAvatar from "../profile/postAvatar";
 import { useToast } from "../ui/use-toast";
+import {
+  bookmarkComment,
+  downvoteComment,
+  unbookmarkComment,
+  upvoteComment,
+} from "@/lib/actions/posts.actions";
 
 const Comment = ({ comment }) => {
   const { user, isSignedIn, isLoaded } = useUser();
@@ -213,6 +219,7 @@ const Comment = ({ comment }) => {
       {isCommenting && (
         <CommentForm
           user={user}
+          type="comment"
           postId={comment?._id}
           setCommenting={setIsCommenting}
         />

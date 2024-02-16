@@ -3,9 +3,9 @@ import TextareaAutosize from "react-textarea-autosize";
 import { Button } from "../ui/button";
 import { useEffect, useRef, useState } from "react";
 import { useToast } from "../ui/use-toast";
-import { commentOnPost } from "@/lib/actions/posts.actions";
+import { commentOnComment, commentOnPost } from "@/lib/actions/posts.actions";
 
-const CommentForm = ({ user, setCommenting, postId }) => {
+const CommentForm = ({ user, setCommenting, postId, type }) => {
   const [comment, setComment] = useState("");
   const commentRef = useRef(null);
   const { toast } = useToast();
@@ -32,11 +32,19 @@ const CommentForm = ({ user, setCommenting, postId }) => {
     }
     setCommenting(false);
     try {
-      await commentOnPost({
-        postId,
-        comment,
-        userId: user.publicMetadata.userId,
-      });
+      if (type == "comment") {
+        await commentOnComment({
+          commentId: postId,
+          userId: user.publicMetadata.userId,
+          comment,
+        });
+      } else {
+        await commentOnPost({
+          postId,
+          comment,
+          userId: user.publicMetadata.userId,
+        });
+      }
       toast({
         title: "Comment posted",
         description: "Your comment has been posted successfully",

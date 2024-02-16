@@ -17,6 +17,12 @@ import CommentForm from "./commentForm";
 import PostAvatar from "../profile/postAvatar";
 import { useToast } from "../ui/use-toast";
 import CommentsList from "./commentsList";
+import {
+  bookmarkComment,
+  downvoteComment,
+  unbookmarkComment,
+  upvoteComment,
+} from "@/lib/actions/posts.actions";
 
 const CommentDetail = ({ comment }) => {
   const { user, isSignedIn, isLoaded } = useUser();
@@ -212,6 +218,7 @@ const CommentDetail = ({ comment }) => {
       {isCommenting && (
         <CommentForm
           user={user}
+          type="comment"
           postId={comment?._id}
           setCommenting={setIsCommenting}
         />
