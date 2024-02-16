@@ -1,26 +1,59 @@
 "use client";
 import TextareaAutosize from "react-textarea-autosize";
-import ResponsiveDialog from "../myUI/responsiveDialog";
-import { LucideMessageCircle } from "lucide-react";
 import { Button } from "../ui/button";
+import { useEffect, useRef, useState } from "react";
+import { useToast } from "../ui/use-toast";
 
-const Comment = () => {
-  return (
-    <ResponsiveDialog
-      triggerText={
-        <LucideMessageCircle className="text-4xl cursor-pointer" size={32} />
+const Comment = ({ user, setCommenting, postId }) => {
+  const [comment, setComment] = useState("");
+  const commentRef = useRef(null);
+  const { toast } = useToast();
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (commentRef.current && !commentRef.current.contains(event.target)) {
+        setCommenting(false);
       }
-      triggerClassName={"p-0 w-max"}
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [commentRef, setCommenting]);
+
+  const handleSubmit = async () => {
+    if (!comment) {
+      toast({
+        title: "Comment cannot be empty",
+        description: "Please enter a comment",
+        variant: "destructive",
+      });
+      return;
+    }
+    setCommenting(false);
+    setTimeout(() => {
+      toast({ description: "Comment submitted for: " + postId });
+      setComment("");
+    }, 2000);
+  };
+  return (
+    <div
+      ref={commentRef}
+      className="px-4 py-2 mb-4 border-b-2 border-primary/60 flex flex-col items-end sm:flex-row"
     >
-      <div className="px-4 mb-4 border-b-2 border-primary/60">
-        <TextareaAutosize
-          className="w-full border-none p-2 px-4 resize-none focus:outline-none"
-          placeholder="What's on your mind?"
-          autoFocus
-        />
-        <Button className="primary-btn w-full my-4">Comment</Button>
-      </div>
-    </ResponsiveDialog>
+      <TextareaAutosize
+        className="w-full border-none p-2 px-4 resize-none focus:outline-none"
+        placeholder="What's on your mind?"
+        autoFocus
+        value={comment}
+        onChange={(e) => setComment(e.target.value)}
+      />
+      <Button
+        variant="ghost"
+        className="primary-btn !w-max !min-w-max"
+        onClick={handleSubmit}
+      >
+        Post
+      </Button>
+    </div>
   );
 };
 

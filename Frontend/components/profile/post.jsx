@@ -29,6 +29,7 @@ const Post = ({ post }) => {
   const [isPostBookmarked, setIsPostBookmarked] = useState(
     post?.bookmarks?.includes(user?.publicMetadata?.userId) || false
   );
+  const [isCommenting, setIsCommenting] = useState(false);
   const upvotes = post?.votes?.filter((vote) => vote.voteType === "upvote");
   const downvotes = post?.votes?.filter((vote) => vote.voteType === "downvote");
   const { toast } = useToast();
@@ -150,7 +151,11 @@ const Post = ({ post }) => {
       <div className="flex items-center justify-between gap-4 w-full mt-4">
         <div className="flex justify-start gap-3 md:gap-4 items-center w-full">
           <p className="text-primary/60 dark:text-background/60 flex gap-[0.1rem] items-center">
-            <Comment />
+            <LucideMessageCircle
+              size={24}
+              className="cursor-pointer"
+              onClick={() => setIsCommenting(true)}
+            />
             {post?.comments?.length || ""}
           </p>
           <p className="text-primary/60 dark:text-background/60 flex gap-[0.1rem] items-center">
@@ -219,6 +224,13 @@ const Post = ({ post }) => {
           </button>
         </div>
       </div>
+      {isCommenting && (
+        <Comment
+          user={user}
+          postId={post?._id}
+          setCommenting={setIsCommenting}
+        />
+      )}
     </article>
   );
 };
