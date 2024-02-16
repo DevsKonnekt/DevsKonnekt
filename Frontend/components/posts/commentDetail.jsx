@@ -16,8 +16,9 @@ import { SpinnerCircular } from "spinners-react";
 import CommentForm from "./commentForm";
 import PostAvatar from "../profile/postAvatar";
 import { useToast } from "../ui/use-toast";
+import CommentsList from "./commentsList";
 
-const Comment = ({ comment }) => {
+const CommentDetail = ({ comment }) => {
   const { user, isSignedIn, isLoaded } = useUser();
   const [isCommentBookmarked, setIsCommentBookmarked] = useState(
     comment?.bookmarks?.includes(user?.publicMetadata?.userId) || false
@@ -36,7 +37,7 @@ const Comment = ({ comment }) => {
       } else {
         try {
           await bookmarkComment({
-            postId: post?._id,
+            commentId: comment?._id,
             userId: user.publicMetadata.userId,
           });
           setIsCommentBookmarked(true);
@@ -120,20 +121,18 @@ const Comment = ({ comment }) => {
           </p>
         </div>
       </Link>
-      <Link href={`/posts/comments/${comment?._id}`} className="w-full">
-        <div className="flex items-center space-x-2">
-          <p className="text-sm font-thin">
-            {new Date(comment?.createdAt)?.toLocaleDateString("en-US", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
-          </p>
-        </div>
-        <p className="text-primary/80 dark:text-background/80 line-clamp-5 mb-1">
-          {comment?.body}
+      <div className="flex items-center space-x-2">
+        <p className="text-sm font-thin">
+          {new Date(comment?.createdAt)?.toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}
         </p>
-      </Link>
+      </div>
+      <p className="text-primary/80 dark:text-background/80 line-clamp-5 mb-1">
+        {comment?.body}
+      </p>
       <div className="flex items-center justify-between gap-4 w-full mt-4">
         <div className="flex justify-start gap-3 md:gap-4 items-center w-full">
           <p className="text-primary/60 dark:text-background/60 flex gap-[0.1rem] items-center">
@@ -217,8 +216,11 @@ const Comment = ({ comment }) => {
           setCommenting={setIsCommenting}
         />
       )}
+      {comment?.comments?.length > 0 && (
+        <CommentsList comments={comment.comments} />
+      )}
     </article>
   );
 };
 
-export default Comment;
+export default CommentDetail;

@@ -114,7 +114,7 @@ const Post = ({ post }) => {
 
   return (
     <article className="w-full max-h-[400px]rounded-lg shadow-md p-4 mb-4">
-      <Link href={`/posts/${post?._id}`} className="w-full">
+      <Link href={`/profile/${post?.author?.clerkId}`}>
         <div className="flex items-center space-x-2">
           <PostAvatar avatar={post?.author?.profilePicture} />
           <p>
@@ -124,6 +124,8 @@ const Post = ({ post }) => {
             </span>
           </p>
         </div>
+      </Link>
+      <Link href={`/posts/${post?._id}`} className="w-full">
         <div className="flex items-center space-x-2 my-2">
           <p className="text-sm font-thin">
             {new Date(post?.createdAt)?.toLocaleDateString("en-US", {

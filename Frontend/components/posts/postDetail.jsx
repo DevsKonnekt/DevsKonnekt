@@ -117,7 +117,7 @@ const PostDetail = ({ post }) => {
 
   return (
     <article className="w-full p-4 mb-4">
-      <Link href={`/posts/${post?._id}`} className="w-full">
+      <Link href={`/profile/${post?.author?.clerkId}`} className="w-full">
         <div className="flex items-center space-x-2">
           <PostAvatar avatar={post?.author?.profilePicture} />
           <p>
@@ -127,29 +127,29 @@ const PostDetail = ({ post }) => {
             </span>
           </p>
         </div>
-        <div className="flex items-center space-x-2 my-2">
-          <p className="text-sm font-thin">
-            {new Date(post?.createdAt)?.toLocaleDateString("en-US", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
-          </p>
-        </div>
-        <h2 className="text-lg md:text-xl font-bold mb-2">{post?.title}</h2>
-        <p className="text-primary/80 dark:text-background/80 mb-1">
-          {post?.body}
-        </p>
-        <div className="h-[200px] w-full rounded-lg">
-          <Image
-            src={post?.media}
-            alt="post"
-            height={500}
-            width={500}
-            className="object-cover w-full h-full rounded-lg"
-          />
-        </div>
       </Link>
+      <div className="flex items-center space-x-2 my-2">
+        <p className="text-sm font-thin">
+          {new Date(post?.createdAt)?.toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}
+        </p>
+      </div>
+      <h2 className="text-lg md:text-xl font-bold mb-2">{post?.title}</h2>
+      <p className="text-primary/80 dark:text-background/80 mb-1">
+        {post?.body}
+      </p>
+      <div className="h-[200px] w-full rounded-lg">
+        <Image
+          src={post?.media}
+          alt="post"
+          height={500}
+          width={500}
+          className="object-cover w-full h-full rounded-lg"
+        />
+      </div>
       <div className="flex items-center justify-between gap-4 w-full mt-4">
         <div className="flex justify-start gap-3 md:gap-4 items-center w-full">
           <p className="text-primary/60 dark:text-background/60 flex gap-[0.1rem] items-center">
