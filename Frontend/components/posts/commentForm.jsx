@@ -16,7 +16,8 @@ const Comment = ({ user, setCommenting, postId }) => {
         setCommenting(false);
       }
     };
-    document.addEventListener("mousedown", handleClickOutside);
+    if (commentRef?.current)
+      document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [commentRef, setCommenting]);
 
