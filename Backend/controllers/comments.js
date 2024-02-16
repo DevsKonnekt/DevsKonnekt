@@ -27,29 +27,18 @@ import Comment from "../models/comments.js";
 export const createComment = async (req, res, next) => {
   try {
     const commentData = req.body;
-    // the user id is taken from the request object.
-    // the following line shoulb be deleted when the authentication is implemented
-    req.user = {
-      _id: "5f7d8e3b46d3d6a4e8d4f0f5",
-    };
-    if (!req.user) {
-      const error = new ValidationError(
-        "You are not authorized to create a comment"
-      );
-      error.statusCode = 401;
-      throw error;
-    }
-    if (!commentData || !commentData.post || !commentData.body) {
+    if (
+      !commentData ||
+      !commentData.post ||
+      !commentData.body ||
+      !commentData.author
+    ) {
       const error = new ValidationError("Missing required properties");
       error.statusCode = 400;
       throw error;
     }
-    commentData.author = req.user._id;
     const comment = await Comment.create(commentData);
-    res.status(201).json({
-      success: true,
-      data: comment,
-    });
+    res.status(201).json(comment);
   } catch (error) {
     next(error);
   }
@@ -189,11 +178,16 @@ export const deleteComment = async (req, res, next) => {
  */
 export const getCommentsByPost = async (req, res, next) => {
   try {
-    const comments = await Comment.find({ post: req.params.id });
-    res.status(200).json({
-      success: true,
-      data: comments,
-    });
+    const comments = await Comment.find({ post: req.params.id })
+      .populate({
+        path: "author",
+        select: "firstName lastName username profilePicture _id",
+      })
+      .populate({
+        path: "votes",
+        select: "voteType user",
+      });
+    res.status(200).json(comments);
   } catch (error) {
     next(error);
   }

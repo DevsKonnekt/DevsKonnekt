@@ -153,3 +153,19 @@ export const downvotePost = async ({ postId, userId }) => {
     );
   }
 };
+
+export const commentOnPost = async ({ postId, userId, comment }) => {
+  try {
+    const response = await axios.post(`${process.env.BACKEND_URL}/comments/`, {
+      post: postId,
+      author: userId,
+      body: comment,
+    });
+    revalidatePath(`/forum`);
+    return response.data;
+  } catch (error) {
+    throw new Error(
+      typeof error === "string" ? error : error?.response?.data?.message
+    );
+  }
+};

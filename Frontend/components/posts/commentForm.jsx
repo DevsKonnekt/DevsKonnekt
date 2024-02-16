@@ -3,6 +3,7 @@ import TextareaAutosize from "react-textarea-autosize";
 import { Button } from "../ui/button";
 import { useEffect, useRef, useState } from "react";
 import { useToast } from "../ui/use-toast";
+import { commentOnPost } from "@/lib/actions/posts.actions";
 
 const Comment = ({ user, setCommenting, postId }) => {
   const [comment, setComment] = useState("");
@@ -29,18 +30,31 @@ const Comment = ({ user, setCommenting, postId }) => {
       return;
     }
     setCommenting(false);
-    setTimeout(() => {
-      toast({ description: "Comment submitted for: " + postId });
-      setComment("");
-    }, 2000);
+    try {
+      await commentOnPost({
+        postId,
+        comment,
+        userId: user.publicMetadata.userId,
+      });
+      toast({
+        title: "Comment posted",
+        description: "Your comment has been posted successfully",
+      });
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Oops! Something went wrong",
+        description: "Failed to post comment. Please try again.",
+      });
+    }
   };
   return (
     <div
       ref={commentRef}
-      className="px-4 py-2 mb-4 border-b-2 border-primary/60 flex flex-col items-end sm:flex-row"
+      className="px-4 py-2 mb-4 border-b-2 border-primary/60 flex flex-col items-end gap-2 lg:flex-row"
     >
       <TextareaAutosize
-        className="w-full border-none p-2 px-4 resize-none focus:outline-none"
+        className="textarea"
         placeholder="What's on your mind?"
         autoFocus
         value={comment}
