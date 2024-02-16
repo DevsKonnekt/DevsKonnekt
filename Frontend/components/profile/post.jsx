@@ -22,6 +22,7 @@ import { useState } from "react";
 import { MdBookmarkAdded } from "react-icons/md";
 import { cn } from "@/lib/utils";
 import { SpinnerCircular } from "spinners-react";
+import Comment from "../posts/comment";
 
 const Post = ({ post }) => {
   const { user, isSignedIn, isLoaded } = useUser();
@@ -149,7 +150,7 @@ const Post = ({ post }) => {
       <div className="flex items-center justify-between gap-4 w-full mt-4">
         <div className="flex justify-start gap-3 md:gap-4 items-center w-full">
           <p className="text-primary/60 dark:text-background/60 flex gap-[0.1rem] items-center">
-            <LucideMessageCircle className="text-3xl cursor-pointer" />
+            <Comment />
             {post?.comments?.length || ""}
           </p>
           <p className="text-primary/60 dark:text-background/60 flex gap-[0.1rem] items-center">
