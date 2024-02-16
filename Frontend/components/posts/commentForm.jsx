@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { useToast } from "../ui/use-toast";
 import { commentOnPost } from "@/lib/actions/posts.actions";
 
-const Comment = ({ user, setCommenting, postId }) => {
+const CommentForm = ({ user, setCommenting, postId }) => {
   const [comment, setComment] = useState("");
   const commentRef = useRef(null);
   const { toast } = useToast();
@@ -72,4 +72,4 @@ const Comment = ({ user, setCommenting, postId }) => {
   );
 };
 
-export default Comment;
+export default CommentForm;
