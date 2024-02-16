@@ -76,7 +76,7 @@ export const getPosts = async (req, res, next) => {
       .skip((parseInt(page, 10) - 1) * parseInt(limit, 10))
       .populate({
         path: "author",
-        select: "firstName lastName username profilePicture _id",
+        select: "firstName lastName username profilePicture _id clerkId",
       })
       .populate({
         path: "votes",
@@ -103,12 +103,12 @@ export const getPost = async (req, res, next) => {
         path: "comments",
         populate: {
           path: "author",
-          select: "firstName lastName username profilePicture _id",
+          select: "firstName lastName username profilePicture _id clerkId",
         },
       })
       .populate({
         path: "author",
-        select: "firstName lastName username profilePicture _id",
+        select: "firstName lastName username profilePicture _id clerkId",
       })
       .populate({
         path: "votes",
@@ -134,7 +134,7 @@ export const getPostsByAuthor = async (req, res, next) => {
     const posts = await Posts.find({ author: id })
       .populate({
         path: "author",
-        select: "firstName lastName username profilePicture _id",
+        select: "firstName lastName username profilePicture _id clerkId",
       })
       .populate({
         path: "votes",

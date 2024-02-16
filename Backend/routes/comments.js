@@ -14,6 +14,8 @@ import {
   bookmarkComment,
   unbookmarkComment,
   getMyBookmarkedComments,
+  upVoteComment,
+  downvoteComment,
 } from "../controllers/comments.js";
 import { defaultErrorHandler } from "../middlewares/index.js";
 
@@ -27,13 +29,19 @@ commentsRouter
   .delete(deleteComment, defaultErrorHandler);
 commentsRouter.route("/post/:id").get(getCommentsByPost, defaultErrorHandler);
 commentsRouter
-  .route("/:id/bookmark")
+  .route("/bookmark/:id/:userId")
   .patch(bookmarkComment, defaultErrorHandler);
 commentsRouter
-  .route("/:id/unbookmark")
+  .route("unbookmark/:id/:userId")
   .patch(unbookmarkComment, defaultErrorHandler);
 commentsRouter
   .route("/bookmarks")
   .get(getMyBookmarkedComments, defaultErrorHandler);
+commentsRouter.patch("upvote/:id/:userId", upVoteComment, defaultErrorHandler);
+commentsRouter.patch(
+  "downvote/:id/:userId",
+  downvoteComment,
+  defaultErrorHandler
+);
 
 export default commentsRouter;
