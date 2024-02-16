@@ -1,6 +1,7 @@
 /**
  * @module controllers/comments
  * @requires models/comments
+ * @requires models/posts
  * @exports createComment
  * @exports getComment
  * @exports getCommentsByPost
@@ -12,6 +13,7 @@ import {
   ValidationError,
 } from "../middlewares/customError.js";
 import Comment from "../models/comments.js";
+import Post from "../models/posts.js";
 
 /**
  * @name createComment
@@ -37,7 +39,15 @@ export const createComment = async (req, res, next) => {
       error.statusCode = 400;
       throw error;
     }
+    const post = await Post.findById(commentData.post);
+    if (!post) {
+      const error = new Error("Post not found");
+      error.statusCode = 404;
+      throw error;
+    }
     const comment = await Comment.create(commentData);
+    post.comments.push(comment._id);
+    await post.save();
     res.status(201).json(comment);
   } catch (error) {
     next(error);

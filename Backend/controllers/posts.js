@@ -75,13 +75,6 @@ export const getPosts = async (req, res, next) => {
       .limit(parseInt(limit, 10))
       .skip((parseInt(page, 10) - 1) * parseInt(limit, 10))
       .populate({
-        path: "comments",
-        populate: {
-          path: "author",
-          select: "firstName lastName username profilePicture _id",
-        },
-      })
-      .populate({
         path: "author",
         select: "firstName lastName username profilePicture _id",
       })
@@ -119,10 +112,6 @@ export const getPost = async (req, res, next) => {
       })
       .populate({
         path: "votes",
-        populate: {
-          path: "user",
-          select: "firstName lastName username profilePicture _id",
-        },
       });
     if (post) {
       res.status(404).json({
@@ -150,22 +139,11 @@ export const getPostsByAuthor = async (req, res, next) => {
     const id = req.params.id;
     const posts = await Posts.find({ author: id })
       .populate({
-        path: "comments",
-        populate: {
-          path: "author",
-          select: "firstName lastName username profilePicture _id",
-        },
-      })
-      .populate({
         path: "author",
         select: "firstName lastName username profilePicture _id",
       })
       .populate({
         path: "votes",
-        populate: {
-          path: "user",
-          select: "firstName lastName username profilePicture _id",
-        },
       });
     if (posts.length > 0) {
       res.status(200).json(posts);
@@ -347,13 +325,6 @@ export const getMyBookmarkedPosts = async (req, res, next) => {
       .sort({ [sortField]: sortOrder })
       .limit(parseInt(limit, 10))
       .skip((parseInt(page, 10) - 1) * parseInt(limit, 10))
-      .populate({
-        path: "comments",
-        populate: {
-          path: "author",
-          select: "firstName lastName username profilePicture _id",
-        },
-      })
       .populate({
         path: "author",
         select: "firstName lastName username profilePicture _id",
