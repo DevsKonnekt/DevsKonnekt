@@ -113,13 +113,7 @@ export const getPost = async (req, res, next) => {
       .populate({
         path: "votes",
       });
-    if (post) {
-      res.status(404).json({
-        message: "Post does not exist",
-      });
-    } else {
-      res.status(200).json(post);
-    }
+    res.status(200).json(post);
   } catch (error) {
     console.error(error);
     next(error);
