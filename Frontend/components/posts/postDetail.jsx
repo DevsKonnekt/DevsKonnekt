@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import PostAvatar from "./postAvatar";
+
 import {
   Bookmark,
   LucideMessageCircle,
@@ -11,7 +11,6 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
-import { useToast } from "../ui/use-toast";
 import {
   bookmarkPost,
   downvotePost,
@@ -22,9 +21,13 @@ import { useState } from "react";
 import { MdBookmarkAdded } from "react-icons/md";
 import { cn } from "@/lib/utils";
 import { SpinnerCircular } from "spinners-react";
-import CommentForm from "../posts/commentForm";
+import { useToast } from "../ui/use-toast";
+import PostAvatar from "../profile/postAvatar";
+import CommentForm from "./commentForm";
+import Comment from "./comment";
+import CommentsList from "./commentsList";
 
-const Post = ({ post }) => {
+const PostDetail = ({ post }) => {
   const { user, isSignedIn, isLoaded } = useUser();
   const [isPostBookmarked, setIsPostBookmarked] = useState(
     post?.bookmarks?.includes(user?.publicMetadata?.userId) || false
@@ -113,8 +116,8 @@ const Post = ({ post }) => {
   if (!isLoaded) return <SpinnerCircular color="#1F63ED" />;
 
   return (
-    <article className="w-full max-h-[400px]rounded-lg shadow-md p-4 mb-4">
-      <Link href={`/profile/${post?.author?.clerkId}`}>
+    <article className="w-full p-4 mb-4">
+      <Link href={`/profile/${post?.author?.clerkId}`} className="w-full">
         <div className="flex items-center space-x-2">
           <PostAvatar avatar={post?.author?.profilePicture} />
           <p>
@@ -125,32 +128,28 @@ const Post = ({ post }) => {
           </p>
         </div>
       </Link>
-      <Link href={`/posts/${post?._id}`} className="w-full">
-        <div className="flex items-center space-x-2 my-2">
-          <p className="text-sm font-thin">
-            {new Date(post?.createdAt)?.toLocaleDateString("en-US", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
-          </p>
-        </div>
-        <h2 className="text-lg md:text-xl font-bold mb-2">{post?.title}</h2>
-        <p className="text-primary/80 dark:text-background/80 line-clamp-5 mb-1">
-          {post?.body}
+      <div className="flex items-center space-x-2 my-2">
+        <p className="text-sm font-thin">
+          {new Date(post?.createdAt)?.toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}
         </p>
-        {post?.media && (
-          <div className="h-[200px] md:h-[250px] w-full rounded-lg">
-            <Image
-              src={post.media}
-              alt="post"
-              height={500}
-              width={500}
-              className="object-cover w-full h-full rounded-lg"
-            />
-          </div>
-        )}
-      </Link>
+      </div>
+      <h2 className="text-lg md:text-xl font-bold mb-2">{post?.title}</h2>
+      <p className="text-primary/80 dark:text-background/80 mb-1">
+        {post?.body}
+      </p>
+      <div className="h-[200px] w-full rounded-lg">
+        <Image
+          src={post?.media}
+          alt="post"
+          height={500}
+          width={500}
+          className="object-cover w-full h-full rounded-lg"
+        />
+      </div>
       <div className="flex items-center justify-between gap-4 w-full mt-4">
         <div className="flex justify-start gap-3 md:gap-4 items-center w-full">
           <p className="text-primary/60 dark:text-background/60 flex gap-[0.1rem] items-center">
@@ -234,8 +233,9 @@ const Post = ({ post }) => {
           setCommenting={setIsCommenting}
         />
       )}
+      {post?.comments?.length > 0 && <CommentsList comments={post.comments} />}
     </article>
   );
 };
 
-export default Post;
+export default PostDetail;

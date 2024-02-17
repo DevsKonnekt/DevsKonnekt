@@ -75,15 +75,8 @@ export const getPosts = async (req, res, next) => {
       .limit(parseInt(limit, 10))
       .skip((parseInt(page, 10) - 1) * parseInt(limit, 10))
       .populate({
-        path: "comments",
-        populate: {
-          path: "author",
-          select: "firstName lastName username profilePicture _id",
-        },
-      })
-      .populate({
         path: "author",
-        select: "firstName lastName username profilePicture _id",
+        select: "firstName lastName username profilePicture _id clerkId",
       })
       .populate({
         path: "votes",
@@ -108,29 +101,26 @@ export const getPost = async (req, res, next) => {
     const post = await Posts.findById(id)
       .populate({
         path: "comments",
-        populate: {
-          path: "author",
-          select: "firstName lastName username profilePicture _id",
-        },
+        populate: [
+          {
+            path: "author",
+            select: "firstName lastName username profilePicture _id clerkId",
+          },
+          {
+            path: "votes",
+            select: "user voteType",
+          },
+        ],
       })
       .populate({
         path: "author",
-        select: "firstName lastName username profilePicture _id",
+        select: "firstName lastName username profilePicture _id clerkId",
       })
       .populate({
         path: "votes",
-        populate: {
-          path: "user",
-          select: "firstName lastName username profilePicture _id",
-        },
+        select: "user voteType",
       });
-    if (post) {
-      res.status(404).json({
-        message: "Post does not exist",
-      });
-    } else {
-      res.status(200).json(post);
-    }
+    res.status(200).json(post);
   } catch (error) {
     console.error(error);
     next(error);
@@ -150,22 +140,11 @@ export const getPostsByAuthor = async (req, res, next) => {
     const id = req.params.id;
     const posts = await Posts.find({ author: id })
       .populate({
-        path: "comments",
-        populate: {
-          path: "author",
-          select: "firstName lastName username profilePicture _id",
-        },
-      })
-      .populate({
         path: "author",
-        select: "firstName lastName username profilePicture _id",
+        select: "firstName lastName username profilePicture _id clerkId",
       })
       .populate({
         path: "votes",
-        populate: {
-          path: "user",
-          select: "firstName lastName username profilePicture _id",
-        },
       });
     if (posts.length > 0) {
       res.status(200).json(posts);
@@ -347,13 +326,6 @@ export const getMyBookmarkedPosts = async (req, res, next) => {
       .sort({ [sortField]: sortOrder })
       .limit(parseInt(limit, 10))
       .skip((parseInt(page, 10) - 1) * parseInt(limit, 10))
-      .populate({
-        path: "comments",
-        populate: {
-          path: "author",
-          select: "firstName lastName username profilePicture _id",
-        },
-      })
       .populate({
         path: "author",
         select: "firstName lastName username profilePicture _id",

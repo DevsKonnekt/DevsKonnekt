@@ -9,8 +9,11 @@ const commentsSchema = new mongoose.Schema(
   {
     post: {
       type: mongoose.Schema.Types.ObjectId,
-      required: [true, "Post ID is required"],
       ref: "Posts",
+    },
+    comment: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Comment",
     },
     author: {
       type: mongoose.Schema.Types.ObjectId,

@@ -87,6 +87,10 @@
   @apply bg-gray-400/45 text-foreground rounded-md px-4 h-[35px] w-full focus:outline-none focus:ring-0  focus:ring-offset-0;
 }
 
+.textarea {
+  @apply w-full border-none p-2 px-4 resize-none focus:outline-none bg-transparent;
+}
+
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }

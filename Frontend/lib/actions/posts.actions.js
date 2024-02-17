@@ -153,3 +153,98 @@ export const downvotePost = async ({ postId, userId }) => {
     );
   }
 };
+
+export const commentOnPost = async ({ postId, userId, comment }) => {
+  try {
+    const response = await axios.post(`${process.env.BACKEND_URL}/comments/`, {
+      post: postId,
+      author: userId,
+      body: comment,
+    });
+    revalidatePath(`/forum`);
+    return response.data;
+  } catch (error) {
+    throw new Error(
+      typeof error === "string" ? error : error?.response?.data?.message
+    );
+  }
+};
+
+export const getCommentById = async (commentId) => {
+  try {
+    const response = await axios.get(
+      `${process.env.BACKEND_URL}/comments/${commentId}/`
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error(typeof error === "string" ? error : JSON.stringify(error));
+  }
+};
+
+export const commentOnComment = async ({ commentId, userId, comment }) => {
+  try {
+    const response = await axios.post(`${process.env.BACKEND_URL}/comments/`, {
+      body: comment,
+      author: userId,
+      comment: commentId,
+    });
+    revalidatePath("/posts");
+    return response.data;
+  } catch (error) {
+    throw new Error(
+      typeof error === "string" ? error : error?.response?.data?.message
+    );
+  }
+};
+
+export const upvoteComment = async ({ commentId, userId, voteType }) => {
+  try {
+    const response = await axios.patch(
+      `${process.env.BACKEND_URL}/comments/upvote/${commentId}/${userId}`,
+      { voteType }
+    );
+    revalidatePath("/forum");
+    return response.data;
+  } catch (error) {
+    throw new Error(
+      typeof error === "string" ? error : error?.response?.data?.message
+    );
+  }
+};
+
+export const downvoteComment = async ({ commentId, userId, voteType }) => {
+  try {
+    const response = await axios.patch(
+      `${process.env.BACKEND_URL}/comments/downvote/${commentId}/${userId}`,
+      { voteType }
+    );
+    revalidatePath("/forum");
+    return response.data;
+  } catch (error) {
+    throw new Error(
+      typeof error === "string" ? error : error?.response?.data?.message
+    );
+  }
+};
+
+export const unbookmarkComment = async ({ commentId, userId }) => {
+  try {
+    const response = await axios.patch(
+      `${process.env.BACKEND_URL}/comments/unbookmark/${commentId}/${userId}`
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error(typeof error === "string" ? error : JSON.stringify(error));
+  }
+};
+
+export const bookmarkComment = async ({ commentId, userId }) => {
+  try {
+    const response = await axios.patch(
+      `${process.env.BACKEND_URL}/comments/bookmark/${commentId}/${userId}`
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error(typeof error === "string" ? error : JSON.stringify(error));
+  }
+};
