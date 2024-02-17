@@ -25,6 +25,8 @@ import {
 
 const Comment = ({ comment }) => {
   const { user, isSignedIn, isLoaded } = useUser();
+  if (!isLoaded) return <SpinnerCircular color="#1F63ED" />;
+
   const [isCommentBookmarked, setIsCommentBookmarked] = useState(
     comment?.bookmarks?.includes(user?.publicMetadata?.userId) || false
   );
@@ -42,7 +44,7 @@ const Comment = ({ comment }) => {
       } else {
         try {
           await bookmarkComment({
-            postId: post?._id,
+            commentId: comment?._id,
             userId: user.publicMetadata.userId,
           });
           setIsCommentBookmarked(true);
@@ -54,6 +56,12 @@ const Comment = ({ comment }) => {
           });
         }
       }
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Oops! Something went wrong",
+        description: "Please sign in to bookmark.",
+      });
     }
   };
 
@@ -72,6 +80,12 @@ const Comment = ({ comment }) => {
           description: "Failed to unbookmark. Please try again.",
         });
       }
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Oops! Something went wrong",
+        description: "Please sign in to bookmark.",
+      });
     }
   };
 
@@ -90,6 +104,12 @@ const Comment = ({ comment }) => {
           description: `Failed to upvote. ${error.message}`,
         });
       }
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Oops! Something went wrong",
+        description: "Please sign in to vote.",
+      });
     }
   };
 
@@ -108,11 +128,14 @@ const Comment = ({ comment }) => {
           description: `Failed to downvote: ${error.message}`,
         });
       }
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Oops! Something went wrong",
+        description: "Please sign in to vote.",
+      });
     }
   };
-
-  if (!isLoaded) return <SpinnerCircular color="#1F63ED" />;
-
   return (
     <article className={cn("w-full max-h-[400px] rounded-lg p-4 mb-4")}>
       <Link href={`/profile/${comment?.author?.clerkId}`} className="w-full">

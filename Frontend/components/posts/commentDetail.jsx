@@ -26,6 +26,7 @@ import {
 
 const CommentDetail = ({ comment }) => {
   const { user, isSignedIn, isLoaded } = useUser();
+  if (!isLoaded) return <SpinnerCircular color="#1F63ED" />;
   const [isCommentBookmarked, setIsCommentBookmarked] = useState(
     comment?.bookmarks?.includes(user?.publicMetadata?.userId) || false
   );
@@ -111,8 +112,6 @@ const CommentDetail = ({ comment }) => {
       }
     }
   };
-
-  if (!isLoaded) return <SpinnerCircular color="#1F63ED" />;
 
   return (
     <article className={cn("w-full max-h-[400px] rounded-lg p-4 mb-4")}>
