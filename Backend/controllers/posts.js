@@ -101,10 +101,16 @@ export const getPost = async (req, res, next) => {
     const post = await Posts.findById(id)
       .populate({
         path: "comments",
-        populate: {
-          path: "author",
-          select: "firstName lastName username profilePicture _id clerkId",
-        },
+        populate: [
+          {
+            path: "author",
+            select: "firstName lastName username profilePicture _id clerkId",
+          },
+          {
+            path: "votes",
+            select: "user voteType",
+          },
+        ],
       })
       .populate({
         path: "author",
@@ -112,6 +118,7 @@ export const getPost = async (req, res, next) => {
       })
       .populate({
         path: "votes",
+        select: "user voteType",
       });
     res.status(200).json(post);
   } catch (error) {

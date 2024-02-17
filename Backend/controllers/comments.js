@@ -87,10 +87,16 @@ export const getComment = async (req, res, next) => {
       })
       .populate({
         path: "comments",
-        populate: {
-          path: "author",
-          select: "firstName lastName username profilePicture _id clerkId",
-        },
+        populate: [
+          {
+            path: "author",
+            select: "firstName lastName username profilePicture _id clerkId",
+          },
+          {
+            path: "votes",
+            select: "voteType user",
+          },
+        ],
       });
 
     res.status(200).json(comment);
