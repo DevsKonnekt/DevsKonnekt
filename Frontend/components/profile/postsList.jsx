@@ -1,4 +1,4 @@
-import CreatePost from "../posts/createPost";
+import CreatePost from "../community/forum/posts/createPost";
 import Post from "./post";
 
 const PostsList = ({ isCurrentUser, posts, user }) => {

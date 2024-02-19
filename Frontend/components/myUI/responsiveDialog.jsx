@@ -52,7 +52,10 @@ export default function ResponsiveDialog({
           </Button>
         </DialogTrigger>
         <DialogContent
-          className={cn(size ? dialogSizes[size] : dialogSizes["md"])}
+          className={cn(
+            size ? dialogSizes[size] : dialogSizes["md"],
+            "overflow-y-scroll max-h-screen no-scrollbar"
+          )}
         >
           {(title || description) && (
             <DialogHeader>
@@ -75,7 +78,7 @@ export default function ResponsiveDialog({
           {triggerText}
         </Button>
       </DrawerTrigger>
-      <DrawerContent>
+      <DrawerContent className="w-full overflow-y-scroll max-h-screen no-scrollbar">
         {(title || description) && (
           <DrawerHeader className="text-left">
             {title && <DrawerTitle>{title}</DrawerTitle>}

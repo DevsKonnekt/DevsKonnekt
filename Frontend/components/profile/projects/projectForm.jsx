@@ -28,7 +28,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import FileUploader from "@/components/posts/fileUploader";
+import FileUploader from "@/components/community/forum/posts/fileUploader";
 
 const formSchema = z.object({
   name: z

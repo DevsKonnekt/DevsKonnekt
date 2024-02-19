@@ -1,6 +1,5 @@
 import dotenv from "dotenv";
 import Event from "../models/events.js";
-import { error } from "winston";
 
 dotenv.config();
 
