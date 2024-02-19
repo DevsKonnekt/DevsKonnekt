@@ -31,6 +31,11 @@ const eventSchema = new mongoose.Schema(
       required: [true, "Start date is required"],
       index: true,
     },
+    startTime: {
+      type: String,
+      required: [true, "Start time is required"],
+      index: true,
+    },
     endDate: {
       type: Date,
       required: [true, "End date is required"],
@@ -63,7 +68,6 @@ const eventSchema = new mongoose.Schema(
     },
     location: {
       type: String,
-      enum: ["isPublished", "isCancelled"],
       default: "",
       index: true,
     },
