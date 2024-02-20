@@ -78,7 +78,7 @@ export default function ResponsiveDialog({
           {triggerText}
         </Button>
       </DrawerTrigger>
-      <DrawerContent className="w-full overflow-y-scroll max-h-screen no-scrollbar">
+      <DrawerContent className="w-full overflow-y-scroll max-h-screen no-scrollbar px-4">
         {(title || description) && (
           <DrawerHeader className="text-left">
             {title && <DrawerTitle>{title}</DrawerTitle>}
