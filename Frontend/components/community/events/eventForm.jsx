@@ -123,6 +123,15 @@ const EventForm = ({ type, data, userId }) => {
   });
   const { toast } = useToast();
 
+  if (!userId) {
+    toast({
+      title: "Error",
+      description: "Please sign in to create an event",
+      variant: "destructive",
+    });
+    return;
+  }
+
   useEffect(() => {
     const fetchCategories = async () => {
       const fetchedCategories = await getCategories();
