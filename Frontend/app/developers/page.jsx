@@ -1,7 +1,7 @@
 "use client";
 
-import LeftSidebar from "@/components/developers/leftSidebar";
-import RightSidebar from "@/components/developers/rightSidebar";
+import LeftSidebar from "@/components/community/developers/leftSidebar";
+import RightSidebar from "@/components/community/developers/rightSidebar";
 import ProfilesList from "@/components/profile/profilesList";
 import Search from "@/components/search";
 import { getAllProfiles } from "@/lib/actions/profile.actions";

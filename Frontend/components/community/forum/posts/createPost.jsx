@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Modal from "../myUI/modal";
+import Modal from "../../../myUI/modal";
 import PostForm from "./postForm";
 import { PlusIcon } from "lucide-react";
 

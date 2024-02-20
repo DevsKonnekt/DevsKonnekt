@@ -1,8 +1,8 @@
 "use client";
 
 import { useUser } from "@clerk/nextjs";
-import CreatePost from "../posts/createPost";
-import Post from "../profile/post";
+import CreatePost from "./posts/createPost";
+import Post from "../../profile/post";
 import { useInView } from "react-intersection-observer";
 import { SpinnerCircular } from "spinners-react";
 import { useEffect, useState } from "react";

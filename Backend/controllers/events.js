@@ -1,6 +1,5 @@
 import dotenv from "dotenv";
 import Event from "../models/events.js";
-import { error } from "winston";
 
 dotenv.config();
 
@@ -29,7 +28,7 @@ dotenv.config();
 export const createEvent = async (req, res, next) => {
   try {
     const eventData = req.body; // Assuming the event data is sent in the request body
-    const event = await new Event.create(eventData);
+    const event = await Event.create(eventData);
     if (!event) {
       const error = new Error(
         "An error occurred while creating the event. Please try again."

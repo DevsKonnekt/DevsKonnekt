@@ -14,8 +14,9 @@ import { MdBookmarkAdded } from "react-icons/md";
 import { cn } from "@/lib/utils";
 import { SpinnerCircular } from "spinners-react";
 import CommentForm from "./commentForm";
-import PostAvatar from "../profile/postAvatar";
-import { useToast } from "../ui/use-toast";
+import PostAvatar from "../../../profile/postAvatar";
+import { useToast } from "../../../ui/use-toast";
+import CommentsList from "./commentsList";
 import {
   bookmarkComment,
   downvoteComment,
@@ -23,10 +24,9 @@ import {
   upvoteComment,
 } from "@/lib/actions/posts.actions";
 
-const Comment = ({ comment }) => {
+const CommentDetail = ({ comment }) => {
   const { user, isSignedIn, isLoaded } = useUser();
   if (!isLoaded) return <SpinnerCircular color="#1F63ED" />;
-
   const [isCommentBookmarked, setIsCommentBookmarked] = useState(
     comment?.bookmarks?.includes(user?.publicMetadata?.userId) || false
   );
@@ -56,12 +56,6 @@ const Comment = ({ comment }) => {
           });
         }
       }
-    } else {
-      toast({
-        variant: "destructive",
-        title: "Oops! Something went wrong",
-        description: "Please sign in to bookmark.",
-      });
     }
   };
 
@@ -80,12 +74,6 @@ const Comment = ({ comment }) => {
           description: "Failed to unbookmark. Please try again.",
         });
       }
-    } else {
-      toast({
-        variant: "destructive",
-        title: "Oops! Something went wrong",
-        description: "Please sign in to bookmark.",
-      });
     }
   };
 
@@ -104,12 +92,6 @@ const Comment = ({ comment }) => {
           description: `Failed to upvote. ${error.message}`,
         });
       }
-    } else {
-      toast({
-        variant: "destructive",
-        title: "Oops! Something went wrong",
-        description: "Please sign in to vote.",
-      });
     }
   };
 
@@ -128,14 +110,9 @@ const Comment = ({ comment }) => {
           description: `Failed to downvote: ${error.message}`,
         });
       }
-    } else {
-      toast({
-        variant: "destructive",
-        title: "Oops! Something went wrong",
-        description: "Please sign in to vote.",
-      });
     }
   };
+
   return (
     <article className={cn("w-full max-h-[400px] rounded-lg p-4 mb-4")}>
       <Link href={`/profile/${comment?.author?.clerkId}`} className="w-full">
@@ -149,20 +126,18 @@ const Comment = ({ comment }) => {
           </p>
         </div>
       </Link>
-      <Link href={`/posts/comments/${comment?._id}`} className="w-full">
-        <div className="flex items-center space-x-2">
-          <p className="text-sm font-thin">
-            {new Date(comment?.createdAt)?.toLocaleDateString("en-US", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
-          </p>
-        </div>
-        <p className="text-primary/80 dark:text-background/80 line-clamp-5 mb-1">
-          {comment?.body}
+      <div className="flex items-center space-x-2">
+        <p className="text-sm font-thin">
+          {new Date(comment?.createdAt)?.toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}
         </p>
-      </Link>
+      </div>
+      <p className="text-primary/80 dark:text-background/80 line-clamp-5 mb-1">
+        {comment?.body}
+      </p>
       <div className="flex items-center justify-between gap-4 w-full mt-4">
         <div className="flex justify-start gap-3 md:gap-4 items-center w-full">
           <p className="text-primary/60 dark:text-background/60 flex gap-[0.1rem] items-center">
@@ -247,8 +222,11 @@ const Comment = ({ comment }) => {
           setCommenting={setIsCommenting}
         />
       )}
+      {comment?.comments?.length > 0 && (
+        <CommentsList comments={comment.comments} />
+      )}
     </article>
   );
 };
 
-export default Comment;
+export default CommentDetail;

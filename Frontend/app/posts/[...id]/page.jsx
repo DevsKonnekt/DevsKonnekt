@@ -1,4 +1,4 @@
-import PostDetail from "@/components/posts/postDetail";
+import PostDetail from "@/components/community/forum/posts/postDetail";
 import Post from "@/components/profile/post";
 import PostsList from "@/components/profile/postsList";
 import { getPostById, getPostsByUser } from "@/lib/actions/posts.actions";

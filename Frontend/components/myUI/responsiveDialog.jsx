@@ -16,7 +16,6 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { useState } from "react";
 import { cn } from "@/lib/utils";
 
 export default function ResponsiveDialog({
@@ -26,8 +25,9 @@ export default function ResponsiveDialog({
   triggerText,
   triggerClassName,
   size,
+  open,
+  setOpen,
 }) {
-  const [open, setOpen] = useState(false);
   const { isDesktop } = useMediaQuery();
 
   const dialogSizes = {
@@ -52,7 +52,10 @@ export default function ResponsiveDialog({
           </Button>
         </DialogTrigger>
         <DialogContent
-          className={cn(size ? dialogSizes[size] : dialogSizes["md"])}
+          className={cn(
+            size ? dialogSizes[size] : dialogSizes["md"],
+            "overflow-y-scroll max-h-screen no-scrollbar"
+          )}
         >
           {(title || description) && (
             <DialogHeader>
@@ -75,7 +78,7 @@ export default function ResponsiveDialog({
           {triggerText}
         </Button>
       </DrawerTrigger>
-      <DrawerContent>
+      <DrawerContent className="w-full overflow-y-scroll max-h-screen no-scrollbar px-4">
         {(title || description) && (
           <DrawerHeader className="text-left">
             {title && <DrawerTitle>{title}</DrawerTitle>}

@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 import {
   Bookmark,
   LucideMessageCircle,
@@ -9,45 +11,43 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
+import {
+  bookmarkPost,
+  downvotePost,
+  unbookmarkPost,
+  upvotePost,
+} from "@/lib/actions/posts.actions";
 import { useState } from "react";
 import { MdBookmarkAdded } from "react-icons/md";
 import { cn } from "@/lib/utils";
 import { SpinnerCircular } from "spinners-react";
+import { useToast } from "../../../ui/use-toast";
+import PostAvatar from "../../../profile/postAvatar";
 import CommentForm from "./commentForm";
-import PostAvatar from "../profile/postAvatar";
-import { useToast } from "../ui/use-toast";
+import Comment from "./comment";
 import CommentsList from "./commentsList";
-import {
-  bookmarkComment,
-  downvoteComment,
-  unbookmarkComment,
-  upvoteComment,
-} from "@/lib/actions/posts.actions";
 
-const CommentDetail = ({ comment }) => {
+const PostDetail = ({ post }) => {
   const { user, isSignedIn, isLoaded } = useUser();
-  if (!isLoaded) return <SpinnerCircular color="#1F63ED" />;
-  const [isCommentBookmarked, setIsCommentBookmarked] = useState(
-    comment?.bookmarks?.includes(user?.publicMetadata?.userId) || false
+  const [isPostBookmarked, setIsPostBookmarked] = useState(
+    post?.bookmarks?.includes(user?.publicMetadata?.userId) || false
   );
   const [isCommenting, setIsCommenting] = useState(false);
-  const upvotes = comment?.votes?.filter((vote) => vote.voteType === "upvote");
-  const downvotes = comment?.votes?.filter(
-    (vote) => vote.voteType === "downvote"
-  );
+  const upvotes = post?.votes?.filter((vote) => vote.voteType === "upvote");
+  const downvotes = post?.votes?.filter((vote) => vote.voteType === "downvote");
   const { toast } = useToast();
 
-  const handleBookMarkComment = async () => {
+  const handleBookMarkPost = async () => {
     if (isSignedIn) {
-      if (comment?.bookmarks?.includes(user.publicMetadata.userId)) {
+      if (post?.bookmarks?.includes(user.publicMetadata.userId)) {
         return;
       } else {
         try {
-          await bookmarkComment({
-            commentId: comment?._id,
+          await bookmarkPost({
+            postId: post?._id,
             userId: user.publicMetadata.userId,
           });
-          setIsCommentBookmarked(true);
+          setIsPostBookmarked(true);
         } catch (error) {
           toast({
             variant: "destructive",
@@ -59,14 +59,14 @@ const CommentDetail = ({ comment }) => {
     }
   };
 
-  const handleUnBookmarkComment = async () => {
+  const handleUnBookmarkPost = async () => {
     if (isSignedIn) {
       try {
-        await unbookmarkComment({
-          commentId: comment?._id,
+        await unbookmarkPost({
+          postId: post?._id,
           userId: user.publicMetadata.userId,
         });
-        setIsCommentBookmarked(false);
+        setIsPostBookmarked(false);
       } catch (error) {
         toast({
           variant: "destructive",
@@ -77,11 +77,11 @@ const CommentDetail = ({ comment }) => {
     }
   };
 
-  const handleUpvoteComment = async () => {
+  const handleUpvotePost = async () => {
     if (isSignedIn) {
       try {
-        await upvoteComment({
-          commentId: comment?._id,
+        await upvotePost({
+          postId: post?._id,
           userId: user.publicMetadata.userId,
           voteType: "upvote",
         });
@@ -95,11 +95,11 @@ const CommentDetail = ({ comment }) => {
     }
   };
 
-  const handleDownvoteComment = async () => {
+  const handleDownvotePost = async () => {
     if (isSignedIn) {
       try {
-        await downvoteComment({
-          commentId: comment?._id,
+        await downvotePost({
+          postId: post?._id,
           userId: user.publicMetadata.userId,
           voteType: "downvote",
         });
@@ -113,31 +113,43 @@ const CommentDetail = ({ comment }) => {
     }
   };
 
+  if (!isLoaded) return <SpinnerCircular color="#1F63ED" />;
+
   return (
-    <article className={cn("w-full max-h-[400px] rounded-lg p-4 mb-4")}>
-      <Link href={`/profile/${comment?.author?.clerkId}`} className="w-full">
+    <article className="w-full p-4 mb-4">
+      <Link href={`/profile/${post?.author?.clerkId}`} className="w-full">
         <div className="flex items-center space-x-2">
-          <PostAvatar avatar={comment?.author?.profilePicture} />
+          <PostAvatar avatar={post?.author?.profilePicture} />
           <p>
-            {comment?.author?.firstName} {comment?.author?.lastName}{" "}
+            {post?.author?.firstName} {post?.author?.lastName}{" "}
             <span className="text-muted dark:text-background/65">
-              @{comment?.author?.username}
+              @{post?.author?.username}
             </span>
           </p>
         </div>
       </Link>
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center space-x-2 my-2">
         <p className="text-sm font-thin">
-          {new Date(comment?.createdAt)?.toLocaleDateString("en-US", {
+          {new Date(post?.createdAt)?.toLocaleDateString("en-US", {
             year: "numeric",
             month: "long",
             day: "numeric",
           })}
         </p>
       </div>
-      <p className="text-primary/80 dark:text-background/80 line-clamp-5 mb-1">
-        {comment?.body}
+      <h2 className="text-lg md:text-xl font-bold mb-2">{post?.title}</h2>
+      <p className="text-primary/80 dark:text-background/80 mb-1">
+        {post?.body}
       </p>
+      <div className="h-[200px] w-full rounded-lg">
+        <Image
+          src={post?.media}
+          alt="post"
+          height={500}
+          width={500}
+          className="object-cover w-full h-full rounded-lg"
+        />
+      </div>
       <div className="flex items-center justify-between gap-4 w-full mt-4">
         <div className="flex justify-start gap-3 md:gap-4 items-center w-full">
           <p className="text-primary/60 dark:text-background/60 flex gap-[0.1rem] items-center">
@@ -146,7 +158,7 @@ const CommentDetail = ({ comment }) => {
               className="cursor-pointer"
               onClick={() => setIsCommenting(true)}
             />
-            {comment?.comments?.length || ""}
+            {post?.comments?.length || ""}
           </p>
           <p className="text-primary/60 dark:text-background/60 flex gap-[0.1rem] items-center">
             {upvotes?.filter(
@@ -156,7 +168,7 @@ const CommentDetail = ({ comment }) => {
                 className={cn(
                   "cursor-pointer text-secondary text-xs font-bold"
                 )}
-                onClick={handleUpvoteComment}
+                onClick={handleUpvotePost}
                 size={18}
               />
             ) : (
@@ -164,7 +176,7 @@ const CommentDetail = ({ comment }) => {
                 className={cn(
                   "cursor-pointer text-primary/60 dark:text-background/60 text-xs font-bold"
                 )}
-                onClick={handleUpvoteComment}
+                onClick={handleUpvotePost}
                 size={18}
               />
             )}{" "}
@@ -178,7 +190,7 @@ const CommentDetail = ({ comment }) => {
                 className={cn(
                   "cursor-pointer text-red-400/60 text-xs font-bold"
                 )}
-                onClick={handleDownvoteComment}
+                onClick={handleDownvotePost}
                 size={18}
               />
             ) : (
@@ -186,7 +198,7 @@ const CommentDetail = ({ comment }) => {
                 className={cn(
                   "cursor-pointer text-primary/60 dark:text-background/60 text-xs font-bold"
                 )}
-                onClick={handleDownvoteComment}
+                onClick={handleDownvotePost}
                 size={18}
               />
             )}{" "}
@@ -194,17 +206,17 @@ const CommentDetail = ({ comment }) => {
           </p>
         </div>
         <div className="flex justify-start gap-8 items-center">
-          {isCommentBookmarked ? (
+          {isPostBookmarked ? (
             <button
               className="flex gap-2 items-center text-primary/60 dark:text-background/60"
-              onClick={handleUnBookmarkComment}
+              onClick={handleUnBookmarkPost}
             >
               <MdBookmarkAdded className="text-secondary/80 text-3xl cursor-pointer" />
             </button>
           ) : (
             <button
               className="flex gap-2 items-center text-primary/60 dark:text-background/60"
-              onClick={handleBookMarkComment}
+              onClick={handleBookMarkPost}
             >
               <Bookmark className="text-primary/60 dark:text-background/60 text-3xl cursor-pointer" />
             </button>
@@ -217,16 +229,13 @@ const CommentDetail = ({ comment }) => {
       {isCommenting && (
         <CommentForm
           user={user}
-          type="comment"
-          postId={comment?._id}
+          postId={post?._id}
           setCommenting={setIsCommenting}
         />
       )}
-      {comment?.comments?.length > 0 && (
-        <CommentsList comments={comment.comments} />
-      )}
+      {post?.comments?.length > 0 && <CommentsList comments={post.comments} />}
     </article>
   );
 };
 
-export default CommentDetail;
+export default PostDetail;
