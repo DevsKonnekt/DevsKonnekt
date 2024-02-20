@@ -5,7 +5,6 @@ import axios from "axios";
 export const getCategories = async () => {
   try {
     const { data } = await axios.get(`${process.env.BACKEND_URL}/categories`);
-    console.log(data);
     return data;
   } catch (error) {
     typeof error === "string" ? error : error?.response?.data?.message;

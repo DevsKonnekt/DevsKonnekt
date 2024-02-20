@@ -50,6 +50,17 @@ import {
   createCategory,
   getCategories,
 } from "@/lib/actions/categories.actions";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 const formSchema = z.object({
   title: z
@@ -91,6 +102,7 @@ const EventForm = ({ type, data, userId }) => {
   const [categories, setCategories] = useState([]);
   const [files, setFiles] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(true);
   const { startUpload } = useUploadThing("imageUploader");
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -139,6 +151,7 @@ const EventForm = ({ type, data, userId }) => {
     if (parseFloat(data.price) === 0) {
       data.isFree = true;
     }
+    setOpen(false);
     let uploadedImageUrl = data.imageUrl;
     if (files.length) {
       const uploadedImage = await startUpload(files);
@@ -146,7 +159,6 @@ const EventForm = ({ type, data, userId }) => {
       uploadedImageUrl = uploadedImage[0].url;
     }
     if (type === "Create") {
-      console.log("Triggered Create Event");
       try {
         const newEvent = await createEvent({
           event: {
@@ -183,7 +195,12 @@ const EventForm = ({ type, data, userId }) => {
   };
 
   return (
-    <ResponsiveDialog triggerText="Create Event" size={"5xl"}>
+    <ResponsiveDialog
+      triggerText="Create Event"
+      size={"5xl"}
+      open={open}
+      setOpen={setOpen}
+    >
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(submitHandler)}
@@ -512,22 +529,35 @@ const AddCategory = ({ setCategories, setValue }) => {
     }
   };
   return (
-    <ResponsiveDialog triggerText="Add Category" size={"sm"}>
-      <div className="flex flex-col gap-4">
-        <Input
-          placeholder="Category Name"
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-        />
-        <Button
-          className="primary-btn"
-          type="button"
-          onClick={handleAddCategory}
-        >
-          Add
-        </Button>
-      </div>
-    </ResponsiveDialog>
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button variant="outline">Show Dialog</Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Add New Category</AlertDialogTitle>
+        </AlertDialogHeader>
+        <AlertDialogDescription>
+          <Input
+            placeholder="Category Name"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          />
+        </AlertDialogDescription>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction asChild>
+            <Button
+              className="primary-btn"
+              type="button"
+              onClick={handleAddCategory}
+            >
+              Add
+            </Button>
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 };
 

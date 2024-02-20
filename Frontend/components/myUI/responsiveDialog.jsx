@@ -16,7 +16,6 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { useState } from "react";
 import { cn } from "@/lib/utils";
 
 export default function ResponsiveDialog({
@@ -26,8 +25,9 @@ export default function ResponsiveDialog({
   triggerText,
   triggerClassName,
   size,
+  open,
+  setOpen,
 }) {
-  const [open, setOpen] = useState(false);
   const { isDesktop } = useMediaQuery();
 
   const dialogSizes = {
