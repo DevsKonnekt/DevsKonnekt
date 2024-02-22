@@ -1,5 +1,6 @@
 import EventsList from "@/components/community/events/eventsList";
 import NoEvents from "@/components/community/events/noEvents";
+import PostsSort from "@/components/community/forum/postsSort";
 import Search from "@/components/shared/search";
 import { getEvents } from "@/lib/actions/events.actions";
 import { currentUser } from "@clerk/nextjs";
@@ -33,6 +34,30 @@ const EventsPage = async ({ searchParams }) => {
             order={sortOrder}
             page={page}
             path={"events"}
+          />
+          <PostsSort
+            allFields={[
+              {
+                label: "Date Posted",
+                value: "createdAt",
+              },
+              {
+                label: "Name",
+                value: "title",
+              },
+              {
+                label: "Start Date",
+                value: "startDate",
+              },
+              {
+                label: "End Date",
+                value: "endDate",
+              },
+            ]}
+            path={"events"}
+            search={searchParam}
+            field={sortField}
+            order={sortOrder}
           />
         </div>
       </div>
