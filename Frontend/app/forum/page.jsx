@@ -30,6 +30,16 @@ const MyBookmarks = async ({ searchParams }) => {
           search={searchParam}
           field={sortField}
           order={sortOrder}
+          allFields={[
+            {
+              label: "Date Posted",
+              value: "createdAt",
+            },
+            {
+              label: "Title",
+              value: "title",
+            },
+          ]}
         />
       </div>
       <ForumPostsList

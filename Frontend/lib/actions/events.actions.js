@@ -3,9 +3,21 @@
 import axios from "axios";
 import { revalidatePath } from "next/cache";
 
-export const getEvents = async () => {
+export const getEvents = async ({
+  searchParam,
+  sortOrder,
+  limit,
+  page,
+  sortField,
+}) => {
   try {
-    const { data } = await axios.get(`${process.env.BACKEND_URL}/events`);
+    const { data } = await axios.get(
+      `${
+        process.env.BACKEND_URL
+      }/events?searchParam=${searchParam}&sortField=${sortField}&sortOrder=${sortOrder}&limit=${
+        limit ? limit : 10
+      }&page=${page}`
+    );
     return data;
   } catch (error) {
     throw new Error(typeof error === "string" ? error : JSON.stringify(error));

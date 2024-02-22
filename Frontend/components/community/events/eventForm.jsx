@@ -6,12 +6,10 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import {
   Command,
-  CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
@@ -98,11 +96,10 @@ const formSchema = z.object({
   price: z.string().optional(),
 });
 
-const EventForm = ({ type, data, userId }) => {
+const EventForm = ({ type, data, userId, setOpen, open }) => {
   const [categories, setCategories] = useState([]);
   const [files, setFiles] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [open, setOpen] = useState(true);
   const { startUpload } = useUploadThing("imageUploader");
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -539,8 +536,8 @@ const AddCategory = ({ setCategories, setValue }) => {
   };
   return (
     <AlertDialog>
-      <AlertDialogTrigger asChild>
-        <Button variant="outline">Show Dialog</Button>
+      <AlertDialogTrigger asChild className="w-max mx-auto">
+        <Button className="primary-btn">Add New</Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
@@ -551,6 +548,7 @@ const AddCategory = ({ setCategories, setValue }) => {
             placeholder="Category Name"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
+            className="input"
           />
         </AlertDialogDescription>
         <AlertDialogFooter>
