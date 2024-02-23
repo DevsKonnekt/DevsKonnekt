@@ -28,8 +28,14 @@ dotenv.config();
 export const createEvent = async (req, res, next) => {
   try {
     const eventData = req.body; // Assuming the event data is sent in the request body
-    const event = new Event(eventData);
-    await event.save();
+    const event = await Event.create(eventData);
+    if (!event) {
+      const error = new Error(
+        "An error occurred while creating the event. Please try again."
+      );
+      error.statusCode = 400;
+      throw error;
+    }
     return res.status(201).json(event);
   } catch (error) {
     return next(error);
@@ -46,8 +52,31 @@ export const createEvent = async (req, res, next) => {
  * @description This function gets all events from the database.
  */
 export const getEvents = async (req, res, next) => {
+  const {
+    limit = 10,
+    page = 1,
+    searchParam = "",
+    sortField = "createdAt",
+    sortOrder = -1,
+  } = req.query;
+  const conditions = searchParam.length
+    ? [
+        { title: { $regex: searchParam, $options: "i" } },
+        { location: { $regex: searchParam, $options: "i" } },
+      ]
+    : [{}];
   try {
-    const events = await Event.find();
+    const events = await Event.find({
+      $or: conditions,
+    })
+      .sort({ [sortField]: sortOrder })
+      .limit(+limit)
+      .skip((+page - 1) * limit)
+      .populate({
+        path: "organizer",
+        select: "firstName lastName username clerkId profilePicture",
+      })
+      .populate("category");
     return res.status(200).json(events);
   } catch (error) {
     return next(error);
@@ -67,7 +96,12 @@ export const getEvents = async (req, res, next) => {
 export const getEvent = async (req, res, next) => {
   try {
     const eventId = req.params.id; // Assuming the event ID is passed as a route parameter
-    const event = await Event.findById(eventId);
+    const event = await Event.findById(eventId)
+      .populate({
+        path: "organizer",
+        select: "firstName lastName username clerkId profilePicture",
+      })
+      .populate("category");
     if (!event) {
       return res.status(404).json({ error: "Event not found" });
     }
@@ -90,7 +124,9 @@ export const updateEvent = async (req, res, next) => {
   try {
     const eventId = req.params.id; // Assuming the event ID is passed as a route parameter
     const eventData = req.body; // Assuming the updated event data is sent in the request body
-    const updatedEvent = await Event.findByIdAndUpdate(eventId, eventData, { new: true });
+    const updatedEvent = await Event.findByIdAndUpdate(eventId, eventData, {
+      new: true,
+    });
     if (!updatedEvent) {
       return res.status(404).json({ error: "Event not found" });
     }

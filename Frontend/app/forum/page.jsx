@@ -1,5 +1,5 @@
-import ForumPostsList from "@/components/forum/forumPostsList";
-import PostsSort from "@/components/forum/postsSort";
+import ForumPostsList from "@/components/community/forum/forumPostsList";
+import PostsSort from "@/components/community/forum/postsSort";
 import Search from "@/components/shared/search";
 import { getAllPosts } from "@/lib/actions/posts.actions";
 import { currentUser } from "@clerk/nextjs";
@@ -30,6 +30,16 @@ const MyBookmarks = async ({ searchParams }) => {
           search={searchParam}
           field={sortField}
           order={sortOrder}
+          allFields={[
+            {
+              label: "Date Posted",
+              value: "createdAt",
+            },
+            {
+              label: "Title",
+              value: "title",
+            },
+          ]}
         />
       </div>
       <ForumPostsList

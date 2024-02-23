@@ -1,8 +1,8 @@
 "use client";
 import TextareaAutosize from "react-textarea-autosize";
-import { Button } from "../ui/button";
+import { Button } from "../../../ui/button";
 import { useEffect, useRef, useState } from "react";
-import { useToast } from "../ui/use-toast";
+import { useToast } from "../../../ui/use-toast";
 import { commentOnComment, commentOnPost } from "@/lib/actions/posts.actions";
 
 const CommentForm = ({ user, setCommenting, postId, type }) => {

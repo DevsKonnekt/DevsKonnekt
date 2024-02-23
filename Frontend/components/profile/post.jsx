@@ -22,7 +22,7 @@ import { useState } from "react";
 import { MdBookmarkAdded } from "react-icons/md";
 import { cn } from "@/lib/utils";
 import { SpinnerCircular } from "spinners-react";
-import CommentForm from "../posts/commentForm";
+import CommentForm from "../community/forum/posts/commentForm";
 
 const Post = ({ post }) => {
   const { user, isSignedIn, isLoaded } = useUser();

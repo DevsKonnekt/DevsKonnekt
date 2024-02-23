@@ -4,7 +4,7 @@
  * @exports Category
  * @description This module contains the controllers for categories.
  */
-// import Category from "../models/categories.js";
+import Category from "../models/categories.js";
 
 /**
  * Creates a new category.
@@ -15,9 +15,14 @@
  * @return {Promise} A promise that resolves to the created category.
  */
 export async function createCategory(req, res, next) {
-  // TODO: Implement this function.
   try {
-    return res.send("Category created");
+    const category = await Category.create(req.body);
+    if (!category) {
+      const error = new Error("Failed to create category");
+      error.statusCode = 500;
+      throw error;
+    }
+    return res.status(201).json(category);
   } catch (error) {
     next(error);
   }
@@ -32,9 +37,9 @@ export async function createCategory(req, res, next) {
  * @return {Promise} A promise that resolves to the retrieved categories.
  */
 export async function getCategories(req, res, next) {
-  // TODO: Implement this function.
   try {
-    return res.send("Categories found");
+    const categories = await Category.find();
+    return res.status(200).json(categories);
   } catch (error) {
     next(error);
   }
@@ -49,9 +54,15 @@ export async function getCategories(req, res, next) {
  * @return {Promise} The resolved promise with the category data.
  */
 export async function getCategoryById(req, res, next) {
-  // TODO: Implement this function.
+  const { id } = req.params;
   try {
-    return res.send("Category found");
+    const category = await Category.findById(id);
+    if (!category) {
+      const error = new Error("Category not found");
+      error.statusCode = 404;
+      throw error;
+    }
+    return res.status(200).json(category);
   } catch (error) {
     next(error);
   }

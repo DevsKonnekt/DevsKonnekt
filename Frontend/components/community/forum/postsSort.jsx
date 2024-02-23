@@ -8,12 +8,12 @@ import {
   MenubarRadioGroup,
   MenubarRadioItem,
   MenubarTrigger,
-} from "../ui/menubar";
+} from "../../ui/menubar";
 import { useState } from "react";
 import { SortDescIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-const PostsSort = ({ field, order, search, path }) => {
+const PostsSort = ({ field, order, search, path, allFields }) => {
   const [sortField, setSortField] = useState(field);
   const [sortOrder, setSortOrder] = useState(order);
 
@@ -44,8 +44,11 @@ const PostsSort = ({ field, order, search, path }) => {
               value={sortField}
               onValueChange={handleSortFieldChange}
             >
-              <MenubarRadioItem value="title">Title</MenubarRadioItem>
-              <MenubarRadioItem value="createdAt">Date Posted</MenubarRadioItem>
+              {allFields.map((field) => (
+                <MenubarRadioItem key={field.value} value={field.value}>
+                  {field.label}
+                </MenubarRadioItem>
+              ))}
             </MenubarRadioGroup>
           </MenubarContent>
         </MenubarMenu>

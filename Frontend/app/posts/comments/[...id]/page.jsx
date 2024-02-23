@@ -1,4 +1,4 @@
-import CommentDetail from "@/components/posts/commentDetail";
+import CommentDetail from "@/components/community/forum/posts/commentDetail";
 import Post from "@/components/profile/post";
 import { getCommentById, getPostsByUser } from "@/lib/actions/posts.actions";
 
