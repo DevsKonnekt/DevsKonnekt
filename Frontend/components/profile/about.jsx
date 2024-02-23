@@ -96,6 +96,7 @@ const About = ({ isCurrentUser, profile }) => {
                 profile={profile}
                 skill={skill}
                 deleteSkill={deleteSkillFromProfile}
+                isCurrentUser={isCurrentUser}
               />
             ))}
         </div>

@@ -32,7 +32,9 @@ const Details = async ({ isCurrentUser, user, profile }) => {
               </MenubarTrigger>
               <MenubarContent className="gap-4 dark:bg-gray-700">
                 <MenubarItem>
-                  <EditProfile />
+                  <Link href={"/profile/event-tickets"}>
+                    <p>My Event Tickets</p>
+                  </Link>
                 </MenubarItem>
                 <MenubarItem>
                   <Link href={"/forum/bookmarks"}>
