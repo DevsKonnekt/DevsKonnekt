@@ -3,7 +3,7 @@
 import { getStripe } from "@/lib/utils";
 import { Button } from "../ui/button";
 import { useEffect } from "react";
-import { checkoutOrder } from "@/lib/actions/orders.actions";
+import { checkoutOrder } from "@/lib/actions/tickets.actions";
 import { useToast } from "../ui/use-toast";
 
 getStripe();
