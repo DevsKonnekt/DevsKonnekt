@@ -68,6 +68,7 @@ export const getEvents = async (req, res, next) => {
   try {
     const events = await Event.find({
       $or: conditions,
+      status: "isPublished",
     })
       .sort({ [sortField]: sortOrder })
       .limit(+limit)
@@ -123,7 +124,10 @@ export const getEvent = async (req, res, next) => {
 export const getEventsByCategory = async (req, res, next) => {
   const { categoryId } = req.params;
   try {
-    const events = await Event.find({ category: categoryId })
+    const events = await Event.find({
+      category: categoryId,
+      status: "isPublished",
+    })
       .populate({
         path: "organizer",
         select: "firstName lastName username clerkId profilePicture",
