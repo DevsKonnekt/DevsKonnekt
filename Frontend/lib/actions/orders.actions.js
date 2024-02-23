@@ -6,8 +6,9 @@ import Stripe from "stripe";
 export const checkoutOrder = async (order) => {
   const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
   const price = order.isFree ? 0 : Nember(order.price) * 100;
+  let session;
   try {
-    const session = await stripe.checkout.sessions.create({
+    session = await stripe.checkout.sessions.create({
       line_items: [
         {
           price_data: {
@@ -25,11 +26,11 @@ export const checkoutOrder = async (order) => {
         buyerId: order.buyerId,
       },
       mode: "payment",
-      success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/events/${order.eventId}?success=true`,
-      cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/events/${order.eventId}?success=false`,
+      success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/events`,
+      cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/events/${order.eventId}`,
     });
-    redirect(session.url);
   } catch (error) {
     console.error(error);
   }
+  redirect(session.url);
 };
