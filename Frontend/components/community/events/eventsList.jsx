@@ -16,7 +16,7 @@ const EventsList = ({
 }) => {
   const [page, setPage] = useState(1);
   const [events, setEvents] = useState(initialEvents);
-  const [loading, setLoading] = useState(events.length === 10);
+  const [loading, setLoading] = useState(events?.length === 10);
   const { ref, inView } = useInView();
 
   async function loadMoreEvents() {

@@ -1,10 +1,9 @@
 import CheckoutButton from "@/components/shared/checkoutButton";
-import SignUpButton from "@/components/signUpButton";
 import { Calendar, LocateIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-const EventDetail = ({ event, user }) => {
+const EventDetail = ({ event, user, success, cancelled }) => {
   return (
     <div className="flex flex-col gap-8 items-start justify-between sm:flex-row w-full">
       <Image
@@ -33,11 +32,12 @@ const EventDetail = ({ event, user }) => {
             </Link>
           </p>
         </div>
-        {user ? (
-          <CheckoutButton event={event} userId={user?.publicMetadata?.userId} />
-        ) : (
-          <SignUpButton title={"Get Tickets"} variant={"secondary"} />
-        )}
+        <CheckoutButton
+          event={event}
+          userId={user?.publicMetadata?.userId}
+          success={success}
+          cancelled={cancelled}
+        />
         <div className="flex gap-4 items-center mt-4">
           <span className="text-3xl">
             <Calendar />
