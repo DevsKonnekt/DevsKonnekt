@@ -68,6 +68,7 @@ export const getEvents = async (req, res, next) => {
   try {
     const events = await Event.find({
       $or: conditions,
+      status: "isPublished",
     })
       .sort({ [sortField]: sortOrder })
       .limit(+limit)
@@ -106,6 +107,33 @@ export const getEvent = async (req, res, next) => {
       return res.status(404).json({ error: "Event not found" });
     }
     return res.status(200).json(event);
+  } catch (error) {
+    return next(error);
+  }
+};
+
+/**
+ * @function getEventsByCategory
+ * @param {import('express').Request} req - HTTP Request
+ * @param {import('express').Response} res - HTTP Response
+ * @param {import('express').NextFunction} next - Next function
+ * @returns {import('express').Response} - HTTP Response with status 200 and the events on success
+ * @throws {Error} - A call to next() on an internal server error
+ * @description This function gets all events from the database by category.
+ */
+export const getEventsByCategory = async (req, res, next) => {
+  const { categoryId } = req.params;
+  try {
+    const events = await Event.find({
+      category: categoryId,
+      status: "isPublished",
+    })
+      .populate({
+        path: "organizer",
+        select: "firstName lastName username clerkId profilePicture",
+      })
+      .populate("category");
+    return res.status(200).json(events);
   } catch (error) {
     return next(error);
   }

@@ -46,10 +46,10 @@ const EventCard = ({ event, userId }) => {
         </CardHeader>
         <CardContent className="text-start px-4 py-2">
           <div className="flex justify-start items-center gap-8 mt-2 mb-4">
-            <p className="text-lg font-medium text-secondary">
-              {event.price === 0 ? "Free" : `$${event.price}`}
+            <p className="text-lg font-medium text-secondary bg-secondary/35 p-1 px-2 rounded-full">
+              {event.price === 0 ? "Free" : `$${event.price}.00`}
             </p>
-            <p className="text-lg text-primary dark:text-background opacity-60">
+            <p className="text-lg text-primary text-medium dark:text-background opacity-60">
               {event.category.name}
             </p>
           </div>

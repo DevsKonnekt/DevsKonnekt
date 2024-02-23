@@ -18,6 +18,7 @@ import commentsRouter from "./routes/comments.js";
 import bookmarksRouter from "./routes/bookmarks.js";
 import skillsRouter from "./routes/skills.js";
 import votesRouter from "./routes/vote.js";
+import ticketsRouter from "./routes/tickets.js";
 
 dotenv.config();
 
@@ -39,6 +40,7 @@ app.use("/api/v1/", skillsRouter);
 app.use("/api/v1/", bookmarksRouter);
 app.use("/api/v1/", postsRoutes);
 app.use("/api/v1/users/", userRouter);
+app.use("/api/v1/tickets/", ticketsRouter);
 app.use("/api/v1/votes/", votesRouter);
 app.use("/api/v1/productservices/", productServiceRouter);
 app.use("/api/v1/projects/", projectRouter);

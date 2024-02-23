@@ -78,3 +78,14 @@ export const deleteEvent = async ({ path, id }) => {
     );
   }
 };
+
+export const getEventsByCategory = async (category) => {
+  try {
+    const { data } = await axios.get(
+      `${process.env.BACKEND_URL}/events/category/${category}`
+    );
+    return data;
+  } catch (error) {
+    throw new Error(typeof error === "string" ? error : JSON.stringify(error));
+  }
+};
