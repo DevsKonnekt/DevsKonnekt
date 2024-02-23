@@ -9,21 +9,20 @@ const EventsPage = async ({ searchParams }) => {
   const searchParam = searchParams?.search || "";
   const sortOrder = searchParams?.sortOrder || -1;
   const sortField = searchParams?.sortField || "createdAt";
-  const page = searchParams?.page || 1;
 
   const user = await currentUser();
   const events = await getEvents({
     searchParam,
     sortField,
     sortOrder,
-    page,
   });
+
   if (!events) {
     return <NoEvents user={user} />;
   }
   return (
     <main className="w-full min-h-screen px-4 pt-24">
-      <div className="flex gap-4 w-full h-full items-center justify-between mb-4">
+      <div className="flex gap-4 w-full h-full items-center justify-between my-8">
         <h1 className="text-3xl font-bold text-start w-full hidden sm:block">
           Explore Events
         </h1>
@@ -32,7 +31,6 @@ const EventsPage = async ({ searchParams }) => {
             search={searchParam}
             field={sortField}
             order={sortOrder}
-            page={page}
             path={"events"}
           />
           <PostsSort
@@ -61,7 +59,13 @@ const EventsPage = async ({ searchParams }) => {
           />
         </div>
       </div>
-      <EventsList events={events} userId={user?.publicMetadata?.userId} />
+      <EventsList
+        userId={user?.publicMetadata?.userId}
+        initialEvents={events}
+        search={searchParam}
+        sortField={sortField}
+        sortOrder={sortOrder}
+      />
     </main>
   );
 };
