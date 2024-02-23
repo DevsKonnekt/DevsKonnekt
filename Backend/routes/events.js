@@ -14,6 +14,7 @@ import {
   createEvent,
   updateEvent,
   deleteEvent,
+  getEventsByCategory,
 } from "../controllers/events.js";
 import { defaultErrorHandler } from "../middlewares/index.js";
 
@@ -24,5 +25,10 @@ eventsRoutes.post("/events", createEvent, defaultErrorHandler);
 eventsRoutes.patch("/events/:id", updateEvent, defaultErrorHandler);
 eventsRoutes.delete("/events/:id", deleteEvent, defaultErrorHandler);
 eventsRoutes.get("/events/:id", getEvent, defaultErrorHandler);
+eventsRoutes.get(
+  "/events/category/:categoryId",
+  getEventsByCategory,
+  defaultErrorHandler
+);
 
 export default eventsRoutes;
