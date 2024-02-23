@@ -1,5 +1,6 @@
 "use server";
 
+import axios from "axios";
 import { redirect } from "next/navigation";
 import Stripe from "stripe";
 
@@ -33,4 +34,18 @@ export const checkoutOrder = async (order) => {
     console.error(error);
   }
   redirect(session.url);
+};
+
+export const createTicket = async (order) => {
+  try {
+    const response = await axios.post(
+      `${process.env.BACKEND_URL}/tickets`,
+      order
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error(
+      typeof error === "string" ? error : error?.response?.data?.message
+    );
+  }
 };
