@@ -3,7 +3,7 @@ import { Calendar, LocateIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-const EventDetail = ({ event, user, success, cancelled }) => {
+const EventDetail = ({ event, user }) => {
   return (
     <div className="flex flex-col gap-8 items-start justify-between sm:flex-row w-full">
       <Image
@@ -16,7 +16,7 @@ const EventDetail = ({ event, user, success, cancelled }) => {
       <div className="w-full sm:w-1/2">
         <h1 className="text-3xl font-bold text-start mb-4">{event?.title}</h1>
         <div className="flex gap-4 items-center mb-4">
-          <p className="text-lg font-medium text-secondary bg-secondary/35 p-1 rounded-full">
+          <p className="text-lg font-medium text-secondary bg-secondary/35 p-1 px-2 rounded-full">
             {event?.price === 0 ? "Free" : `$${event?.price}.00`}
           </p>
           <p className="text-lg text-primary text-medium dark:text-background opacity-60">
@@ -32,12 +32,7 @@ const EventDetail = ({ event, user, success, cancelled }) => {
             </Link>
           </p>
         </div>
-        <CheckoutButton
-          event={event}
-          userId={user?.publicMetadata?.userId}
-          success={success}
-          cancelled={cancelled}
-        />
+        <CheckoutButton event={event} userId={user?.publicMetadata?.userId} />
         <div className="flex gap-4 items-center mt-4">
           <span className="text-3xl">
             <Calendar />

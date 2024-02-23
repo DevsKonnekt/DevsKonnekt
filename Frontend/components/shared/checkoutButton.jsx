@@ -2,7 +2,7 @@ import { SignIn, SignedIn, SignedOut } from "@clerk/nextjs";
 import Checkout from "./checkout";
 import { Button } from "../ui/button";
 
-const CheckoutButton = ({ event, userId, success, cancelled }) => {
+const CheckoutButton = ({ event, userId }) => {
   const hasEventEnded = new Date(event?.endDate) < new Date();
   return (
     <div className="flex items-center justify-start">
@@ -13,12 +13,7 @@ const CheckoutButton = ({ event, userId, success, cancelled }) => {
       ) : (
         <>
           <SignedIn>
-            <Checkout
-              event={event}
-              userId={userId}
-              success={success}
-              cancelled={cancelled}
-            />
+            <Checkout event={event} userId={userId} />
           </SignedIn>
           <SignedOut>
             <SignIn mode="modal">

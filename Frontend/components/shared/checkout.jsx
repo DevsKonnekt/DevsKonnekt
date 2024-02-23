@@ -4,10 +4,12 @@ import { getStripe } from "@/lib/utils";
 import { Button } from "../ui/button";
 import { useEffect } from "react";
 import { checkoutOrder } from "@/lib/actions/orders.actions";
+import { useToast } from "../ui/use-toast";
 
 getStripe();
 
-const Checkout = ({ event, userId, success, cancelled }) => {
+const Checkout = ({ event, userId }) => {
+  const { toast } = useToast();
   useEffect(() => {
     const query = new URLSearchParams(window.location.search);
     if (query.get("success")) {
@@ -20,21 +22,6 @@ const Checkout = ({ event, userId, success, cancelled }) => {
       );
     }
   }, []);
-  success &&
-    toast({
-      title: "Order Placed",
-      description: "Your order has been placed successfully",
-      variant: "success",
-      dismissable: true,
-    });
-
-  cancelled &&
-    toast({
-      title: "Order Cancelled",
-      description: "Your order has been cancelled",
-      variant: "destructive",
-      dismissable: true,
-    });
 
   const onCheckout = async () => {
     const order = {
