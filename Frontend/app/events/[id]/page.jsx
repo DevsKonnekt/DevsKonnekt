@@ -14,13 +14,14 @@ const EventDetailPage = async ({ params }) => {
       },
     };
   }
-  const relatedEvents = await getEventsByCategory(event.category._id);
+  const moreEvents = await getEventsByCategory(event.category._id);
+  const relatedEvents = moreEvents.filter((event) => event._id !== id);
   const user = await currentUser();
   return (
-    <main className="w-full min-h-screen px-4 pt-24 md:pt-12">
+    <main className="w-full min-h-screen px-4 pt-28">
       <EventDetail event={event} user={user} />
-      <div className="w-full mt-4">
-        <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-center w-full">
+      <div className="w-full mt-8">
+        <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-start w-full mb-4">
           Related Events
         </h1>
         <EventsList

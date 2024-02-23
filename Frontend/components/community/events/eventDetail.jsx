@@ -12,7 +12,7 @@ const EventDetail = ({ event, user }) => {
         alt={event?.title}
         width={1920}
         height={1080}
-        className="object-cover w-full rounded-lg"
+        className="object-cover w-full sm:w-1/2 max-h-80 rounded-lg"
       />
       <div className="w-full sm:w-1/2">
         <h1 className="text-3xl font-bold text-start mb-4">{event?.title}</h1>
@@ -27,7 +27,7 @@ const EventDetail = ({ event, user }) => {
             by{" "}
             <Link
               href={`/profile/${event?.organizer?.clerkId}`}
-              className="text-secondary hover:text-primary active:text-primary visited:text-primary/85"
+              className="text-secondary opacity-100 hover:text-primary active:text-primary visited:text-secondary/85"
             >
               {event?.organizer?.firstName} {event?.organizer?.lastName}
             </Link>

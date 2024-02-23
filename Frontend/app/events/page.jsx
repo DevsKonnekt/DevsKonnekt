@@ -22,9 +22,9 @@ const EventsPage = async ({ searchParams }) => {
     return <NoEvents user={user} />;
   }
   return (
-    <main className="w-full min-h-screen px-4 pt-24 md:pt-12">
+    <main className="w-full min-h-screen px-4 pt-24">
       <div className="flex gap-4 w-full h-full items-center justify-between mb-4">
-        <h1 className="text-3xl font-bold text-center w-full hidden sm:block">
+        <h1 className="text-3xl font-bold text-start w-full hidden sm:block">
           Explore Events
         </h1>
         <div className="w-full flex justify-end items-center gap-4">
