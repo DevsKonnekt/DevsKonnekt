@@ -1,4 +1,4 @@
-import Checkout from "@/components/shared/checkout";
+import CheckoutButton from "@/components/shared/checkoutButton";
 import SignUpButton from "@/components/signUpButton";
 import { Calendar, LocateIcon } from "lucide-react";
 import Image from "next/image";
@@ -16,7 +16,7 @@ const EventDetail = ({ event, user }) => {
       />
       <div className="w-full sm:w-1/2">
         <h1 className="text-3xl font-bold text-start mb-4">{event?.title}</h1>
-        <div className="flex gap-4 items-center">
+        <div className="flex gap-4 items-center mb-4">
           <p className="text-lg font-medium text-secondary bg-secondary/35 p-1 rounded-full">
             {event?.price === 0 ? "Free" : `$${event?.price}.00`}
           </p>
@@ -34,9 +34,9 @@ const EventDetail = ({ event, user }) => {
           </p>
         </div>
         {user ? (
-          <Checkout event={event} userId={user?.publicMetadata?.userId} />
+          <CheckoutButton event={event} userId={user?.publicMetadata?.userId} />
         ) : (
-          <SignUpButton title={"Get Started"} variant={"secondary"} />
+          <SignUpButton title={"Get Tickets"} variant={"secondary"} />
         )}
         <div className="flex gap-4 items-center mt-4">
           <span className="text-3xl">
