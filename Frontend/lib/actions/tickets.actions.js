@@ -6,7 +6,7 @@ import Stripe from "stripe";
 
 export const checkoutOrder = async (order) => {
   const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
-  const price = order.isFree ? 0 : Nember(order.price) * 100;
+  const price = order.isFree ? 0 : Number(order.price) * 100;
   let session;
   try {
     session = await stripe.checkout.sessions.create({
@@ -16,6 +16,7 @@ export const checkoutOrder = async (order) => {
             currency: "usd",
             product_data: {
               name: order.eventTitle,
+              images: [order.eventImage],
             },
             unit_amount: price,
           },
