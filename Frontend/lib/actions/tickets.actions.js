@@ -4,7 +4,7 @@ import axios from "axios";
 import { redirect } from "next/navigation";
 import Stripe from "stripe";
 
-export const checkoutOrder = async (order) => {
+export const checkoutOrder = async ({ order, userClerkId }) => {
   const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
   const price = order.isFree ? 0 : Number(order.price) * 100;
   let session;
@@ -28,7 +28,7 @@ export const checkoutOrder = async (order) => {
         buyerId: order.buyerId,
       },
       mode: "payment",
-      success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/events`,
+      success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/profile/${userClerkId}/event-tickets`,
       cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/events/${order.eventId}`,
     });
   } catch (error) {

@@ -7,6 +7,9 @@ import { getEvents } from "@/lib/actions/events.actions";
 import { revalidatePath } from "next/cache";
 import { useEffect, useState } from "react";
 import { getTicketsByBuyer } from "@/lib/actions/tickets.actions";
+import CreateEvent from "./createEvent";
+import { PlusIcon } from "lucide-react";
+import { SignedIn } from "@clerk/nextjs";
 
 const EventsList = ({
   initialEvents,
@@ -55,7 +58,20 @@ const EventsList = ({
   }, [inView]);
 
   return (
-    <div className="w-full">
+    <div className="w-full relative">
+      <SignedIn>
+        <div className="absolute w-max bottom-6 right-3 z-10">
+          <CreateEvent
+            trigger={
+              <span className="bg-secondary p-2 rounded-full text-3xl text-background hover:bg-transparent hover:border hover:border-secondary transition-all duration-300 ease-linear hover:text-secondary dark:hover:text-background">
+                <PlusIcon className="" />
+              </span>
+            }
+            type={"Create"}
+            userId={userId}
+          />
+        </div>
+      </SignedIn>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {events.map((event) => (
           <EventCard key={event._id} event={event} userId={userId} />

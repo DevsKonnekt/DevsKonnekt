@@ -4,12 +4,13 @@ import { getStripe } from "@/lib/utils";
 import { Button } from "../ui/button";
 import { useEffect } from "react";
 import { checkoutOrder } from "@/lib/actions/tickets.actions";
-import { useToast } from "../ui/use-toast";
+import { useUser } from "@clerk/clerk-react";
 
 getStripe();
 
-const Checkout = ({ event, userId }) => {
-  const { toast } = useToast();
+const Checkout = ({ event }) => {
+  const userData = useUser();
+
   useEffect(() => {
     const query = new URLSearchParams(window.location.search);
     if (query.get("success")) {
@@ -29,10 +30,10 @@ const Checkout = ({ event, userId }) => {
       eventId: event._id,
       isFree: event.price === 0,
       price: event.price,
-      buyerId: userId,
+      buyerId: userData.user?.publicMetadata?.userId,
       image: event.imageUrl,
     };
-    await checkoutOrder(order);
+    await checkoutOrder({ order, userClerkId: userData.user?.id });
   };
   return (
     <form action={onCheckout} method="POST">
