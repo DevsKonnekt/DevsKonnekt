@@ -1,5 +1,6 @@
 import CheckoutButton from "@/components/shared/checkoutButton";
-import { Calendar, LocateIcon } from "lucide-react";
+import { formatDate, formatTime } from "@/lib/utils";
+import { CalendarRangeIcon, MapPinIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -17,7 +18,7 @@ const EventDetail = ({ event, user }) => {
         <h1 className="text-3xl font-bold text-start mb-4">{event?.title}</h1>
         <div className="flex gap-4 items-center mb-4">
           <p className="text-lg font-medium text-secondary bg-secondary/35 p-1 px-2 rounded-full">
-            {event?.price === 0 ? "Free" : `$${event?.price}.00`}
+            {event?.price === 0 ? "Free" : `$${parseFloat(event?.price)}`}
           </p>
           <p className="text-lg text-primary text-medium dark:text-background opacity-60">
             {event?.category?.name}
@@ -34,16 +35,17 @@ const EventDetail = ({ event, user }) => {
         </div>
         <CheckoutButton event={event} userId={user?.publicMetadata?.userId} />
         <div className="flex gap-4 items-center mt-4">
-          <span className="text-3xl">
-            <Calendar />
+          <span className="text-3xl  text-indigo-900">
+            <CalendarRangeIcon />
           </span>
           <p className="">
-            {event?.startDate}/{event?.startTime} - {event?.endDate}
+            {formatDate(event?.startDate)} / {formatTime(event?.startTime)} -{" "}
+            {formatDate(event?.endDate)}
           </p>
         </div>
         <div className="flex gap-4 items-center mt-2">
-          <span className="text-3xl">
-            <LocateIcon />
+          <span className="text-3xl text-indigo-900">
+            <MapPinIcon />
           </span>
           <p className="">{event?.location}</p>
         </div>
