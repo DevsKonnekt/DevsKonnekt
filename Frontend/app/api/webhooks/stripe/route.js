@@ -15,7 +15,6 @@ export default async function POST(request) {
     );
   } catch (err) {
     return NextResponse.json({
-      status: 400,
       message: `Webhook Error: ${err.message}`,
     });
   }
@@ -28,11 +27,9 @@ export default async function POST(request) {
       buyer: session.metadata.buyerId,
       totalAmount: session.amount_total ? session.amount_total / 100 : 0,
     };
-    await createTicket(ticket);
+    const newTicket = await createTicket(ticket);
+    return NextResponse.json({ message: "OK", ticket: newTicket });
   }
 
-  return {
-    status: 200,
-    body: "success",
-  };
+  return new Response("", { status: 200 });
 }
