@@ -13,6 +13,7 @@ const MyTicketsPage = async () => {
   const eventsBought = myTickets.map((ticket) => ticket.event);
   return (
     <main className="w-full px-4 pt-32">
+      <h1 className="text-3xl font-bold my-8">My Tickets</h1>
       <EventsList
         initialEvents={eventsBought}
         type={"tickets"}
