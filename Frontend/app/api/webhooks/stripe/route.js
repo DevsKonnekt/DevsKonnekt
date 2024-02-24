@@ -2,7 +2,7 @@ import Stripe from "stripe";
 import { createTicket } from "@/lib/actions/tickets.actions";
 import { NextResponse } from "next/server";
 
-export default async function POST(request) {
+export async function POST(request) {
   const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
   const sig = request.headers.get("stripe-signature");
   let event;
