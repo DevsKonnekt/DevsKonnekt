@@ -31,7 +31,7 @@ const EventCard = ({ event, userId }) => {
               userId={userId}
             />
           </Button>
-          <ConfirmEventDelete eventId={event?.id} />
+          <ConfirmEventDelete eventId={event?._id} />
         </div>
       )}
       <Link href={`/events/${event._id}`} className="w-full h-full block">
