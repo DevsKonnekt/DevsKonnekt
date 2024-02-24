@@ -49,3 +49,18 @@ export const createTicket = async (order) => {
     );
   }
 };
+
+export const getTicketsByBuyer = async ({ buyerId, page, sortOrder }) => {
+  try {
+    const response = await axios.get(
+      `${process.env.BACKEND_URL}/tickets/buyer/${buyerId}?page=${
+        page || 1
+      }&sortOrder=${sortOrder || -1}`
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error(
+      typeof error === "string" ? error : error?.response?.data?.message
+    );
+  }
+};
