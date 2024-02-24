@@ -134,9 +134,19 @@ export const getTicketsByEvent = async (req, res, next) => {
  */
 export const getTicketsByBuyerId = async (req, res, next) => {
   const { buyerId } = req.params;
+  const { limit = 10, page = 1, sortOder = -1 } = req.query;
   try {
     const tickets = await Ticket.find({ buyer: buyerId })
-      .populate("event")
+      .limit(Number(limit) * 1)
+      .skip((Number(page) - 1) * Number(limit))
+      .sort({ createdAt: sortOder })
+      .populate({
+        path: "event",
+        populate: {
+          path: "organizer",
+          select: "username email firstName lastName profilePicture clerkId",
+        },
+      })
       .populate({
         path: "buyer",
         select: "username email firstName lastName profilePicture clerkId",
