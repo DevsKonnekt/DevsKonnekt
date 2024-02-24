@@ -152,9 +152,15 @@ export const updateEvent = async (req, res, next) => {
   try {
     const eventId = req.params.id; // Assuming the event ID is passed as a route parameter
     const eventData = req.body; // Assuming the updated event data is sent in the request body
-    const updatedEvent = await Event.findByIdAndUpdate(eventId, eventData, {
-      new: true,
-    });
+    const updatedEvent = await Event.findByIdAndUpdate(
+      eventId,
+      {
+        $set: {
+          ...eventData,
+        },
+      },
+      { new: true }
+    );
     if (!updatedEvent) {
       return res.status(404).json({ error: "Event not found" });
     }
