@@ -7,6 +7,8 @@ export default authMiddleware({
     "/services",
     "/services/(.*)",
     "/forum",
+    "/events(.*)",
+    "/posts(.*)",
     "/about",
     "/contact",
   ],
