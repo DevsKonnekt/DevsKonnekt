@@ -43,7 +43,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/components/ui/use-toast";
-import { createEvent } from "@/lib/actions/events.actions";
+import { createEvent, updateEvent } from "@/lib/actions/events.actions";
 import {
   createCategory,
   getCategories,
@@ -93,10 +93,11 @@ const formSchema = z.object({
   status: z.enum(["isPublished", "isDraft", "isCancelled"]),
   isOnline: z.boolean(),
   isFree: z.boolean(),
+  capacity: z.string(),
   price: z.string().optional(),
 });
 
-const EventForm = ({ type, data, userId, setOpen, open }) => {
+const EventForm = ({ type, data, userId, setOpen, open, trigger }) => {
   const [categories, setCategories] = useState([]);
   const [files, setFiles] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -104,20 +105,23 @@ const EventForm = ({ type, data, userId, setOpen, open }) => {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: "",
-      description: "",
-      startDate: "",
-      endDate: "",
-      startTime: "",
-      location: "",
-      category: "",
-      organizer: userId,
-      imageUrl: "",
-      status: "isDraft",
-      isOnline: false,
-      isFree: false,
+      title: data?.title || "",
+      description: data?.description || "",
+      startDate: data?.startDate || "",
+      endDate: data?.endDate || "",
+      startTime: data?.startTime || "",
+      location: data?.location || "",
+      category: data?.category?._id || "",
+      organizer: data?.organizer?._id || userId,
+      imageUrl: data?.imageUrl || "",
+      status: data?.status || "isPublished",
+      isOnline: data?.isOnline || false,
+      isFree: data?.isFree || false,
+      price: data?.price || "",
+      capacity: data?.capacity || "",
     },
   });
+  const eventId = data?._id || null;
   const { toast } = useToast();
 
   if (!userId) {
@@ -197,12 +201,46 @@ const EventForm = ({ type, data, userId, setOpen, open }) => {
         });
         setLoading(false);
       }
+    } else if (type === "Update") {
+      try {
+        const updatedEvent = await updateEvent({
+          id: eventId,
+          event: {
+            title: data.title,
+            description: data.description,
+            imageUrl: uploadedImageUrl,
+            startDate: data.startDate,
+            endDate: data.endDate,
+            startTime: data.startTime,
+            location: data.location,
+            category: data.category,
+            organizer: data.organizer,
+            status: data.status,
+            isOnline: data.isOnline,
+            isFree: data.isFree,
+            price: data.price,
+          },
+          path: "/events/",
+        });
+        if (updatedEvent) {
+          form.reset();
+          setLoading(false);
+          toast({ description: "Event updated successfully" });
+        }
+      } catch (error) {
+        toast({
+          variant: "destructive",
+          title: "Oops! Something went wrong",
+          description: "Failed to update event. Please try again.",
+        });
+        setLoading(false);
+      }
     }
   };
 
   return (
     <ResponsiveDialog
-      triggerText="Create Event"
+      triggerText={trigger}
       size={"5xl"}
       open={open}
       setOpen={setOpen}
@@ -483,32 +521,52 @@ const EventForm = ({ type, data, userId, setOpen, open }) => {
               )}
             />
           </div>
-          <FormField
-            control={form.control}
-            name="status"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <Select onValueChange={field.onChange} value={field.value}>
-                    <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Save Event As" />
-                    </SelectTrigger>
-                    <SelectContent className="input !h-full">
-                      <SelectGroup>
-                        <SelectItem value="isPublished">
-                          Ready To Publish
-                        </SelectItem>
-                        <SelectItem value="isDraft">Draft</SelectItem>
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
-                </FormControl>
-                <FormMessage className="w-full text-red-500" />
-              </FormItem>
-            )}
-          />
+          <div className="flex flex-col gap-2 sm:flex-row w-full">
+            <FormField
+              control={form.control}
+              name="capacity"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormControl>
+                    <Input
+                      type="number"
+                      placeholder="How many people can attend?"
+                      value={field.value}
+                      onChange={field.onChange}
+                      className="input"
+                    />
+                  </FormControl>
+                  <FormMessage className="w-full text-red-500" />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="status"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormControl>
+                    <Select onValueChange={field.onChange} value={field.value}>
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Save Event As" />
+                      </SelectTrigger>
+                      <SelectContent className="input !h-full">
+                        <SelectGroup>
+                          <SelectItem value="isPublished">
+                            Ready To Publish
+                          </SelectItem>
+                          <SelectItem value="isDraft">Draft</SelectItem>
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                  <FormMessage className="w-full text-red-500" />
+                </FormItem>
+              )}
+            />
+          </div>
           <Button type="submit" className="primary-btn" disabled={loading}>
-            Create Event
+            {type === "Create" ? "Create Event" : "Update Event"}
           </Button>
         </form>
       </Form>
