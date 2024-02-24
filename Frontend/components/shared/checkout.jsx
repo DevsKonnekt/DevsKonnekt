@@ -30,6 +30,7 @@ const Checkout = ({ event, userId }) => {
       isFree: event.price === 0,
       price: event.price,
       buyerId: userId,
+      image: event.imageUrl,
     };
     await checkoutOrder(order);
   };

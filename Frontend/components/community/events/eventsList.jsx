@@ -6,6 +6,7 @@ import EventCard from "./eventCard";
 import { getEvents } from "@/lib/actions/events.actions";
 import { revalidatePath } from "next/cache";
 import { useEffect, useState } from "react";
+import { getTicketsByBuyer } from "@/lib/actions/tickets.actions";
 
 const EventsList = ({
   initialEvents,
@@ -13,6 +14,7 @@ const EventsList = ({
   search,
   sortField,
   sortOrder,
+  type,
 }) => {
   const [page, setPage] = useState(1);
   const [events, setEvents] = useState(initialEvents);
@@ -21,12 +23,21 @@ const EventsList = ({
 
   async function loadMoreEvents() {
     const next = page + 1;
-    const newEvents = await getEvents({
-      page: next,
-      searchParam: search,
-      sortField,
-      sortOrder,
-    });
+    let newEvents;
+    if (type === "tickets") {
+      const moreTickets = await getTicketsByBuyer({
+        page: next,
+        buyerId: userId,
+      });
+      newEvents = moreTickets.map((ticket) => ticket.event);
+    } else {
+      newEvents = await getEvents({
+        page: next,
+        searchParam: search,
+        sortField,
+        sortOrder,
+      });
+    }
 
     if (newEvents.length > 0) {
       setPage(next);

@@ -1,7 +1,6 @@
 import Header from "./header";
 import PostsList from "./postsList";
 import About from "./about";
-import EditProfile from "./editProfile";
 import { getPostsByUser } from "@/lib/actions/posts.actions";
 import {
   Menubar,
@@ -32,7 +31,7 @@ const Details = async ({ isCurrentUser, user, profile }) => {
               </MenubarTrigger>
               <MenubarContent className="gap-4 dark:bg-gray-700">
                 <MenubarItem>
-                  <Link href={"/profile/event-tickets"}>
+                  <Link href={`/profile/${user.id}/event-tickets`}>
                     <p>My Event Tickets</p>
                   </Link>
                 </MenubarItem>

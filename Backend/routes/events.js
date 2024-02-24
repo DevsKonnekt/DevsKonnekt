@@ -22,7 +22,7 @@ const eventsRoutes = Router();
 
 eventsRoutes.get("/events", getEvents, defaultErrorHandler);
 eventsRoutes.post("/events", createEvent, defaultErrorHandler);
-eventsRoutes.patch("/events/:id", updateEvent, defaultErrorHandler);
+eventsRoutes.put("/events/:id", updateEvent, defaultErrorHandler);
 eventsRoutes.delete("/events/:id", deleteEvent, defaultErrorHandler);
 eventsRoutes.get("/events/:id", getEvent, defaultErrorHandler);
 eventsRoutes.get(
