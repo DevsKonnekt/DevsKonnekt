@@ -44,6 +44,7 @@ export const createTicket = async (req, res, next) => {
       throw error;
     }
     event.tickets.push(newTicket._id);
+    await event.save();
     res.status(201).json(newTicket);
   } catch (error) {
     console.log(error);
@@ -142,10 +143,15 @@ export const getTicketsByBuyerId = async (req, res, next) => {
       .sort({ createdAt: sortOder })
       .populate({
         path: "event",
-        populate: {
-          path: "organizer",
-          select: "username email firstName lastName profilePicture clerkId",
-        },
+        populate: [
+          {
+            path: "organizer",
+            select: "username email firstName lastName profilePicture clerkId",
+          },
+          {
+            path: "category",
+          },
+        ],
       })
       .populate({
         path: "buyer",
