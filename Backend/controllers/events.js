@@ -268,7 +268,7 @@ exports.exportEventData = async (req, res) => {
     });
     await csvWriter.writeRecords(csvRecords);
 
-    res.json({ downloadLink: "#" });
+    res.json({ downloadLink: "/" });
   } catch (error) {
     res.status(500).json({ error: "Failed to export event data" });
   }
