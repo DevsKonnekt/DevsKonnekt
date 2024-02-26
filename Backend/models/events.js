@@ -91,6 +91,22 @@ const eventSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    attendance: {
+      type: Number,
+      default: 0,
+    },
+    ticketSales: {
+      type: Number,
+      default: 0,
+    },
+    revenue: {
+      type: Number,
+      default: 0,
+    },
+    ratings: {
+      type: Number,
+      default: 0,
+    },
   },
   { timestamps: true },
   { autoIndex: false }
