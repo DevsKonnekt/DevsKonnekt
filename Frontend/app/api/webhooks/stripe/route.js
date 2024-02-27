@@ -3,6 +3,7 @@ import { createTicket } from "@/lib/actions/tickets.actions";
 import { NextResponse } from "next/server";
 
 export async function POST(request) {
+  // eslint-disable-next-line no-undef
   const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
   const sig = request.headers.get("stripe-signature");
   let event;
@@ -11,7 +12,8 @@ export async function POST(request) {
     event = stripe.webhooks.constructEvent(
       await request.text(),
       sig,
-      process.env.STRIPE_WEBHOOK_SECRET
+      // eslint-disable-next-line no-undef
+      process.env.STRIPE_WEBHOOK_SECRET,
     );
   } catch (err) {
     return NextResponse.json({

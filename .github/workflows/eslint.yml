@@ -22,78 +22,17 @@ jobs:
         run: |
           npm install eslint@8.10.0
           npm install eslint-config-airbnb@latest eslint@latest eslint-plugin-import@latest eslint-plugin-jsx-a11y@latest eslint-plugin-react@latest eslint-plugin-react-hooks@latest --save-dev
-      - name: Run ESLint
+      - name: Format Code with Prettier and Lint with Eslint (Frontend)
         run: |
-          echo 'module.exports = {
-            "env": {
-            "browser": true,
-            "es2021": true
-            },
-            "extends": "eslint:recommended",
-            "overrides": [
-            {
-              "env": {
-                "node": true
-            },
-            "files": [
-                ".eslintrc.{js,cjs}"
-            ],
-            "parserOptions": {
-                "sourceType": "script"
-            }
-            }
-            ],
-            "parserOptions": {
-            "ecmaVersion": "latest",
-            "sourceType": "module"
-            },
-            "ignorePatterns": [".eslintrc.cjs", "next.config.js", "postcss.config.js", "tailwind.config.js"],
-            "rules": {
-            "indent": [
-              "error",
-              2
-            ],
-            "linebreak-style": [
-              "error",
-              "unix"
-            ],
-            "quotes": [
-              "error",
-              "double"
-            ],
-            "semi": [
-              "error",
-              "always"
-            ]
-            }
-            };' > .eslintrc.cjs
-          npx eslint . --ext .js,.jsx,.ts,.tsx
-          npx eslint . --ext .js,.jsx,.ts,.tsx --format json > eslint_report.json
+          cd ./Frontend
+          npm install
+          npm run format
+          npm run lint
+
         continue-on-error: true
 
-      # - name: Annotate Code Linting Results
-      #   uses: ataylorme/eslint-annotate-action@v2
-      #   with:
-      #     report-json: "eslint_report.json"
-
-      - name: Upload ESLint report
-        uses: actions/upload-artifact@v3
-        with:
-          name: eslint_report.json
-          path: eslint_report.json
-          retention-days: 5
-      
-      - name: Display ESLint Results
-        run: npx eslint --fix . --ext .js,.jsx,.ts,.tsx
-
-      # - name: Comment on successful ESLint check
-      #   uses: actions/github-script@v4
-      #   if: ${{ success() }}
-      #   with:
-      #     script: |
-      #       github.issues.createComment({
-      #         issue_number: context.issue.number,
-      #         owner: context.repo.owner,
-      #         repo: context.repo.repo,
-      #         body: 'ESLint check passed successfully.'
-      #       })
+      - name: Format Code and Lint with Eslint (Backend)
+        run: |
+          cd ./Backend
+          npm install
+          npm run lint:fix

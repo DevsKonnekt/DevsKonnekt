@@ -13,7 +13,7 @@ const PostDetailPage = async ({ params }) => {
   let filteredPosts = [];
   if (postsFromSameUser) {
     filteredPosts = postsFromSameUser.filter(
-      (postFromSameUser) => postFromSameUser._id !== post._id
+      (postFromSameUser) => postFromSameUser._id !== post._id,
     );
   }
   return (

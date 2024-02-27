@@ -13,7 +13,7 @@ const profilesSchema = new mongoose.Schema(
       validate: {
         validator: (value) => {
           return /^http(s)?:\/\/(www.)?twitter.com\/[a-zA-Z0-9_]+\/?$/.test(
-            value
+            value,
           );
         },
         message: "Please provide a valid Twitter URL.",
@@ -24,7 +24,7 @@ const profilesSchema = new mongoose.Schema(
       validate: {
         validator: (value) => {
           return /^http(s)?:\/\/(www.)?linkedin.com\/in\/[a-zA-Z0-9_-]+\/?$/.test(
-            value
+            value,
           );
         },
       },
@@ -34,7 +34,7 @@ const profilesSchema = new mongoose.Schema(
       validate: {
         validator: (value) => {
           return /^http(s)?:\/\/(www.)?github.com\/[a-zA-Z0-9]+\/?$/.test(
-            value
+            value,
           );
         },
       },
@@ -113,7 +113,7 @@ const profilesSchema = new mongoose.Schema(
       type: Number,
     },
   },
-  { autoIndex: false }
+  { autoIndex: false },
 );
 
 const Profile = mongoose.model("Profile", profilesSchema);

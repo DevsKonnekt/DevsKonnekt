@@ -26,7 +26,7 @@ const About = ({ isCurrentUser, profile }) => {
             <span
               className={cn(
                 "w-2 h-2 rounded-full",
-                profile?.availableForHire ? "bg-green-600" : "bg-red-600"
+                profile?.availableForHire ? "bg-green-600" : "bg-red-600",
               )}
             />{" "}
             Hire
@@ -37,7 +37,7 @@ const About = ({ isCurrentUser, profile }) => {
                 "w-2 h-2 rounded-full",
                 profile?.availableForCollaboration
                   ? "bg-green-600"
-                  : "bg-red-600"
+                  : "bg-red-600",
               )}
             />{" "}
             Collaboration

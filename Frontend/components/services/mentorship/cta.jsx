@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Arrow from "./arrow";
 import SignUpButton from "@/components/signUpButton";
 

@@ -1,6 +1,6 @@
-import { eventsPerks } from '@/constants'
-import React from 'react'
-import PerkCard from './perkCard'
+import { eventsPerks } from "@/constants";
+import React from "react";
+import PerkCard from "./perkCard";
 
 const Perks = () => {
   return (
@@ -9,7 +9,7 @@ const Perks = () => {
         <PerkCard key={perk.heading} {...perk} />
       ))}
     </div>
-  )
-}
+  );
+};
 
-export default Perks
+export default Perks;

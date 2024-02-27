@@ -22,7 +22,7 @@ categoriesRouter.patch("/categories/:id/", updateCategory, defaultErrorHandler);
 categoriesRouter.delete(
   "/categories/:id/",
   deleteCategory,
-  defaultErrorHandler
+  defaultErrorHandler,
 );
 
 export default categoriesRouter;

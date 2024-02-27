@@ -48,23 +48,17 @@ dotenv.config();
 
 // Create a new event
 exports.createEvent = async (req, res) => {
-  try {
-    const { title, description, date, organizer } = req.body;
 
-    const event = new Event({
-      title,
-      description,
-      date,
-      organizer,
-      attendance: 0,
-      ticketSales: 0,
-      revenue: 0,
-      ratings: 0,
-    });
-
-    await event.save();
-
-    res.status(201).json(event);
+    const eventData = req.body; // Assuming the event data is sent in the request body
+    const event = await Event.create(eventData);
+    if (!event) {
+      const error = new Error(
+        "An error occurred while creating the event. Please try again.",
+      );
+      error.statusCode = 400;
+      throw error;
+    }
+    return res.status(201).json(event);
   } catch (error) {
     res.status(500).json({ error: "Failed to create event" });
   }
@@ -125,9 +119,9 @@ export const getEvents = async (req, res, next) => {
   } = req.query;
   const conditions = searchParam.length
     ? [
-        { title: { $regex: searchParam, $options: "i" } },
-        { location: { $regex: searchParam, $options: "i" } },
-      ]
+      { title: { $regex: searchParam, $options: "i" } },
+      { location: { $regex: searchParam, $options: "i" } },
+    ]
     : [{}];
   try {
     const events = await Event.find({
@@ -223,7 +217,7 @@ export const updateEvent = async (req, res, next) => {
           ...eventData,
         },
       },
-      { new: true }
+      { new: true },
     );
     if (!updatedEvent) {
       return res.status(404).json({ error: "Event not found" });

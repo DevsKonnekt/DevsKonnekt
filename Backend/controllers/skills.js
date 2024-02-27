@@ -69,7 +69,7 @@ export const updateSkill = async (req, res) => {
     const updatedSkill = await Skill.findOneAndUpdate(
       { _id: id },
       { ...req.body },
-      { new: true }
+      { new: true },
     );
     res.status(200).json(updatedSkill);
   } catch (error) {

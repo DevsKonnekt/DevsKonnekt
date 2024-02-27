@@ -11,12 +11,13 @@ const Why = () => {
         </h2>
         <p className="max-w-lg mb-3 ">
           Imagine entering a world of coding where every challenge feels like a
-          journey to a hidden Shangri-La. Yeah, that's our mentorship platform.
+          journey to a hidden Shangri-La. Yeah, that&#39;s our mentorship
+          platform.
         </p>
         <p className="max-w-lg mb-3 ">
-          Our mentors range from coding ninjas to database wizards. They've seen
-          it all, coded it all, and now they're ready to share their secrets
-          with you. You just hit the mentor jackpot!
+          Our mentors range from coding ninjas to database wizards. They&#39;ve
+          seen it all, coded it all, and now they&#39;re ready to share their
+          secrets with you. You just hit the mentor jackpot!
         </p>
         <p className="max-w-lg ">
           Our platform connects developers through an innovative matchmaking

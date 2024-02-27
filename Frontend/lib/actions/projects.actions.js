@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 "use server";
 
 import axios from "axios";
@@ -15,7 +16,7 @@ export const getProjects = async () => {
 export const getProject = async (id) => {
   try {
     const response = await axios.get(
-      `${process.env.BACKEND_URL}/projects/${id}`
+      `${process.env.BACKEND_URL}/projects/${id}`,
     );
     return JSON.parse(JSON.stringify(response.data));
   } catch (error) {
@@ -27,7 +28,7 @@ export const createProject = async ({ project, path }) => {
   try {
     const response = await axios.post(
       `${process.env.BACKEND_URL}/projects/`,
-      project
+      project,
     );
     revalidatePath(path);
     return JSON.parse(JSON.stringify(response.data));
@@ -40,7 +41,7 @@ export const updateProject = async (id, project, path) => {
   try {
     const response = await axios.put(
       `${process.env.BACKEND_URL}/projects/${id}/${project.owner}/`,
-      project
+      project,
     );
     revalidatePath(path);
     return JSON.parse(JSON.stringify(response.data));
@@ -52,7 +53,7 @@ export const updateProject = async (id, project, path) => {
 export const deleteProject = async (id, owner, path) => {
   try {
     const response = await axios.delete(
-      `${process.env.BACKEND_URL}/projects/${id}/${owner}/`
+      `${process.env.BACKEND_URL}/projects/${id}/${owner}/`,
     );
     revalidatePath(path);
     return JSON.parse(JSON.stringify(response.data));
@@ -64,7 +65,7 @@ export const deleteProject = async (id, owner, path) => {
 export const getProjectsByUser = async (owner) => {
   try {
     const response = await axios.get(
-      `${process.env.BACKEND_URL}/projects/owner/${owner}`
+      `${process.env.BACKEND_URL}/projects/owner/${owner}`,
     );
     return JSON.parse(JSON.stringify(response.data));
   } catch (error) {

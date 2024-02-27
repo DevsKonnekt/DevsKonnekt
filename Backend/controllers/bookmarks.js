@@ -56,11 +56,11 @@ export const removeAllBookmarks = async (req, res, next) => {
   try {
     await Posts.updateMany(
       { bookmarks: { $in: [owner] } },
-      { $pull: { bookmarks: owner } }
+      { $pull: { bookmarks: owner } },
     );
     await Comments.updateMany(
       { bookmarks: { $in: [owner] } },
-      { $pull: { bookmarks: owner } }
+      { $pull: { bookmarks: owner } },
     );
     return res.status(200).json({ message: "All bookmarks removed" });
   } catch (error) {

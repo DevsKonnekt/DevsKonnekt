@@ -25,17 +25,17 @@ import {
 
 const Comment = ({ comment }) => {
   const { user, isSignedIn, isLoaded } = useUser();
-  if (!isLoaded) return <SpinnerCircular color="#1F63ED" />;
 
   const [isCommentBookmarked, setIsCommentBookmarked] = useState(
-    comment?.bookmarks?.includes(user?.publicMetadata?.userId) || false
+    comment?.bookmarks?.includes(user?.publicMetadata?.userId) || false,
   );
   const [isCommenting, setIsCommenting] = useState(false);
   const upvotes = comment?.votes?.filter((vote) => vote.voteType === "upvote");
   const downvotes = comment?.votes?.filter(
-    (vote) => vote.voteType === "downvote"
+    (vote) => vote.voteType === "downvote",
   );
   const { toast } = useToast();
+  if (!isLoaded) return <SpinnerCircular color="#1F63ED" />;
 
   const handleBookMarkComment = async () => {
     if (isSignedIn) {
@@ -175,11 +175,11 @@ const Comment = ({ comment }) => {
           </p>
           <p className="text-primary/60 dark:text-background/60 flex gap-[0.1rem] items-center">
             {upvotes?.filter(
-              (vote) => vote.user === user?.publicMetadata?.userId
+              (vote) => vote.user === user?.publicMetadata?.userId,
             )?.length ? (
               <MoveUpIcon
                 className={cn(
-                  "cursor-pointer text-secondary text-xs font-bold"
+                  "cursor-pointer text-secondary text-xs font-bold",
                 )}
                 onClick={handleUpvoteComment}
                 size={18}
@@ -187,7 +187,7 @@ const Comment = ({ comment }) => {
             ) : (
               <MoveUpIcon
                 className={cn(
-                  "cursor-pointer text-primary/60 dark:text-background/60 text-xs font-bold"
+                  "cursor-pointer text-primary/60 dark:text-background/60 text-xs font-bold",
                 )}
                 onClick={handleUpvoteComment}
                 size={18}
@@ -197,11 +197,11 @@ const Comment = ({ comment }) => {
           </p>
           <p className="text-primary/60 dark:text-background/60 flex gap-[0.1rem] items-center">
             {downvotes?.filter(
-              (vote) => vote.user === user?.publicMetadata?.userId
+              (vote) => vote.user === user?.publicMetadata?.userId,
             )?.length ? (
               <MoveDownIcon
                 className={cn(
-                  "cursor-pointer text-red-400/60 text-xs font-bold"
+                  "cursor-pointer text-red-400/60 text-xs font-bold",
                 )}
                 onClick={handleDownvoteComment}
                 size={18}
@@ -209,7 +209,7 @@ const Comment = ({ comment }) => {
             ) : (
               <MoveDownIcon
                 className={cn(
-                  "cursor-pointer text-primary/60 dark:text-background/60 text-xs font-bold"
+                  "cursor-pointer text-primary/60 dark:text-background/60 text-xs font-bold",
                 )}
                 onClick={handleDownvoteComment}
                 size={18}

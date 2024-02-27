@@ -9,10 +9,13 @@ import { convertFileToUrl } from "@/lib/utils";
 import Image from "next/image";
 
 export default function FileUploader({ mediaUrl, onFieldChange, setFiles }) {
-  const onDrop = useCallback((acceptedFiles) => {
-    setFiles(acceptedFiles);
-    onFieldChange(convertFileToUrl(acceptedFiles[0]));
-  }, []);
+  const onDrop = useCallback(
+    (acceptedFiles) => {
+      setFiles(acceptedFiles);
+      onFieldChange(convertFileToUrl(acceptedFiles[0]));
+    },
+    [onFieldChange, setFiles],
+  );
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,

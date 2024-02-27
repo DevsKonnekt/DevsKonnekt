@@ -12,7 +12,7 @@ const skillsSchema = new mongoose.Schema(
       required: [true, "Skill name is required"],
     },
   },
-  { autoIndex: false }
+  { autoIndex: false },
 );
 
 const Skill = mongoose.model("Skill", skillsSchema);

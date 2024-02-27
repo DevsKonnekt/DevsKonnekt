@@ -44,7 +44,7 @@ const postsSchema = new mongoose.Schema(
       ref: "Comment",
     },
   },
-  { autoIndex: false, timestamps: true }
+  { autoIndex: false, timestamps: true },
 );
 
 const Posts = mongoose.model("Posts", postsSchema);

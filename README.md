@@ -1,5 +1,7 @@
 # DevsKonnekt
 
+[![ESLint](https://github.com/DevsKonnekt/DevsKonnekt/actions/workflows/eslint.yml/badge.svg?branch=main)](https://github.com/DevsKonnekt/DevsKonnekt/actions/workflows/eslint.yml)
+
 DevsKonnekt is a platform where software developers can connect, network, share ideas, and find new opportunities. DevsKonnekt aims to create a vibrant and supportive community of developers who can learn, grow, and have fun together.
 
 ## Features

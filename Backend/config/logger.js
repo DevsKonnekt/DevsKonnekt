@@ -1,4 +1,5 @@
 import winston, { createLogger, format, transports } from "winston";
+// eslint-disable-next-line no-unused-vars
 import * as rotate from "winston-daily-rotate-file";
 import path from "path";
 import { mkdirSync } from "fs";
@@ -8,15 +9,15 @@ const logsDir = path.join(process.cwd(), "logs");
 
 mkdirSync(logsDir, { recursive: true });
 
-const errorLog = path.join(logsDir, `errors-`);
-const combinedLog = path.join(logsDir, `logs-`);
+const errorLog = path.join(logsDir, "errors-");
+const combinedLog = path.join(logsDir, "logs-");
 const exceptionLog = path.join(
   logsDir,
-  `exceptions-${new Date().toISOString().split("T")[0]}.log`
+  `exceptions-${new Date().toISOString().split("T")[0]}.log`,
 );
 const rejectionLog = path.join(
   logsDir,
-  `rejections-${new Date().toISOString().split("T")[0]}.log`
+  `rejections-${new Date().toISOString().split("T")[0]}.log`,
 );
 const { combine, timestamp, json } = format;
 
@@ -49,8 +50,8 @@ const logger = createLogger({
           }
           return value;
         },
-      }
-    )
+      },
+    ),
   ),
   transports: [errorFileRotateTransport, combinedFileRotateTransport],
   exceptionHandlers: [new winston.transports.File({ filename: exceptionLog })],
@@ -61,7 +62,7 @@ if (process.env.NODE_ENV !== "production") {
   logger.add(
     new transports.Console({
       format: format.combine(format.colorize(), format.simple()),
-    })
+    }),
   );
 }
 
@@ -75,7 +76,7 @@ if (process.env.NODE_ENV !== "production") {
  */
 export const logging = (req, res, next) => {
   logger.info(
-    `${req.method}::${req.originalUrl}::${res.statusCode} - source: ${req.ip}`
+    `${req.method}::${req.originalUrl}::${res.statusCode} - source: ${req.ip}`,
   );
   next();
 };
@@ -114,7 +115,7 @@ export const errorLogger = (err, req, res, next) => {
     },
   };
   logger.error(
-    `${req?.method}::${req?.originalUrl}::${statusCode} - source: ${req?.ip} => ${errorResponse.error.message}`
+    `${req?.method}::${req?.originalUrl}::${statusCode} - source: ${req?.ip} => ${errorResponse.error.message}`,
   );
   next && next();
 };

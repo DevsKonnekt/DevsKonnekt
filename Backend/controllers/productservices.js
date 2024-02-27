@@ -1,4 +1,3 @@
-import logger from "../config/logger.js";
 import productService from "../models/productservices.js";
 
 /**
@@ -11,12 +10,12 @@ import productService from "../models/productservices.js";
 export const createProductService = async (req, res) => {
   const productServiceData = req.body;
   if (Object.keys(productServiceData).length === 0) {
-    return res.status(400).json({error: "The required data is missing."})
+    return res.status(400).json({ error: "The required data is missing." });
   }
   const createProductService = new productService(productServiceData);
   try {
     await createProductService.save();
-    req.status(201).json(new productService);
+    req.status(201).json(new productService());
   } catch (error) {
     res.status(409).json({ message: error.message });
   }
@@ -63,7 +62,7 @@ export const updateProductService = async (req, res) => {
     const updatedProductService = await productService.findOneAndUpdate(
       { _id: id },
       { ...req.body },
-      { new: true }
+      { new: true },
     );
     res.status(200).json(updatedProductService);
   } catch (error) {

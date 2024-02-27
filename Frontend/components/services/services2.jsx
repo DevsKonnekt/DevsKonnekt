@@ -25,7 +25,10 @@ function Services2() {
           Hone your skills and show off your abilities by taking part in our
           regular coding competitions. Win big prizes and get noticed!
         </p>
-        <Link href="/services/coding-challenges" className="primary-btn mt-4 sm:w-[256px] !bg-background hover:!bg-background/70 !text-primary font-semibold">
+        <Link
+          href="/services/coding-challenges"
+          className="primary-btn mt-4 sm:w-[256px] !bg-background hover:!bg-background/70 !text-primary font-semibold"
+        >
           Learn More
         </Link>
       </div>

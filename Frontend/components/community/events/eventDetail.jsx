@@ -50,7 +50,7 @@ const EventDetail = ({ event, user }) => {
           <p className="">{event?.location}</p>
         </div>
         <h2 className="text-xl font-bold opacity-80 text-start mt-4">
-          What You'll Learn:
+          What You&#39;ll Learn:
         </h2>
         <p className="text-start">{event?.description}</p>
       </div>

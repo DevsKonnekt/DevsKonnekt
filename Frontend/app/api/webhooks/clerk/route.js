@@ -4,11 +4,12 @@ import { createUser, deleteUser, updateUser } from "@/lib/actions/user.actions";
 
 export async function POST(req) {
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the webhook
+  // eslint-disable-next-line no-undef
   const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
 
   if (!WEBHOOK_SECRET) {
     throw new Error(
-      "Please add WEBHOOK_SECRET from Clerk Dashboard to .env or .env.local"
+      "Please add WEBHOOK_SECRET from Clerk Dashboard to .env or .env.local",
     );
   }
 
@@ -20,16 +21,15 @@ export async function POST(req) {
     evt.data;
   switch (eventType) {
     case "user.created":
-      const user = {
-        clerkId: id,
-        email: email_addresses[0].email_address,
-        username,
-        firstName: first_name,
-        lastName: last_name,
-        profilePicture: image_url,
-      };
       try {
-        const newUser = await createUser(user);
+        const newUser = await createUser({
+          clerkId: id,
+          email: email_addresses[0].email_address,
+          username,
+          firstName: first_name,
+          lastName: last_name,
+          profilePicture: image_url,
+        });
         if (newUser?._id) {
           await clerkClient.users.updateUserMetadata(id, {
             publicMetadata: {

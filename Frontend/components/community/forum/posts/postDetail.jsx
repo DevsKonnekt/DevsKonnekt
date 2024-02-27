@@ -30,7 +30,7 @@ import CommentsList from "./commentsList";
 const PostDetail = ({ post }) => {
   const { user, isSignedIn, isLoaded } = useUser();
   const [isPostBookmarked, setIsPostBookmarked] = useState(
-    post?.bookmarks?.includes(user?.publicMetadata?.userId) || false
+    post?.bookmarks?.includes(user?.publicMetadata?.userId) || false,
   );
   const [isCommenting, setIsCommenting] = useState(false);
   const upvotes = post?.votes?.filter((vote) => vote.voteType === "upvote");
@@ -162,11 +162,11 @@ const PostDetail = ({ post }) => {
           </p>
           <p className="text-primary/60 dark:text-background/60 flex gap-[0.1rem] items-center">
             {upvotes?.filter(
-              (vote) => vote.user === user?.publicMetadata?.userId
+              (vote) => vote.user === user?.publicMetadata?.userId,
             )?.length ? (
               <MoveUpIcon
                 className={cn(
-                  "cursor-pointer text-secondary text-xs font-bold"
+                  "cursor-pointer text-secondary text-xs font-bold",
                 )}
                 onClick={handleUpvotePost}
                 size={18}
@@ -174,7 +174,7 @@ const PostDetail = ({ post }) => {
             ) : (
               <MoveUpIcon
                 className={cn(
-                  "cursor-pointer text-primary/60 dark:text-background/60 text-xs font-bold"
+                  "cursor-pointer text-primary/60 dark:text-background/60 text-xs font-bold",
                 )}
                 onClick={handleUpvotePost}
                 size={18}
@@ -184,11 +184,11 @@ const PostDetail = ({ post }) => {
           </p>
           <p className="text-primary/60 dark:text-background/60 flex gap-[0.1rem] items-center">
             {downvotes?.filter(
-              (vote) => vote.user === user?.publicMetadata?.userId
+              (vote) => vote.user === user?.publicMetadata?.userId,
             )?.length ? (
               <MoveDownIcon
                 className={cn(
-                  "cursor-pointer text-red-400/60 text-xs font-bold"
+                  "cursor-pointer text-red-400/60 text-xs font-bold",
                 )}
                 onClick={handleDownvotePost}
                 size={18}
@@ -196,7 +196,7 @@ const PostDetail = ({ post }) => {
             ) : (
               <MoveDownIcon
                 className={cn(
-                  "cursor-pointer text-primary/60 dark:text-background/60 text-xs font-bold"
+                  "cursor-pointer text-primary/60 dark:text-background/60 text-xs font-bold",
                 )}
                 onClick={handleDownvotePost}
                 size={18}
