@@ -33,10 +33,10 @@ const WhyUs = () => {
         </p>
         <p className="text-background font-normal text-start max-w-4xl mx-auto my-4">
           Our large database of challenges, along with mentors and events to
-          guide your journey, makes sure that you're always equipped with the
-          resources you need to succeed. Get inspired by passionate mentors,
+          guide your journey, makes sure that you&apos;re always equipped with
+          the resources you need to succeed. Get inspired by passionate mentors,
           knowledge-sharing peers, and exciting developer events happening in
-          your city. Don't miss out on the action!
+          your city. Don&apos;t miss out on the action!
         </p>
         <SignUpButton variant="secondary" title="Get Me Started" />
       </div>

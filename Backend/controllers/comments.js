@@ -141,7 +141,7 @@ export const updateComment = async (req, res, next) => {
     }
     if (comment.author.toString() !== req.user._id.toString()) {
       const error = new ValidationError(
-        "You are not authorized to update this comment"
+        "You are not authorized to update this comment",
       );
       error.statusCode = 403;
       throw error;
@@ -318,7 +318,7 @@ export const getMyBookmarkedComments = async (req, res, next) => {
     };
     if (!req.user) {
       const error = new Error(
-        "You are not authorized to get your bookmarked comments"
+        "You are not authorized to get your bookmarked comments",
       );
       error.statusCode = 401;
       throw error;

@@ -44,7 +44,7 @@ const projectSchema = new mongoose.Schema(
       required: true,
     },
   },
-  { autoIndex: false }
+  { autoIndex: false },
 );
 
 const Project = mongoose.model("Project", projectSchema);

@@ -5,7 +5,7 @@ import { SpinnerCircular } from "spinners-react";
 import EventCard from "./eventCard";
 import { getEvents } from "@/lib/actions/events.actions";
 import { revalidatePath } from "next/cache";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { getTicketsByBuyer } from "@/lib/actions/tickets.actions";
 import CreateEvent from "./createEvent";
 import { PlusIcon } from "lucide-react";
@@ -24,7 +24,7 @@ const EventsList = ({
   const [loading, setLoading] = useState(events?.length === 10);
   const { ref, inView } = useInView();
 
-  async function loadMoreEvents() {
+  const loadMoreEvents = useCallback(async () => {
     const next = page + 1;
     let newEvents;
     if (type === "tickets") {
@@ -49,13 +49,13 @@ const EventsList = ({
     } else {
       setLoading(false);
     }
-  }
+  }, [page, search, sortField, sortOrder, type, userId]);
 
   useEffect(() => {
     if (inView && !loading) {
       loadMoreEvents();
     }
-  }, [inView]);
+  }, [inView, loading, loadMoreEvents]);
 
   return (
     <div className="w-full relative">

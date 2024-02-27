@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 "use server";
 
 import axios from "axios";
@@ -5,8 +6,9 @@ import axios from "axios";
 export const createUser = async (user) => {
   try {
     const response = await axios.post(
+      // eslint-disable-next-line no-undef
       `${process.env.BACKEND_URL}/users/`,
-      user
+      user,
     );
     return JSON.parse(JSON.stringify(response.data));
   } catch (error) {
@@ -17,8 +19,9 @@ export const createUser = async (user) => {
 export async function updateUser(clerkId, user) {
   try {
     const response = await axios.put(
+      // eslint-disable-next-line no-undef
       `${process.env.BACKEND_URL}/users/${clerkId}/`,
-      user
+      user,
     );
     const updatedUser = response.data;
     return JSON.parse(JSON.stringify(updatedUser));
@@ -30,7 +33,7 @@ export async function updateUser(clerkId, user) {
 export async function deleteUser(clerkId) {
   try {
     const response = await axios.delete(
-      `${process.env.BACKEND_URL}/users/${clerkId}/`
+      `${process.env.BACKEND_URL}/users/${clerkId}/`,
     );
     const deletedUser = response.data;
     return deletedUser ? JSON.parse(JSON.stringify(deletedUser)) : null;

@@ -6,11 +6,11 @@
  */
 import { Router } from "express";
 import {
-    createMessage,
-    getAllMessages,
-    getMessage,
-    updateMessage,
-    deleteMessage,
+  createMessage,
+  getAllMessages,
+  getMessage,
+  updateMessage,
+  deleteMessage,
 } from "../controllers/messages.js";
 
 const messageRouter = Router();

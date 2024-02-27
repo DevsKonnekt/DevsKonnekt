@@ -93,7 +93,7 @@ const eventSchema = new mongoose.Schema(
     },
   },
   { timestamps: true },
-  { autoIndex: false }
+  { autoIndex: false },
 );
 
 const Event = mongoose.model("Event", eventSchema);

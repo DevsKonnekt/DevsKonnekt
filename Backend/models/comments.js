@@ -37,7 +37,7 @@ const commentsSchema = new mongoose.Schema(
       ref: "Comment",
     },
   },
-  { autoIndex: false, timestamps: true }
+  { autoIndex: false, timestamps: true },
 );
 
 const Comment = mongoose.model("Comment", commentsSchema);

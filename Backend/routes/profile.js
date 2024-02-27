@@ -22,7 +22,7 @@ profileRouter.put("/profiles/:userId", updateProfile, defaultErrorHandler);
 profileRouter.patch(
   "/profiles/:userId/skills/:skillId",
   deleteSkillFromProfile,
-  defaultErrorHandler
+  defaultErrorHandler,
 );
 
 export default profileRouter;

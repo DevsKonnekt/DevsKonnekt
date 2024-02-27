@@ -26,7 +26,7 @@ const votesSchema = new Schema(
       required: true,
     },
   },
-  { autoIndex: false, timestamps: true }
+  { autoIndex: false, timestamps: true },
 );
 
 const Vote = mongoose.model("Vote", votesSchema);

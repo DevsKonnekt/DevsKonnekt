@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { createRouteHandler } from "uploadthing/next";
 import { fileRouter } from "./core";
 

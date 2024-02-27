@@ -23,7 +23,7 @@ function Services4() {
         </h1>
         <p className="text-white font-normal">
           Contribute to our thriving community by sharing your expertise, and
-          learn from others' experiences in our valuable knowledge base.
+          learn from others&apos; experiences in our valuable knowledge base.
         </p>
         <Link
           href="/services/knowledge-sharing"

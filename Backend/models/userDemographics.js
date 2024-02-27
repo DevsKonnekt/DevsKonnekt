@@ -29,8 +29,9 @@ const UserDemographicsSchema = new mongoose.Schema({
   },
 });
 
-const UserDemographics = mongoose.model( "UserDemographics",
-  UserDemographicsSchema
+const UserDemographics = mongoose.model(
+  "UserDemographics",
+  UserDemographicsSchema,
 );
 
 export default UserDemographics;

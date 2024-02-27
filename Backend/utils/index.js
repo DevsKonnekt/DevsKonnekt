@@ -16,14 +16,14 @@ export function generateTokens(userId, email, roles) {
   const accessToken = jwt.sign(
     { userId, email, roles },
     process.env.ACCESS_TOKEN_SECRET,
-    { expiresIn: "15m" }
+    { expiresIn: "15m" },
   );
 
   // Generate refresh token
   const refreshToken = jwt.sign(
     { userId, roles },
     process.env.REFRESH_TOKEN_SECRET,
-    { expiresIn: "7d" }
+    { expiresIn: "7d" },
   );
 
   return { accessToken, refreshToken };

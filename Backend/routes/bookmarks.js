@@ -17,7 +17,7 @@ bookmarksRouter.get("/bookmarks/:owner", getAllBookmarks, defaultErrorHandler);
 bookmarksRouter.delete(
   "/bookmarks/:owner",
   removeAllBookmarks,
-  defaultErrorHandler
+  defaultErrorHandler,
 );
 
 export default bookmarksRouter;

@@ -41,7 +41,7 @@ commentsRouter.patch("/upvote/:id/:userId", upVoteComment, defaultErrorHandler);
 commentsRouter.patch(
   "/downvote/:id/:userId",
   downvoteComment,
-  defaultErrorHandler
+  defaultErrorHandler,
 );
 
 export default commentsRouter;

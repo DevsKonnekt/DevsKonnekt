@@ -6,6 +6,7 @@ import { format, parse } from "date-fns";
 let stripePromise;
 export const getStripe = () => {
   if (!stripePromise) {
+    // eslint-disable-next-line no-undef
     stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
   }
   return stripePromise;
@@ -21,10 +22,10 @@ export const formatDate = (dateString) => {
   const dateObject = parse(
     dateString,
     "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
-    new Date()
+    new Date(),
   );
   dateObject.setHours(
-    dateObject.getHours() - dateObject.getTimezoneOffset() / 60
+    dateObject.getHours() - dateObject.getTimezoneOffset() / 60,
   );
   return format(dateObject, "EEEE, d MMM yyyy");
 };

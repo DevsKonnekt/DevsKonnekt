@@ -124,15 +124,6 @@ const EventForm = ({ type, data, userId, setOpen, open, trigger }) => {
   const eventId = data?._id || null;
   const { toast } = useToast();
 
-  if (!userId) {
-    toast({
-      title: "Error",
-      description: "Please sign in to create an event",
-      variant: "destructive",
-    });
-    return;
-  }
-
   useEffect(() => {
     const fetchCategories = async () => {
       const fetchedCategories = await getCategories();
@@ -147,6 +138,15 @@ const EventForm = ({ type, data, userId, setOpen, open, trigger }) => {
     };
     fetchCategories();
   }, []);
+
+  if (!userId) {
+    toast({
+      title: "Error",
+      description: "Please sign in to create an event",
+      variant: "destructive",
+    });
+    return;
+  }
 
   const submitHandler = async (data) => {
     setLoading(true);
@@ -315,7 +315,7 @@ const EventForm = ({ type, data, userId, setOpen, open, trigger }) => {
                           variant={"outline"}
                           className={cn(
                             "w-[240px] pl-3 text-left font-normal input",
-                            !field.value && "text-muted-foreground"
+                            !field.value && "text-muted-foreground",
                           )}
                         >
                           {field.value ? (
@@ -352,7 +352,7 @@ const EventForm = ({ type, data, userId, setOpen, open, trigger }) => {
                           variant={"outline"}
                           className={cn(
                             "w-[240px] pl-3 text-left font-normal input",
-                            !field.value && "text-muted-foreground"
+                            !field.value && "text-muted-foreground",
                           )}
                         >
                           {field.value ? (
@@ -428,12 +428,12 @@ const EventForm = ({ type, data, userId, setOpen, open, trigger }) => {
                           role="combobox"
                           className={cn(
                             "justify-between w-full input",
-                            !field.value && "text-muted-foreground"
+                            !field.value && "text-muted-foreground",
                           )}
                         >
                           {field.value
                             ? categories.find(
-                                (category) => category.value === field.value
+                                (category) => category.value === field.value,
                               )?.label
                             : "Select category"}
                           <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
@@ -462,7 +462,7 @@ const EventForm = ({ type, data, userId, setOpen, open, trigger }) => {
                                     "ml-auto h-4 w-4",
                                     category.value === field.value
                                       ? "opacity-100"
-                                      : "opacity-0"
+                                      : "opacity-0",
                                   )}
                                 />
                               </CommandItem>

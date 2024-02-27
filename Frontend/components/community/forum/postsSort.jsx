@@ -21,14 +21,14 @@ const PostsSort = ({ field, order, search, path, allFields }) => {
   const handleSortFieldChange = (newSortField) => {
     setSortField(newSortField);
     router.push(
-      `/${path}?search=${search}&sortField=${sortField}&sortOrder=${sortOrder}`
+      `/${path}?search=${search}&sortField=${sortField}&sortOrder=${sortOrder}`,
     );
   };
 
   const handleSortOrderChange = (newSortOrder) => {
     setSortOrder(newSortOrder);
     router.push(
-      `/${path}?search=${search}&sortField=${sortField}&sortOrder=${sortOrder}`
+      `/${path}?search=${search}&sortField=${sortField}&sortOrder=${sortOrder}`,
     );
   };
 

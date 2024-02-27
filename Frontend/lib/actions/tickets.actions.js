@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 "use server";
 
 import axios from "axios";
@@ -41,12 +42,12 @@ export const createTicket = async (order) => {
   try {
     const response = await axios.post(
       `${process.env.BACKEND_URL}/tickets`,
-      order
+      order,
     );
     return response.data;
   } catch (error) {
     throw new Error(
-      typeof error === "string" ? error : error?.response?.data?.message
+      typeof error === "string" ? error : error?.response?.data?.message,
     );
   }
 };
@@ -56,12 +57,12 @@ export const getTicketsByBuyer = async ({ buyerId, page, sortOrder }) => {
     const response = await axios.get(
       `${process.env.BACKEND_URL}/tickets/buyer/${buyerId}?page=${
         page || 1
-      }&sortOrder=${sortOrder || -1}`
+      }&sortOrder=${sortOrder || -1}`,
     );
     return response.data;
   } catch (error) {
     throw new Error(
-      typeof error === "string" ? error : error?.response?.data?.message
+      typeof error === "string" ? error : error?.response?.data?.message,
     );
   }
 };

@@ -11,18 +11,18 @@ const reviewSchema = new mongoose.Schema({
   event: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    index: true
+    index: true,
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    index: true
+    index: true,
   },
   rating: {
     type: Number,
     required: true,
     min: 1,
-    max: 5
+    max: 5,
   },
   points: {
     type: Number,
@@ -32,10 +32,10 @@ const reviewSchema = new mongoose.Schema({
   },
   createdAt: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
-const Review = mongoose.model('Review', reviewSchema);
+const Review = mongoose.model("Review", reviewSchema);
 
 export default Review;

@@ -12,14 +12,13 @@ const Search = ({ path, search, page, field, order }) => {
   const initialRenderRef = useRef(true);
   const router = useRouter();
 
-  const debouncedSearch = useCallback(
+  const debouncedSearch = useCallback(() => {
     _.debounce((newPath, newText) => {
       router.push(
-        `/${newPath}?search=${newText}&sortField=${field}&sortOrder=${order}`
+        `/${newPath}?search=${newText}&sortField=${field}&sortOrder=${order}`,
       );
-    }, 500),
-    [path]
-  );
+    }, 500);
+  }, [field, order, router]);
 
   useEffect(() => {
     if (initialRenderRef.current) {
@@ -30,14 +29,14 @@ const Search = ({ path, search, page, field, order }) => {
       debouncedSearch(path, text);
     } else {
       router.push(
-        `/${path}?search=${text}&sortField=${field}&sortOrder=${order}`
+        `/${path}?search=${text}&sortField=${field}&sortOrder=${order}`,
       );
     }
 
     return () => {
       debouncedSearch.cancel();
     };
-  }, [text, path, debouncedSearch]);
+  }, [text, path, debouncedSearch, field, order, router]);
   return (
     <div className="relative rounded-md shadow-sm ml-auto">
       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">

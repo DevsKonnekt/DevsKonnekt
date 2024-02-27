@@ -31,7 +31,7 @@ export const createEvent = async (req, res, next) => {
     const event = await Event.create(eventData);
     if (!event) {
       const error = new Error(
-        "An error occurred while creating the event. Please try again."
+        "An error occurred while creating the event. Please try again.",
       );
       error.statusCode = 400;
       throw error;
@@ -61,9 +61,9 @@ export const getEvents = async (req, res, next) => {
   } = req.query;
   const conditions = searchParam.length
     ? [
-        { title: { $regex: searchParam, $options: "i" } },
-        { location: { $regex: searchParam, $options: "i" } },
-      ]
+      { title: { $regex: searchParam, $options: "i" } },
+      { location: { $regex: searchParam, $options: "i" } },
+    ]
     : [{}];
   try {
     const events = await Event.find({
@@ -159,7 +159,7 @@ export const updateEvent = async (req, res, next) => {
           ...eventData,
         },
       },
-      { new: true }
+      { new: true },
     );
     if (!updatedEvent) {
       return res.status(404).json({ error: "Event not found" });
