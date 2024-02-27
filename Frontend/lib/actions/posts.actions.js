@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 "use server";
 
 import axios from "axios";
@@ -6,7 +7,7 @@ import { revalidatePath } from "next/cache";
 export const getPostsByUser = async (userId) => {
   try {
     const response = await axios.get(
-      `${process.env.BACKEND_URL}/posts/author/${userId}/`
+      `${process.env.BACKEND_URL}/posts/author/${userId}/`,
     );
     return JSON.parse(JSON.stringify(response.data));
   } catch (error) {
@@ -17,7 +18,7 @@ export const getPostsByUser = async (userId) => {
 export const getPostById = async (postId) => {
   try {
     const response = await axios.get(
-      `${process.env.BACKEND_URL}/posts/${postId}/`
+      `${process.env.BACKEND_URL}/posts/${postId}/`,
     );
     return JSON.parse(JSON.stringify(response.data));
   } catch (error) {
@@ -38,7 +39,7 @@ export const getAllPosts = async ({
         searchParam || ""
       }&sortOrder=${sortOrder || -1}&limit=${limit || 10}&page=${
         page || 1
-      }&sortField=${sortField || "createdAt"}`
+      }&sortField=${sortField || "createdAt"}`,
     );
     return JSON.parse(JSON.stringify(response.data));
   } catch (error) {
@@ -50,7 +51,7 @@ export const createPost = async ({ post, path }) => {
   try {
     const response = await axios.post(
       `${process.env.BACKEND_URL}/posts/`,
-      post
+      post,
     );
     revalidatePath(path);
     return JSON.parse(JSON.stringify(response.data));
@@ -63,7 +64,7 @@ export const updatePost = async (postId, post) => {
   try {
     const response = await axios.put(
       `${process.env.BACKEND_URL}/posts/${postId}/`,
-      post
+      post,
     );
     return JSON.parse(JSON.stringify(response.data));
   } catch (error) {
@@ -74,7 +75,7 @@ export const updatePost = async (postId, post) => {
 export const deletePost = async (postId) => {
   try {
     const response = await axios.delete(
-      `${process.env.BACKEND_URL}/posts/${postId}/`
+      `${process.env.BACKEND_URL}/posts/${postId}/`,
     );
     return JSON.parse(JSON.stringify(response.data));
   } catch (error) {
@@ -85,7 +86,7 @@ export const deletePost = async (postId) => {
 export const bookmarkPost = async ({ postId, userId }) => {
   try {
     const response = await axios.patch(
-      `${process.env.BACKEND_URL}/posts/bookmark/${postId}/${userId}`
+      `${process.env.BACKEND_URL}/posts/bookmark/${postId}/${userId}`,
     );
     return JSON.parse(JSON.stringify(response.data));
   } catch (error) {
@@ -96,7 +97,7 @@ export const bookmarkPost = async ({ postId, userId }) => {
 export const unbookmarkPost = async ({ postId, userId }) => {
   try {
     const response = await axios.patch(
-      `${process.env.BACKEND_URL}/posts/unbookmark/${postId}/${userId}`
+      `${process.env.BACKEND_URL}/posts/unbookmark/${postId}/${userId}`,
     );
     return response.data;
   } catch (error) {
@@ -118,7 +119,7 @@ export const getMyBookmarkedPosts = async ({
         searchParam || ""
       }&sortOrder=${sortOrder || -1}&limit=${limit || 10}&page=${
         page || 1
-      }&sortField=${sortField || "createdAt"}`
+      }&sortField=${sortField || "createdAt"}`,
     );
     return JSON.parse(JSON.stringify(response.data));
   } catch (error) {
@@ -129,13 +130,13 @@ export const getMyBookmarkedPosts = async ({
 export const upvotePost = async ({ postId, userId }) => {
   try {
     const response = await axios.patch(
-      `${process.env.BACKEND_URL}/posts/upvote/${postId}/${userId}`
+      `${process.env.BACKEND_URL}/posts/upvote/${postId}/${userId}`,
     );
-    revalidatePath(`/forum`);
+    revalidatePath("/forum");
     return response.data;
   } catch (error) {
     throw new Error(
-      typeof error === "string" ? error : error?.response?.data?.message
+      typeof error === "string" ? error : error?.response?.data?.message,
     );
   }
 };
@@ -143,13 +144,13 @@ export const upvotePost = async ({ postId, userId }) => {
 export const downvotePost = async ({ postId, userId }) => {
   try {
     const response = await axios.patch(
-      `${process.env.BACKEND_URL}/posts/downvote/${postId}/${userId}`
+      `${process.env.BACKEND_URL}/posts/downvote/${postId}/${userId}`,
     );
-    revalidatePath(`/forum`);
+    revalidatePath("/forum");
     return response.data;
   } catch (error) {
     throw new Error(
-      typeof error === "string" ? error : error?.response?.data?.message
+      typeof error === "string" ? error : error?.response?.data?.message,
     );
   }
 };
@@ -161,11 +162,11 @@ export const commentOnPost = async ({ postId, userId, comment }) => {
       author: userId,
       body: comment,
     });
-    revalidatePath(`/forum`);
+    revalidatePath("/forum");
     return response.data;
   } catch (error) {
     throw new Error(
-      typeof error === "string" ? error : error?.response?.data?.message
+      typeof error === "string" ? error : error?.response?.data?.message,
     );
   }
 };
@@ -173,7 +174,7 @@ export const commentOnPost = async ({ postId, userId, comment }) => {
 export const getCommentById = async (commentId) => {
   try {
     const response = await axios.get(
-      `${process.env.BACKEND_URL}/comments/${commentId}/`
+      `${process.env.BACKEND_URL}/comments/${commentId}/`,
     );
     return response.data;
   } catch (error) {
@@ -192,7 +193,7 @@ export const commentOnComment = async ({ commentId, userId, comment }) => {
     return response.data;
   } catch (error) {
     throw new Error(
-      typeof error === "string" ? error : error?.response?.data?.message
+      typeof error === "string" ? error : error?.response?.data?.message,
     );
   }
 };
@@ -201,13 +202,13 @@ export const upvoteComment = async ({ commentId, userId, voteType }) => {
   try {
     const response = await axios.patch(
       `${process.env.BACKEND_URL}/comments/upvote/${commentId}/${userId}`,
-      { voteType }
+      { voteType },
     );
     revalidatePath("/forum");
     return response.data;
   } catch (error) {
     throw new Error(
-      typeof error === "string" ? error : error?.response?.data?.message
+      typeof error === "string" ? error : error?.response?.data?.message,
     );
   }
 };
@@ -216,13 +217,13 @@ export const downvoteComment = async ({ commentId, userId, voteType }) => {
   try {
     const response = await axios.patch(
       `${process.env.BACKEND_URL}/comments/downvote/${commentId}/${userId}`,
-      { voteType }
+      { voteType },
     );
     revalidatePath("/forum");
     return response.data;
   } catch (error) {
     throw new Error(
-      typeof error === "string" ? error : error?.response?.data?.message
+      typeof error === "string" ? error : error?.response?.data?.message,
     );
   }
 };
@@ -230,7 +231,7 @@ export const downvoteComment = async ({ commentId, userId, voteType }) => {
 export const unbookmarkComment = async ({ commentId, userId }) => {
   try {
     const response = await axios.patch(
-      `${process.env.BACKEND_URL}/comments/unbookmark/${commentId}/${userId}`
+      `${process.env.BACKEND_URL}/comments/unbookmark/${commentId}/${userId}`,
     );
     return response.data;
   } catch (error) {
@@ -241,7 +242,7 @@ export const unbookmarkComment = async ({ commentId, userId }) => {
 export const bookmarkComment = async ({ commentId, userId }) => {
   try {
     const response = await axios.patch(
-      `${process.env.BACKEND_URL}/comments/bookmark/${commentId}/${userId}`
+      `${process.env.BACKEND_URL}/comments/bookmark/${commentId}/${userId}`,
     );
     return response.data;
   } catch (error) {

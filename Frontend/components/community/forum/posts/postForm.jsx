@@ -127,7 +127,7 @@ const PostForm = ({ userId, type, setLoading, loading }) => {
                       className={cn(
                         "text-sm",
                         "text-muted-foreground text-right w-full -mt-2 block",
-                        field.value.length > 255 ? "text-red-500" : ""
+                        field.value.length > 255 ? "text-red-500" : "",
                       )}
                     >
                       {field.value.length > 0
@@ -160,7 +160,7 @@ const PostForm = ({ userId, type, setLoading, loading }) => {
                       className={cn(
                         "text-sm",
                         "text-muted-foreground text-right w-full -mt-2 block",
-                        field.value.length > 2000 ? "text-red-500" : ""
+                        field.value.length > 2000 ? "text-red-500" : "",
                       )}
                     >
                       {field.value.length > 0

@@ -34,7 +34,7 @@ export default function Modal({
           className={cn(
             triggerClassName
               ? triggerClassName
-              : "primary-btn text-background w-full"
+              : "primary-btn text-background w-full",
           )}
         >
           {trigerText}
@@ -46,16 +46,16 @@ export default function Modal({
           size === "sm"
             ? "max-w-[400px]"
             : size === "md"
-            ? "max-w-2xl"
-            : size === "lg"
-            ? "max-w-3xl"
-            : size === "xl"
-            ? "max-w-4xl"
-            : size === "2xl"
-            ? "max-w-5xl"
-            : size === "3xl"
-            ? "max-w-6xl"
-            : "max-w-7xl"
+              ? "max-w-2xl"
+              : size === "lg"
+                ? "max-w-3xl"
+                : size === "xl"
+                  ? "max-w-4xl"
+                  : size === "2xl"
+                    ? "max-w-5xl"
+                    : size === "3xl"
+                      ? "max-w-6xl"
+                      : "max-w-7xl",
         )}
       >
         <DialogHeader className="w-full ">
@@ -65,7 +65,7 @@ export default function Modal({
         <div
           className={cn(
             "flex flex-col items-center justify-center gap-4 w-full h-full",
-            className
+            className,
           )}
         >
           {children}

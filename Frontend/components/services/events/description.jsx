@@ -1,6 +1,4 @@
 import SignUpButton from "@/components/signUpButton";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import React from "react";
 
 const Description = () => {
@@ -29,9 +27,9 @@ const Description = () => {
       </p>
 
       <p className=" max-w-5xl mt-4">
-        If you're feeling more experienced, spread your knowledge by running
-        your own talks or sprints. Or get involved with an organizer role - it's
-        rewarding to give back and help others starting out.
+        If you&apos;re feeling more experienced, spread your knowledge by
+        running your own talks or sprints. Or get involved with an organizer
+        role - it&apos;s rewarding to give back and help others starting out.
       </p>
 
       <p className=" max-w-5xl mt-4">
@@ -49,8 +47,8 @@ const Description = () => {
       </p>
 
       <p className=" max-w-5xl mt-4">
-        Join the vibrant force that unites your city's expertise and draws the
-        focus of leading industry figures.
+        Join the vibrant force that unites your city&apos;s expertise and draws
+        the focus of leading industry figures.
       </p>
       <SignUpButton variant={"default"} title={"Join the Community"} />
     </div>

@@ -57,20 +57,19 @@ const formSchema = z.object({
 const EditProfile = () => {
   const { isLoaded, isSignedIn, user } = useUser();
 
-  if (!isLoaded) {
-    return <p>Loading...</p>;
-  }
-  if (!isSignedIn) {
-    return <p>Please sign in.</p>;
-  }
-
   const profile = async () => {
+    if (!isLoaded) {
+      return;
+    }
+    if (!isSignedIn) {
+      return;
+    }
     try {
       const myProfile = await getProfile(user.publicMetadata.userId);
       return myProfile;
     } catch (error) {
       throw new Error(
-        typeof error === "string" ? error : JSON.stringify(error)
+        typeof error === "string" ? error : JSON.stringify(error),
       );
     }
   };

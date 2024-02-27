@@ -28,7 +28,7 @@ eventsRoutes.get("/events/:id", getEvent, defaultErrorHandler);
 eventsRoutes.get(
   "/events/category/:categoryId",
   getEventsByCategory,
-  defaultErrorHandler
+  defaultErrorHandler,
 );
 
 export default eventsRoutes;

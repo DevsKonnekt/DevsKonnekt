@@ -56,7 +56,7 @@ export const updateUser = async (req, res, next) => {
     const updatedUser = await User.findOneAndUpdate(
       { clerkId: id },
       { ...req.body },
-      { new: true }
+      { new: true },
     );
     res.status(200).json(updatedUser);
   } catch (error) {

@@ -18,7 +18,9 @@ const Hero = () => {
           Unleash your inner coding genius at local developer gatherings!
         </h1>
         <Link href="/events">
-          <Button className="mt-4 primary-btn !bg-background hover:!bg-background/75 !text-primary font-semibold min-w-[256px]">Find Nearby Events</Button>
+          <Button className="mt-4 primary-btn !bg-background hover:!bg-background/75 !text-primary font-semibold min-w-[256px]">
+            Find Nearby Events
+          </Button>
         </Link>
       </div>
     </div>

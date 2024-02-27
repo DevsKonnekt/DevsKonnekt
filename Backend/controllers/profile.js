@@ -79,7 +79,7 @@ export const updateProfile = async (req, res, next) => {
   const { userId } = req.params;
   try {
     const existingProfile = await Profile.findOne({ user: userId }).select(
-      "skills"
+      "skills",
     );
     if (!existingProfile) {
       const error = new Error("Profile not found");
@@ -87,7 +87,7 @@ export const updateProfile = async (req, res, next) => {
       throw error;
     }
     const updatedSkills = Array.from(
-      new Set([...existingProfile.skills, ...req.body.skills])
+      new Set([...existingProfile.skills, ...req.body.skills]),
     );
 
     const profile = await Profile.findOneAndUpdate(
@@ -98,7 +98,7 @@ export const updateProfile = async (req, res, next) => {
           skills: updatedSkills,
         },
       },
-      { new: true }
+      { new: true },
     );
 
     return res.status(200).json(profile);
@@ -120,7 +120,7 @@ export const deleteSkillFromProfile = async (req, res, next) => {
   const { userId, skillId } = req.params;
   try {
     const existingProfile = await Profile.findOne({ user: userId }).select(
-      "skills"
+      "skills",
     );
     if (!existingProfile) {
       const error = new Error("Profile not found");
@@ -128,7 +128,7 @@ export const deleteSkillFromProfile = async (req, res, next) => {
       throw error;
     }
     const updatedSkills = existingProfile.skills.filter(
-      (skill) => skill.toString() !== skillId
+      (skill) => skill.toString() !== skillId,
     );
 
     const profile = await Profile.findOneAndUpdate(
@@ -138,7 +138,7 @@ export const deleteSkillFromProfile = async (req, res, next) => {
           skills: updatedSkills,
         },
       },
-      { new: true }
+      { new: true },
     );
 
     return res.status(200).json(profile);

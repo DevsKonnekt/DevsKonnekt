@@ -12,7 +12,7 @@ const interestsSchema = new mongoose.Schema(
       required: [true, "Interest name is required"],
     },
   },
-  { autoIndex: false }
+  { autoIndex: false },
 );
 
 const Interest = mongoose.model("Interest", interestsSchema);

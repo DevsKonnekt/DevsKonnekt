@@ -7,15 +7,17 @@
 
 import mongoose from "mongoose";
 
-const categorySchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: [true, "Name is required"],
-    unique: true,
-    index: true,
+const categorySchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: [true, "Name is required"],
+      unique: true,
+      index: true,
+    },
   },
-}, { autoIndex: false });
-
+  { autoIndex: false },
+);
 
 const Category = mongoose.model("Category", categorySchema);
 

@@ -63,7 +63,7 @@ const NavBar = () => {
                     <NavigationMenuTrigger
                       className={cn(
                         navigationMenuTriggerStyle(),
-                        "text-md tracking-widest font-semibold hover:font-bold opacity-70 hover:opacity-100 bg-transparent"
+                        "text-md tracking-widest font-semibold hover:font-bold opacity-70 hover:opacity-100 bg-transparent",
                       )}
                     >
                       {link.name}
@@ -87,7 +87,7 @@ const NavBar = () => {
                     href={link.href}
                     className={cn(
                       navigationMenuTriggerStyle(),
-                      "text-md tracking-widest font-semibold hover:font-bold opacity-70 hover:opacity-100 bg-transparent"
+                      "text-md tracking-widest font-semibold hover:font-bold opacity-70 hover:opacity-100 bg-transparent",
                     )}
                   >
                     {link.name}
@@ -101,7 +101,7 @@ const NavBar = () => {
                   href={`/profile/${user?.user?.id}`}
                   className={cn(
                     navigationMenuTriggerStyle(),
-                    "mr-8 text-md tracking-widest font-semibold hover:font-bold opacity-70 hover:opacity-100 bg-transparent"
+                    "mr-8 text-md tracking-widest font-semibold hover:font-bold opacity-70 hover:opacity-100 bg-transparent",
                   )}
                 >
                   My Profile
@@ -151,7 +151,7 @@ const NavBar = () => {
                           <MenubarTrigger
                             className={cn(
                               navigationMenuTriggerStyle(),
-                              "text-md tracking-widest dark:bg-gray-700 p-2 flex items-center justify-center gap-2 font-semibold hover:font-bold opacity-70 hover:opacity-100"
+                              "text-md tracking-widest dark:bg-gray-700 p-2 flex items-center justify-center gap-2 font-semibold hover:font-bold opacity-70 hover:opacity-100",
                             )}
                           >
                             {link.name} <ChevronDownIcon size={24} />
@@ -179,7 +179,7 @@ const NavBar = () => {
                           href={link.href}
                           className={cn(
                             navigationMenuTriggerStyle(),
-                            "text-md tracking-widest dark:bg-gray-700 font-semibold hover:font-bold opacity-70 hover:opacity-100"
+                            "text-md tracking-widest dark:bg-gray-700 font-semibold hover:font-bold opacity-70 hover:opacity-100",
                           )}
                         >
                           {link.name}
@@ -221,7 +221,7 @@ const ListItem = forwardRef(({ className, title, children, ...props }, ref) => {
           ref={ref}
           className={cn(
             "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent dark:bg-gray-700 dark:text-background hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-            className
+            className,
           )}
           {...props}
         >

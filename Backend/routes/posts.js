@@ -28,24 +28,24 @@ postsRoutes
 postsRoutes.patch(
   "/posts/bookmark/:id/:userId",
   bookmarkPost,
-  defaultErrorHandler
+  defaultErrorHandler,
 );
 postsRoutes.patch(
   "/posts/unbookmark/:id/:userId",
   unbookmarkPost,
-  defaultErrorHandler
+  defaultErrorHandler,
 );
 postsRoutes.patch("/posts/upvote/:id/:userId", upVotePost, defaultErrorHandler);
 postsRoutes.patch(
   "/posts/downvote/:id/:userId",
   downVotePost,
-  defaultErrorHandler
+  defaultErrorHandler,
 );
 postsRoutes.get("/posts/author/:id", getPostsByAuthor, defaultErrorHandler);
 postsRoutes.get(
   "/posts/:user/bookmarks",
   getMyBookmarkedPosts,
-  defaultErrorHandler
+  defaultErrorHandler,
 );
 
 export default postsRoutes;

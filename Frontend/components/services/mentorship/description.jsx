@@ -6,19 +6,19 @@ const Description = () => {
       </h2>
       <p className="pr-6 text-start mb-2">
         At DevsKonnekt, we understand the importance of mentorship in the
-        software development community. That's why we provide a platform where
-        you can find experienced mentors who are eager to share their knowledge
-        and guide you on your coding journey. Whether you're a seasoned
-        developer looking to expand your skills or just starting out and seeking
-        guidance, our mentorship program is designed to connect you with
-        professionals who can help you reach your goals.
+        software development community. That&apos;s why we provide a platform
+        where you can find experienced mentors who are eager to share their
+        knowledge and guide you on your coding journey. Whether you&apos;re a
+        seasoned developer looking to expand your skills or just starting out
+        and seeking guidance, our mentorship program is designed to connect you
+        with professionals who can help you reach your goals.
       </p>
       <p className="pr-6 text-start">
         Our mentors are carefully selected based on their expertise and
         experience in various programming languages, frameworks, and
         technologies. They are passionate about helping others succeed and are
         committed to providing valuable insights, advice, and support. Through
-        one-on-one sessions, you'll have the opportunity to ask questions,
+        one-on-one sessions, you&apos;ll have the opportunity to ask questions,
         receive personalized guidance, and gain practical knowledge from
         industry experts.
       </p>

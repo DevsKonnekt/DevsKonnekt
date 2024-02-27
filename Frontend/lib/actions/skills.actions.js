@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 "use server";
 
 import axios from "axios";
@@ -16,7 +17,8 @@ export const addSkill = async (skill) => {
 export const getAllSkills = async (query) => {
   try {
     const response = await axios.get(
-      `${process.env.BACKEND_URL}/skills/?name=${query || ""}`
+      // eslint-disable-next-line no-undef
+      `${process.env.BACKEND_URL}/skills/?name=${query || ""}`,
     );
     return JSON.parse(JSON.stringify(response.data));
   } catch (error) {

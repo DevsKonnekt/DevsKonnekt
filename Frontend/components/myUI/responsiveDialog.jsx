@@ -54,7 +54,7 @@ export default function ResponsiveDialog({
         <DialogContent
           className={cn(
             size ? dialogSizes[size] : dialogSizes["md"],
-            "overflow-y-scroll max-h-screen no-scrollbar"
+            "overflow-y-scroll max-h-screen no-scrollbar",
           )}
         >
           {(title || description) && (

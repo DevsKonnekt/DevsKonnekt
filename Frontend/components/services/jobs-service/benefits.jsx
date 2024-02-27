@@ -13,12 +13,12 @@ const Benefits = () => {
           </p>
           <p className="text-start  text-primary/80 dark:text-background/80 ">
             Forge lasting connections with companies in your city. Our
-            platform's mission is to bridge the gap between developers and local
-            businesses seeking prime tech talent.
+            platform&apos;s mission is to bridge the gap between developers and
+            local businesses seeking prime tech talent.
           </p>
           <p className="text-start  text-primary/80 dark:text-background/80 ">
             Say goodbye to the frustration of remote job applications. With our
-            service, you'll have access to local job openings, making the
+            service, you&apos;ll have access to local job openings, making the
             process more personal and fruitful.
           </p>
         </div>
@@ -29,7 +29,7 @@ const Benefits = () => {
           <p className="text-start  text-primary/80 dark:text-background/80 ">
             Discover the brightest tech talents in your city through our
             platform. Ditch the tedious task of sifting through countless
-            resumes, and tap into a goldmine of the industry’s finest.
+            resumes, and tap into a goldmine of the industry&apos;s finest.
           </p>
         </div>
       </div>

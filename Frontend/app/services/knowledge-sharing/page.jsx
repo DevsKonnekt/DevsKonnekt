@@ -7,15 +7,17 @@ import Unleash from "@/components/services/knowledge-sharing/unleash";
 import Unlock from "@/components/services/knowledge-sharing/unlock";
 
 const KnowledgeSharingPage = () => {
-  return <div>
-    <Hero />
-    <Unleash />
-    <Unlock />
-    <Share />
-    <Advantage1 />
-    <Advantage2 />
-    <CTA />
-  </div>;
+  return (
+    <div>
+      <Hero />
+      <Unleash />
+      <Unlock />
+      <Share />
+      <Advantage1 />
+      <Advantage2 />
+      <CTA />
+    </div>
+  );
 };
 
 export default KnowledgeSharingPage;

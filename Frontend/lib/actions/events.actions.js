@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 "use server";
 
 import axios from "axios";
@@ -16,7 +17,7 @@ export const getEvents = async ({
         process.env.BACKEND_URL
       }/events?searchParam=${searchParam}&sortField=${sortField}&sortOrder=${sortOrder}&limit=${
         limit ? limit : 10
-      }&page=${page}`
+      }&page=${page}`,
     );
     return data;
   } catch (error) {
@@ -30,7 +31,7 @@ export const getEvent = async (id) => {
     return data;
   } catch (error) {
     throw new Error(
-      typeof error === "string" ? error : error?.response?.data?.message
+      typeof error === "string" ? error : error?.response?.data?.message,
     );
   }
 };
@@ -39,13 +40,13 @@ export const createEvent = async ({ path, event }) => {
   try {
     const { data } = await axios.post(
       `${process.env.BACKEND_URL}/events`,
-      event
+      event,
     );
     revalidatePath(path);
     return data;
   } catch (error) {
     throw new Error(
-      typeof error === "string" ? error : error?.response?.data?.message
+      typeof error === "string" ? error : error?.response?.data?.message,
     );
   }
 };
@@ -54,13 +55,13 @@ export const updateEvent = async ({ path, id, event }) => {
   try {
     const { data } = await axios.put(
       `${process.env.BACKEND_URL}/events/${id}`,
-      event
+      event,
     );
     revalidatePath(path);
     return data;
   } catch (error) {
     throw new Error(
-      typeof error === "string" ? error : error?.response?.data?.message
+      typeof error === "string" ? error : error?.response?.data?.message,
     );
   }
 };
@@ -68,13 +69,13 @@ export const updateEvent = async ({ path, id, event }) => {
 export const deleteEvent = async ({ path, id }) => {
   try {
     const { data } = await axios.delete(
-      `${process.env.BACKEND_URL}/events/${id}`
+      `${process.env.BACKEND_URL}/events/${id}`,
     );
     revalidatePath(path);
     return data;
   } catch (error) {
     throw new Error(
-      typeof error === "string" ? error : error?.response?.data?.message
+      typeof error === "string" ? error : error?.response?.data?.message,
     );
   }
 };
@@ -82,7 +83,7 @@ export const deleteEvent = async ({ path, id }) => {
 export const getEventsByCategory = async (category) => {
   try {
     const { data } = await axios.get(
-      `${process.env.BACKEND_URL}/events/category/${category}`
+      `${process.env.BACKEND_URL}/events/category/${category}`,
     );
     return data;
   } catch (error) {

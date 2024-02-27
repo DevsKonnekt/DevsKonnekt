@@ -11,10 +11,8 @@ const Section = () => {
     >
       <div className="bg-primary bg-opacity-80 absolute inset-0"></div>
       <div className="container mx-auto h-full flex justify-center items-center">
-        <h1
-          className="text-4xl sm:text-5xl md:text-7xl text-center text-shadow text-background z-10 font-black column-text"
-        >
-          Unlock Your Capacity.  <br className="mb-0 sm:mb-4" /> United.
+        <h1 className="text-4xl sm:text-5xl md:text-7xl text-center text-shadow text-background z-10 font-black column-text">
+          Unlock Your Capacity. <br className="mb-0 sm:mb-4" /> United.
         </h1>
       </div>
     </section>
