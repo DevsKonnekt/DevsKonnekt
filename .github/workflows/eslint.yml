@@ -33,6 +33,6 @@ jobs:
 
       - name: Format Code and Lint with Eslint (Backend)
         run: |
-          cd ../Backend
+          cd ./Backend
           npm install
           npm run lint:fix
