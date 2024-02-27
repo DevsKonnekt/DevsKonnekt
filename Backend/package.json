@@ -6,7 +6,9 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon index.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "lint": "eslint --ext .ts,.tsx '**/*.{js,ts}'",
+    "lint:fix": "eslint --fix '**/*.{js,ts}'"
   },
   "keywords": [
     "DevsKonnekt",
@@ -32,6 +34,8 @@
   },
   "devDependencies": {
     "eslint": "^8.52.0",
-    "nodemon": "^3.0.1"
+    "eslint-config-prettier": "^9.1.0",
+    "nodemon": "^3.0.1",
+    "prettier": "^3.2.5"
   }
 }
