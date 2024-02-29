@@ -13,7 +13,14 @@ const ErrorPage = ({ error, reset }) => {
         placeholder="Ann error occurred"
         className="w-[50%] md:w-[30%]"
       />
-      <Button onClick={() => reset()} className="primary-btn mt-4">
+      <h1 className="text-2xl font-bold text-secondary text-center">
+        Sorry, something went wrong on our side. Do&apos;nt worry, we are on it.
+        Please try again later.
+      </h1>
+      <Button
+        onClick={() => reset()}
+        className="primary-btn mt-4"
+      >
         Try Again
       </Button>
     </div>
