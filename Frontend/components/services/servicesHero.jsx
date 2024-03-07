@@ -19,7 +19,10 @@ function Services() {
             title="
               Join Us"
           />
-          <Link href={"/about"}>
+          <Link
+            href={"/about"}
+            className="mt-4"
+          >
             <Button className="text-primary dark:text-background sm:text-lg bg-transparent transition-all duration-500 font-medium rounded-lg border border-primary dark:border-background px-6 py-1 ml-4 w-[150px] sm:w-auto text-center hover:bg-secondary hover:border-secondary hover:text-background lg:text-sm xl:text-base">
               Learn More
             </Button>

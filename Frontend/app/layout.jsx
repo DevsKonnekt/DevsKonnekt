@@ -9,6 +9,7 @@ import { ThemeProvider } from "@/components/themeprovider";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";
 import { fileRouter } from "./api/uploadthing/core";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata = {
   title: "DevsKonnekt",
@@ -24,7 +25,10 @@ const poppins = Poppins({
 export default function RootLayout({ children }) {
   return (
     <ClerkProvider>
-      <html lang="en" suppressHydrationWarning>
+      <html
+        lang="en"
+        suppressHydrationWarning
+      >
         <body
           className={`${poppins.className} bg-background text-primary dark:bg-gray-700 dark:text-background`}
         >
@@ -44,6 +48,7 @@ export default function RootLayout({ children }) {
               </ReduxProvider>
             </div>
           </ThemeProvider>
+          <SpeedInsights />
         </body>
       </html>
     </ClerkProvider>
