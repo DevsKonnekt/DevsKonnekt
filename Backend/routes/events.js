@@ -15,6 +15,8 @@ import {
   updateEvent,
   deleteEvent,
   getEventsByCategory,
+  getEventAnalytics,
+  exportEventsAnalytics,
 } from "../controllers/events.js";
 import { defaultErrorHandler } from "../middlewares/index.js";
 
@@ -25,6 +27,12 @@ eventsRoutes.post("/events", createEvent, defaultErrorHandler);
 eventsRoutes.put("/events/:id", updateEvent, defaultErrorHandler);
 eventsRoutes.delete("/events/:id", deleteEvent, defaultErrorHandler);
 eventsRoutes.get("/events/:id", getEvent, defaultErrorHandler);
+eventsRoutes.get("/events/analytics/:id", getEventAnalytics, defaultErrorHandler);
+eventsRoutes.get(
+  "/events/analytics/export/:userId",
+  exportEventsAnalytics,
+  defaultErrorHandler,
+);
 eventsRoutes.get(
   "/events/category/:categoryId",
   getEventsByCategory,
